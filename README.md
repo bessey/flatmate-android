@@ -17,7 +17,7 @@ See whether they are busy through GCal. ?? (Can it be done?)
 Message flat mates context sensitive messages
   - Only arrive when they are in the correct location.
 
-Notifications
+Notifications 
   - Stored till someone is near shops.
   - Senses when flatmate is near shops and notifies others.
 
