@@ -2,4 +2,12 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
+    <style name="flatMateTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/flatMateTheme.ActionBarStyle</item>
+    </style>
+
+    <style name="flatMateTheme.ActionBarStyle" parent="android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/topbar</item>
+    </style>
+
 </resources>
