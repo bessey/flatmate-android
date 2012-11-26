@@ -1,17 +1,17 @@
 package com.Ballin_Octo_Hipster.flatmate;
 
+import com.Ballin_Octo_Hipster.flatmate.R;
 import com.Ballin_Octo_Hipster.flatmate.data.Flat_data;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
@@ -33,7 +33,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flat_mate);
-		
+
 		FlatDataExchanger.flatData = new Flat_data();
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
@@ -71,7 +71,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				actionBar.newTab()
 				.setText("???")
 				.setTabListener(this));
-		
+
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction){
 		mViewPager.setCurrentItem(tab.getPosition());
-		
+
 	}
 
 	@Override
@@ -123,88 +123,16 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			return "";
 		}
 	}
-	
+
 	public static class FlatDataExchanger{
 		public static Flat_data flatData;
 	}
-	
+
 	public static class contextExchanger{
 		public static Context context;
 	}
-	
+
 	public static class mapExchanger {
-        public static MapView mMapView;
-    }
-	
-	public static class FlatFragment extends Fragment {
-		
-		private ViewGroup c;
-		
-		@Override
-		public void onCreate(Bundle savedInstanceState) 
-		{
-		    super.onCreate(savedInstanceState);
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View v1 = inflater.inflate(R.layout.flat_mate_page, container, false);
-			c = container;
-		    return v1;
-		}
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-			FlatListFragment flatList = new FlatListFragment();
-			ft.add(R.id.list, flatList);
-			//ft.addToBackStack(null);
-			ft.commit();
-			Button button = (Button) c.findViewById(R.id.map_button);
-			button.setOnClickListener(new View.OnClickListener() {
-			    public void onClick(View v) {
-			    	android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-			    	Fragment map = new MapFragment();
-					ft.replace(R.id.list, map);
-					ft.addToBackStack(null);
-					ft.commit();
-			    }
-			});
-		}
-	}
-	
-	public static class FlatListFragment extends ListFragment {
-
-		private ListView mListView;
-		private FlatMateRowAdapter mAdapter;
-		
-		@Override
-		public void onCreate(Bundle savedInstanceState) 
-		{
-		    super.onCreate(savedInstanceState);
-		    mAdapter = new FlatMateRowAdapter(getActivity(), android.R.id.list, FlatDataExchanger.flatData.getFlatMates());
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View v1 = inflater.inflate(R.layout.flat_list, container, false);
-		    mListView = (ListView) v1.findViewById(android.R.id.list);
-		    return v1;
-		}
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-		    mListView.setAdapter(mAdapter);
-		}
-	}
-	
-	public static class ShoppingListFragment extends ListFragment {
-
-	}
-	
-	public static class TasksFragment extends Fragment {
-
+		public static MapView mMapView;
 	}
 }

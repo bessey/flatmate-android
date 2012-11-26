@@ -2,6 +2,7 @@ package com.Ballin_Octo_Hipster.flatmate;
 
 import java.util.ArrayList;
 
+import com.Ballin_Octo_Hipster.flatmate.R;
 import com.Ballin_Octo_Hipster.flatmate.data.FlatMate_data;
 import com.Ballin_Octo_Hipster.flatmate.data.Flat_data;
 

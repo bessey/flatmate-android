@@ -9,5 +9,14 @@
     <style name="flatMateTheme.ActionBarStyle" parent="android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/topbar</item>
     </style>
+    
+    <style name="Theme.Transparent" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>  
 
 </resources>

@@ -1,5 +1,7 @@
 package com.Ballin_Octo_Hipster.flatmate;
 
+import com.Ballin_Octo_Hipster.flatmate.R;
+
 import android.app.Fragment;
 import android.os.Bundle;
 

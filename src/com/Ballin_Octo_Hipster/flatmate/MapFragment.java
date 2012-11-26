@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.Ballin_Octo_Hipster.flatmate.R;
 import com.Ballin_Octo_Hipster.flatmate.FlatMate.FlatDataExchanger;
 import com.Ballin_Octo_Hipster.flatmate.FlatMate.mapExchanger;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
@@ -41,7 +41,7 @@ public class MapFragment extends Fragment {
 
 	private void setUpMap() {
 		mapExchanger.mMapView.preLoad();
-		mapExchanger.mMapView.setBuiltInZoomControls(true);
+		//mapExchanger.mMapView.setBuiltInZoomControls(true);
 		mapExchanger.mMapView.setClickable(true);
 		mapExchanger.mMapView.setSatellite(false);
 		mapController = mapExchanger.mMapView.getController();

@@ -4,7 +4,6 @@ import com.Ballin_Octo_Hipster.flatmate.FlatMate.FlatDataExchanger;
 import com.Ballin_Octo_Hipster.flatmate.FlatMate.contextExchanger;
 
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.util.FloatMath;
 import android.view.View;
