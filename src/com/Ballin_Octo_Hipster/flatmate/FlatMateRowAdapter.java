@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 import com.Ballin_Octo_Hipster.flatmate.R;
 import com.Ballin_Octo_Hipster.flatmate.data.FlatMate_data;
-import com.Ballin_Octo_Hipster.flatmate.data.Flat_data;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,11 +35,11 @@ public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
 			v = vi.inflate(R.layout.flat_row, null);
 		}
 		if(position == 0){
-			v.setBackgroundColor(context.getResources().getColor(R.color.red));
+			v.setBackgroundResource(R.drawable.box1);
 		}else if(position == 1){
-			v.setBackgroundColor(context.getResources().getColor(R.color.blue));
+			v.setBackgroundResource(R.drawable.box2);
 		}else{
-			v.setBackgroundColor(context.getResources().getColor(R.color.green));
+			v.setBackgroundResource(R.drawable.box3);
 		}
 		
 		String name = flatMate.getName();

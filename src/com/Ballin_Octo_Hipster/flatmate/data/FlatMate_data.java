@@ -20,7 +20,7 @@ public class FlatMate_data {
 	private int currentUser = 0;
 	
 	public FlatMate_data(int ID, String N, String P, float Latitude, float Longitude){
-		FlatMateID = ID;
+		setFlatMateID(ID);
 		Name = N;
 		PhoneNumber = P;
 		Lat = Latitude;
@@ -67,6 +67,14 @@ public class FlatMate_data {
 	    return 6366000*tt;
 	}
 	
+	public int getFlatMateID() {
+		return FlatMateID;
+	}
+
+	public void setFlatMateID(int flatMateID) {
+		FlatMateID = flatMateID;
+	}
+
 	public OnClickListener phoneListener = new OnClickListener(){ // the book's action
         @Override
         public void onClick(View v) {

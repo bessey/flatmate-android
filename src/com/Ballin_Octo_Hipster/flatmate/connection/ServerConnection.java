@@ -49,14 +49,23 @@ public class ServerConnection {
 	}
 
 	//login and receive auth_token
-	public void login(String uname, String pword) {
+	public String login (String uname, String pword) {
 		String info = "email=" + uname + "&password=" + pword;
+		System.out.println(info);
 		String jsonResult = post(server+"/tokens.json", info);
+		if(jsonResult == "failed"){
+			return jsonResult;
+		}
 		Login log = gson.fromJson(jsonResult, Login.class);
 
 		auth_token = log.getToken();
+		return auth_token;
 	}
-
+	
+	public void setAuth(String at) {
+		auth_token = at;
+	}
+	
 	//logout by deleting auth_token from server
 	public void logout() {
 		try {
@@ -115,7 +124,7 @@ public class ServerConnection {
 
 		} catch (Exception e) {
 			System.err.println("Problem with POST request:" + e);
-			return null;
+			return "failed";
 
 		} finally {
 

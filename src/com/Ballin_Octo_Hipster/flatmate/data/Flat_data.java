@@ -13,10 +13,10 @@ public class Flat_data {
 	private float Long;
 	
 	public Flat_data(){
-		FlatID = 1;
+		setFlatID(1);
 		FlatName = "Our Flat";
-		PostCode = "BS8 2LG";
-		Address1 = "20 Whiteladies Rd";
+		setPostCode("BS8 2LG");
+		setAddress1("20 Whiteladies Rd");
 		Lat = 51.460291f;
 		Long = -2.608701f;
 			
@@ -52,5 +52,29 @@ public class Flat_data {
 
 	public String getFlatName() {
 		return FlatName;
+	}
+
+	public String getAddress1() {
+		return Address1;
+	}
+
+	public void setAddress1(String address1) {
+		Address1 = address1;
+	}
+
+	public String getPostCode() {
+		return PostCode;
+	}
+
+	public void setPostCode(String postCode) {
+		PostCode = postCode;
+	}
+
+	public int getFlatID() {
+		return FlatID;
+	}
+
+	public void setFlatID(int flatID) {
+		FlatID = flatID;
 	}
 }

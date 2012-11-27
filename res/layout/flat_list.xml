@@ -1,12 +1,96 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="88dp"
+        android:background="@drawable/box"
+        android:clickable="false"
+        android:gravity="center_vertical"
+        android:paddingRight="10dp" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="25dip"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="1dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="1dip"
+            android:contentDescription="@string/imgContext"
+            android:src="@drawable/home_icon" />
+
+        <ImageView
+            android:id="@+id/divider1"
+            android:layout_width="5dip"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="1dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:contentDescription="@string/imgContext"
+            android:src="@drawable/divider" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/flatName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Name"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 Flat Mates at home"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send Flat Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <ImageButton
+                    android:id="@+id/messageButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="1dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="1dip"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/imgContext"
+                    android:src="@drawable/message" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_below="@+id/topLayout"
         android:drawSelectorOnTop="false" >
     </ListView>
 
-</RelativeLayout>
+</RelativeLayout>

@@ -2,7 +2,6 @@ package com.Ballin_Octo_Hipster.flatmate.data;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 

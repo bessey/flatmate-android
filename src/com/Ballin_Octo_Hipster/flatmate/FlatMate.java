@@ -11,15 +11,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 
 public class FlatMate extends FragmentActivity implements ActionBar.TabListener {
 
@@ -33,7 +30,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flat_mate);
-
+		
 		FlatDataExchanger.flatData = new Flat_data();
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
@@ -72,6 +69,26 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setText("???")
 				.setTabListener(this));
 
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.options, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_logout:
+	            return true;
+	        case R.id.menu_settings:
+	            return true;
+	        default:
+	            return true;
+	    }
 	}
 
 	@Override
