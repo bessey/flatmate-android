@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:clickable="false"
+    android:gravity="center_vertical"
+    android:padding="1dip" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="25dip"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="1dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="1dip"
+        android:contentDescription="@string/imgContext"
+        android:src="@drawable/tick" />
+
+    <ImageView
+        android:id="@+id/divider1"
+        android:layout_width="5dip"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="1dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:contentDescription="@string/imgContext"
+        android:src="@drawable/divider" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="20dp" >
+
+        <TextView
+            android:id="@+id/Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="£2.99"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/boughtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="James Grant"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/dateBought"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05/11/12"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.Ballin_Octo_Hipster.flatmate;
 
 import com.Ballin_Octo_Hipster.flatmate.R;
 import com.Ballin_Octo_Hipster.flatmate.data.Flat_data;
+import com.Ballin_Octo_Hipster.flatmate.data.ShoppingList_data;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
@@ -32,6 +33,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		setContentView(R.layout.flat_mate);
 		
 		FlatDataExchanger.flatData = new Flat_data();
+		ShoppingDataExchanger.shoppingData = new ShoppingList_data();
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 
@@ -62,7 +64,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setTabListener(this));
 		actionBar.addTab(
 				actionBar.newTab()
-				.setText("Tasks")
+				.setIcon(R.drawable.tasks_tab)
 				.setTabListener(this));
 		actionBar.addTab(
 				actionBar.newTab()
@@ -143,6 +145,10 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 	public static class FlatDataExchanger{
 		public static Flat_data flatData;
+	}
+	
+	public static class ShoppingDataExchanger{
+		public static ShoppingList_data shoppingData;
 	}
 
 	public static class contextExchanger{
