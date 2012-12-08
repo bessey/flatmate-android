@@ -2,16 +2,30 @@ package com.Ballin_Octo_Hipster.flatmate.connection;
 
 public class User {
 	private String email;
+	private String password;
 	private String first_name;
 	private String flat_id;
-	private float geocode_lat;
-	private float geocode_long;
-	private int id;
+	private String geocode_lat;
+	private String geocode_long;
+	private String id;
 	private String last_name;
 	private String phone_number;
 	User() {
 		//does nothing
 	}
+	public String toHTTPString() {
+		String result = "";
+		result = "user[email]=" + email;
+		if (flat_id != null) result += "&user[flat_id]=" + flat_id;
+		if (geocode_lat != null) result += "&user[geocode_lat]=" + geocode_lat;
+		if (geocode_long != null) result += "&user[geocode_long]=" + geocode_long;
+		if (first_name != null) result += "&user[first_name]=" + first_name;
+		if (last_name != null) result += "&user[last_name]=" + last_name;
+		if (phone_number != null) result += "&user[phone_number]=" + phone_number;
+		if (password != null) result += "&user[password]=" + password;
+		return result;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -30,22 +44,22 @@ public class User {
 	public void setFlat_id(String flat_id) {
 		this.flat_id = flat_id;
 	}
-	public float getGeocode_lat() {
+	public String getGeocode_lat() {
 		return geocode_lat;
 	}
-	public void setGeocode_lat(float geocode_lat) {
+	public void setGeocode_lat(String geocode_lat) {
 		this.geocode_lat = geocode_lat;
 	}
-	public float getGeocode_long() {
+	public String getGeocode_long() {
 		return geocode_long;
 	}
-	public void setGeocode_long(float geocode_long) {
+	public void setGeocode_long(String geocode_long) {
 		this.geocode_long = geocode_long;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getLast_name() {
@@ -59,5 +73,11 @@ public class User {
 	}
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
