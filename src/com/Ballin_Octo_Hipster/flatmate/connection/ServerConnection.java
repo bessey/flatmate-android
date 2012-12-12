@@ -102,6 +102,11 @@ public class ServerConnection {
 		String jsonResult  = putOrPost(server + "/flats", flatInfo, false);
 	}
 	
+	//search for flats
+	public Flat[] searchFlats(String pCode, String nName) {
+		return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
+	}
+	
 	//get a single flat by id
 	public  Flat getFlat(int flat_id) {
 		return gson.fromJson(get(server + "/flats/" + flat_id), Flat.class);
