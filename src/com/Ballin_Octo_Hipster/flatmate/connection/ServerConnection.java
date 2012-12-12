@@ -96,6 +96,12 @@ public class ServerConnection {
 
 	//*****************************************flat stuff*****************************************
 
+	//create a new flat
+	public void addFlat(Flat flat) {
+		String flatInfo = flat.toHTTPString();
+		String jsonResult  = putOrPost(server + "/flats", flatInfo, false);
+	}
+	
 	//get a single flat by id
 	public  Flat getFlat(int flat_id) {
 		return gson.fromJson(get(server + "/flats/" + flat_id), Flat.class);
@@ -149,7 +155,7 @@ public class ServerConnection {
 	//add item to flats shopping list given by item
 	public void addItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
-		String jsonResult = putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items/", itemInfo, false);
+		String jsonResult = putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items", itemInfo, false);
 	}
 	
 	//update item with given item
