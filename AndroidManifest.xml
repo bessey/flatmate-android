@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name=".FlatMate"
+            android:name="com.boh.flatmate.FlatMate"
             android:screenOrientation="portrait"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
