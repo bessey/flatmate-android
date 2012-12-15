@@ -1,4 +1,4 @@
-package com.Ballin_Octo_Hipster.flatmate.data;
+package com.boh.flatmate.data;
 
 import java.util.ArrayList;
 

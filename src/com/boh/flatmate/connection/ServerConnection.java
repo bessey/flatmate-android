@@ -1,13 +1,16 @@
-package com.Ballin_Octo_Hipster.flatmate.connection;
+package com.boh.flatmate.connection;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.boh.flatmate.data.Flat_data;
 import com.google.gson.Gson;
 
 public class ServerConnection {
@@ -53,6 +56,16 @@ public class ServerConnection {
 		Login log = gson.fromJson(jsonResult, Login.class);
 
 		auth_token = log.getToken();
+		try{
+			  // Create file 
+			  FileWriter fstream = new FileWriter("UserAuthCode.txt");
+			  BufferedWriter out = new BufferedWriter(fstream);
+			  out.write("auth_token");
+			  //Close the output stream
+			  out.close();
+		}catch (Exception e){//Catch exception if any
+			  System.err.println("Error: " + e.getMessage());
+		}
 		return auth_token;
 	}
 
@@ -96,25 +109,14 @@ public class ServerConnection {
 
 	//*****************************************flat stuff*****************************************
 
-	//create a new flat
-	public void addFlat(Flat flat) {
-		String flatInfo = flat.toHTTPString();
-		String jsonResult  = putOrPost(server + "/flats", flatInfo, false);
-	}
-	
-	//search for flats
-	public Flat[] searchFlats(String pCode, String nName) {
-		return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
-	}
-	
 	//get a single flat by id
-	public  Flat getFlat(int flat_id) {
-		return gson.fromJson(get(server + "/flats/" + flat_id), Flat.class);
+	public  Flat_data getFlat(int flat_id) {
+		return gson.fromJson(get(server + "/flats/" + flat_id), Flat_data.class);
 	}
 
 	//get whole list of flats
-	public  Flat[] getFlats() {
-		return gson.fromJson(get(server + "/flats"), Flat[].class);
+	public  Flat_data[] getFlats() {
+		return gson.fromJson(get(server + "/flats"), Flat_data[].class);
 	}
 
 	//*****************************************message stuff*****************************************
@@ -160,7 +162,7 @@ public class ServerConnection {
 	//add item to flats shopping list given by item
 	public void addItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
-		String jsonResult = putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items", itemInfo, false);
+		String jsonResult = putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items/", itemInfo, false);
 	}
 	
 	//update item with given item

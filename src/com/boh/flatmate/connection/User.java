@@ -1,4 +1,4 @@
-package com.Ballin_Octo_Hipster.flatmate.connection;
+package com.boh.flatmate.connection;
 
 public class User {
 	private String email;

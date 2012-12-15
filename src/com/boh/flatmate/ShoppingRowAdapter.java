@@ -1,11 +1,11 @@
-package com.Ballin_Octo_Hipster.flatmate;
+package com.boh.flatmate;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.Ballin_Octo_Hipster.flatmate.R;
-import com.Ballin_Octo_Hipster.flatmate.data.ShoppingItem_data;
+import com.boh.flatmate.R;
+import com.boh.flatmate.data.ShoppingItem_data;
 
 import android.content.Context;
 import android.os.Handler;
@@ -92,7 +92,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 						    }
 						}, 100);
 					}
-					
 				}
 			});
 			setPriceButton.setOnClickListener(new OnClickListener(){
@@ -108,7 +107,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 							notifyDataSetChanged();
 						}
 				}
-				
 			});
 		}
 		return v;
