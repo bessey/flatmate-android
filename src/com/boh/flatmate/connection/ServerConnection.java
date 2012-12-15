@@ -46,7 +46,7 @@ public class ServerConnection {
 	}
 
 	//login and receive auth_token
-	public  String login (String uname, String pword, String FILENAME) {
+	public  String login (String uname, String pword) {
 		String info = "email=" + uname + "&password=" + pword;
 		//System.out.println(info);
 		String jsonResult = putOrPost(server+"/tokens", info, false);
@@ -56,33 +56,6 @@ public class ServerConnection {
 		Login log = gson.fromJson(jsonResult, Login.class);
 
 		auth_token = log.getToken();
-
-	    File logFile = new File(FILENAME);
-	       if (!logFile.exists())
-	       {
-	          try
-	          {
-	             logFile.createNewFile();
-	          } 
-	          catch (IOException e)
-	          {
-	             // TODO Auto-generated catch block
-	             e.printStackTrace();
-	          }
-	       }
-	       try
-	       {
-	          //BufferedWriter for performance, true to set append to file flag
-	          BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
-	          buf.append(auth_token);
-	          buf.newLine();
-	          buf.close();
-	       }
-	       catch (IOException e)
-	       {
-	          // TODO Auto-generated catch block
-	          e.printStackTrace();
-	       }
 		return auth_token;
 	}
 
@@ -152,7 +125,8 @@ public class ServerConnection {
 		return gson.fromJson(get(server + "/flats"), Flat[].class);
 	}
 
-	//return my flat, needs authentication code
+	//return my flat, needs authentication code -- note will return users but doesn't currently
+
 	public Flat getMyFlat() {
 		return gson.fromJson(get(server + "/flats/m"), Flat.class);
 	}

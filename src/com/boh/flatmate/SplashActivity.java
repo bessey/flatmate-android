@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
@@ -127,10 +128,33 @@ public class SplashActivity extends Activity {
 
 	private void serverLogin(String key){
 		if(key != "failed"){
-			/*AccountManager am = AccountManager.get(this);
-			final Account account = new Account("email", "com.Ballin_Octo_Hipster");
-			am.addAccountExplicitly(account, key, null);
-			*/
+			File logFile = new File(FILENAME);
+		       if (!logFile.exists())
+		       {
+		          try
+		          {
+		             logFile.createNewFile();
+		          } 
+		          catch (IOException e)
+		          {
+		             // TODO Auto-generated catch block
+		             e.printStackTrace();
+		          }
+		       }
+		       try
+		       {
+		          //BufferedWriter for performance, true to set append to file flag
+		          BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+		          buf.append(key);
+		          buf.newLine();
+		          buf.close();
+		       }
+		       catch (IOException e)
+		       {
+		          // TODO Auto-generated catch block
+		          e.printStackTrace();
+		       }
+			
 			finish();
 			startApp();
 		}else{
@@ -142,15 +166,7 @@ public class SplashActivity extends Activity {
 			toast.show();
 		}
 	}
-
-	@SuppressWarnings("unused")
-	private String testServerResponse(String email, String password){
-		if(email == "sprog31@gmail.com" && password == "flatmate"){
-			return "e83489jksdjkdf9038";
-		}
-		return "false";
-	}
-
+	
 	private void startApp() {
 		Intent intent = new Intent(SplashActivity.this, FlatMate.class);
 		startActivity(intent);
@@ -160,7 +176,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String[] details) {
-			String key = connection.login(details[0], details[1], FILENAME);
+			String key = connection.login(details[0], details[1]);
 			return key;
 		}
 		

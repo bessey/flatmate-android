@@ -7,9 +7,22 @@ public class Flat {
 	private String nickname;	//for displaying purposes, so don't just display postcode
 	private String postcode;
 	private User[] users;
-	Flat() {
+	public Flat() {
 		//do nothing
 	}
+	
+	/*public Flat_data(){
+		setId("1");
+		setNickname("Our Flat");
+		setPostcode("BS8 2LG");
+		setGeocode_lat("51.460291");
+		setGeocode_long("-2.608701");
+		
+		FlatMate_data[] tempFlatMates = {new FlatMate_data(1,"James Grant","07944652549",51.460291f,-2.608701f),
+										 new FlatMate_data(2,"Matt Bessey","07957151787",51.455752f,-2.602839f),
+										 new FlatMate_data(3,"Adam Coales","07539419348",51.460291f,-2.608701f)};
+		users = tempFlatMates;
+	}*/
 	
 	public String toHTTPString() {
 		String result = "flat[nickname]=" + nickname;

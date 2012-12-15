@@ -1,5 +1,14 @@
 package com.boh.flatmate.connection;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.util.FloatMath;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
+import com.boh.flatmate.FlatMate.contextExchanger;
+
 public class User {
 	private String email;
 	private String password;
@@ -45,13 +54,25 @@ public class User {
 		this.flat_id = flat_id;
 	}
 	public float getGeocode_lat() {
-		return Float.parseFloat(geocode_lat);
+		float geoLat;
+		try{
+			geoLat = Float.parseFloat(geocode_lat);
+		}catch(Exception e){
+			return 0.0f;
+		}
+		return geoLat;
 	}
 	public void setGeocode_lat(float geocode_lat) {
 		this.geocode_lat = Float.toString(geocode_lat);
 	}
 	public float getGeocode_long() {
-		return Float.parseFloat(geocode_long);
+		float geoLong;
+		try{
+			geoLong = Float.parseFloat(geocode_long);
+		}catch(Exception e){
+			return 0.0f;
+		}
+		return geoLong;
 	}
 	public void setGeocode_long(float geocode_long) {
 		this.geocode_long = Float.toString(geocode_long);
@@ -79,5 +100,51 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public int isHome(){
+		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();
+		float FlatMate_Long = FlatDataExchanger.flatData.getGeocode_long();
+		double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
+		if(distanceFromHome > 50){
+			return 0;
+		}
+		return 1;
+	}
+	
+	public OnClickListener phoneListener = new OnClickListener(){ // the book's action
+        @Override
+        public void onClick(View v) {
+        	Intent callIntent = new Intent(Intent.ACTION_VIEW);
+        	callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	callIntent.setData(Uri.parse("tel:"+getPhone_number()));
+        	contextExchanger.context.startActivity(callIntent);
+        }
+    };
+    
+    public OnClickListener messageListener = new OnClickListener(){ // the book's action
+        @Override
+        public void onClick(View v) {
+        	Intent messageIntent = new Intent(Intent.ACTION_SENDTO);
+        	messageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	messageIntent.setData(Uri.parse("sms:"+getPhone_number()));
+        	contextExchanger.context.startActivity(messageIntent);
+        }
+    };
+    
+    private double gps2m(float lat_a, float lng_a, float lat_b, float lng_b) {
+	    float pk = (float) (180/3.14169);
+
+	    float a1 = lat_a / pk;
+	    float a2 = lng_a / pk;
+	    float b1 = lat_b / pk;
+	    float b2 = lng_b / pk;
+
+	    float t1 = FloatMath.cos(a1)*FloatMath.cos(a2)*FloatMath.cos(b1)*FloatMath.cos(b2);
+	    float t2 = FloatMath.cos(a1)*FloatMath.sin(a2)*FloatMath.cos(b1)*FloatMath.sin(b2);
+	    float t3 = FloatMath.sin(a1)*FloatMath.sin(b1);
+	    double tt = Math.acos(t1 + t2 + t3);
+	   
+	    return 6366000*tt;
 	}
 }

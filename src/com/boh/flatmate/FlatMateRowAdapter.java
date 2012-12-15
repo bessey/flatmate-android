@@ -1,7 +1,7 @@
 package com.boh.flatmate;
 
 import com.boh.flatmate.R;
-import com.boh.flatmate.data.FlatMate_data;
+import com.boh.flatmate.connection.User;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
+public class FlatMateRowAdapter extends ArrayAdapter<User> {
 
 	private Context context;
-	private FlatMate_data[] FlatData;
+	private User[] FlatData;
 
-	public FlatMateRowAdapter(Context c, int textViewResourceId, FlatMate_data[] data) {
+	public FlatMateRowAdapter(Context c, int textViewResourceId, User[] data) {
 		super(c, textViewResourceId, data);
 		FlatData = data;
 		context = c;
@@ -25,7 +25,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		FlatMate_data flatMate = FlatData[position];
+		User flatMate = FlatData[position];
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.flat_row, null);
@@ -38,14 +38,14 @@ public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
 			v.setBackgroundResource(R.drawable.box3);
 		}
 		
-		String name = flatMate.getName();
+		String name = flatMate.getFirst_name() +" "+ flatMate.getLast_name();
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
 			if (tt != null) {
 				tt.setText(name);
 			}
 		}
-		if(flatMate.isCurrentUser() == 1){
+		if(flatMate.getId() == 1){
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
 			phoneButton.setVisibility(View.INVISIBLE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);

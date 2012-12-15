@@ -45,8 +45,8 @@ public class MapFragment extends Fragment {
 		mapExchanger.mMapView.setClickable(true);
 		mapExchanger.mMapView.setSatellite(false);
 		mapController = mapExchanger.mMapView.getController();
-		double latitude = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_lat());
-		double longitude = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_long());
+		double latitude = FlatDataExchanger.flatData.getGeocode_lat();
+		double longitude = FlatDataExchanger.flatData.getGeocode_long();
 		mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
 		mapController.setZoom(14); // Zoom 1 is world view
 		

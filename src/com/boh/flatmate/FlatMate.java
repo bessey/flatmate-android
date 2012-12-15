@@ -1,7 +1,14 @@
 package com.boh.flatmate;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import com.boh.flatmate.R;
-import com.boh.flatmate.data.Flat_data;
+import com.boh.flatmate.connection.Flat;
+import com.boh.flatmate.connection.ServerConnection;
 import com.boh.flatmate.data.ShoppingList_data;
 import com.google.android.maps.MapView;
 
@@ -26,13 +33,39 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	ViewPager mViewPager;
 	View mMapViewContainer;
 	MapView mMapView;
+	ServerConnection connection;
 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flat_mate);
+
+		String authCode = "null";
+		BufferedReader input = null;
+		try {
+			input = new BufferedReader(new FileReader(this.getFilesDir().getPath().toString() + "UserAuthCode.txt"));
+		} catch (FileNotFoundException e1) {
+		}
+		try {
+			String line = null;
+			if (( line = input.readLine()) != null){
+				authCode = line;
+			}
+		}catch (Exception e){
+		}
+		try {
+			input.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		FlatDataExchanger.flatData = new Flat_data();
+		connection = new ServerConnection();
+		connection.setAuth(authCode);
+
+		FlatDataExchanger.flatData = new Flat();
+		FlatDataExchanger.flatData = connection.getFlat(1);
+		
 		ShoppingDataExchanger.shoppingData = new ShoppingList_data();
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
@@ -68,25 +101,25 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setTabListener(this));
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.options, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
+		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.menu_logout:
-	            return true;
-	        case R.id.menu_settings:
-	            return true;
-	        default:
-	            return true;
-	    }
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_logout:
+			return true;
+		case R.id.menu_settings:
+			return true;
+		default:
+			return true;
+		}
 	}
 
 	@Override
@@ -140,9 +173,9 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	}
 
 	public static class FlatDataExchanger{
-		public static Flat_data flatData;
+		public static Flat flatData;
 	}
-	
+
 	public static class ShoppingDataExchanger{
 		public static ShoppingList_data shoppingData;
 	}
