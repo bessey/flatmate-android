@@ -22,28 +22,28 @@ public class ShopItem {
 		return result;
 	}
 
-	public String getFlat_Id() {
-		return flat_id;
+	public int getFlat_Id() {
+		return Integer.parseInt(flat_id);
 	}
 
-	public void setFlat_Id(String flat_id) {
-		this.flat_id = flat_id;
+	public void setFlat_Id(int flat_id) {
+		this.flat_id = Integer.toString(flat_id);
 	}
 
-	public String getUser_want_id() {
-		return user_want_id;
+	public int getUser_want_id() {
+		return Integer.parseInt(user_want_id);
 	}
 
-	public void setUser_want_id(String user_want_id) {
-		this.user_want_id = user_want_id;
+	public void setUser_want_id(int user_want_id) {
+		this.user_want_id = Integer.toString(user_want_id);
 	}
 
-	public String getUser_bought_id() {
-		return user_bought_id;
+	public int getUser_bought_id() {
+		return Integer.parseInt(user_bought_id);
 	}
 
-	public void setUser_bought_id(String user_bought_id) {
-		this.user_bought_id = user_bought_id;
+	public void setUser_bought_id(int user_bought_id) {
+		this.user_bought_id = Integer.toString(user_bought_id);
 	}
 
 	public String getPrice() {
@@ -62,19 +62,19 @@ public class ShopItem {
 		this.name = name;
 	}
 
-	public String isPaid_back() {
-		return paid_back;
+	public boolean isPaid_back() {
+		return Boolean.parseBoolean(paid_back);
 	}
 
-	public void setPaid_back(String paid_back) {
-		this.paid_back = paid_back;
+	public void setPaid_back(boolean paid_back) {
+		this.paid_back = Boolean.toString(paid_back);
 	}
 
-	public String getId() {
-		return id;
+	public int getId() {
+		return Integer.parseInt(id);
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(int id) {
+		this.id = Integer.toString(id);
 	}
 }

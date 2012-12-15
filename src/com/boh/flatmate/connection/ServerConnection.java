@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.boh.flatmate.data.Flat_data;
 import com.google.gson.Gson;
 
 public class ServerConnection {
@@ -33,7 +32,7 @@ public class ServerConnection {
 		userInfo = newUser.toHTTPString();
 		userInfo += "&user[password]=" + password;
 
-		jsonResult = putOrPost(server + "/users", userInfo, false);
+		jsonResult = post(server + "/users", userInfo);
 
 		//Check JSON string:
 		// System.out.println(jsonResult);
@@ -117,26 +116,47 @@ public class ServerConnection {
 	public  void updateUser(User user) {
 		String userInfo = user.toHTTPString();
 		//System.out.println(userInfo);
-		putOrPost(server + "/users/" + user.getId(), userInfo, true);
+		put(server + "/users/" + user.getId(), userInfo);
 	}
 
 	//change password, note: not 100% sure this is how to do it
 	public  void changePassword(int id, String password) {
-		putOrPost(server + "/users/" + id, "user[password]=" + password, true);
+		put(server + "/users/" + id, "user[password]=" + password);
+	}
+
+	//return me, needs authentication code
+	public User getMe() {
+		return gson.fromJson(get(server + "/users/m"), User.class);
 	}
 
 	//*****************************************flat stuff*****************************************
 
+	//create a new flat
+	public void addFlat(Flat flat) {
+		String flatInfo = flat.toHTTPString();
+		String jsonResult  = post(server + "/flats", flatInfo);
+	}
+	
+	//search for flats
+	public Flat[] searchFlats(String pCode, String nName) {
+		return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
+	}
+	
 	//get a single flat by id
-	public  Flat_data getFlat(int flat_id) {
-		return gson.fromJson(get(server + "/flats/" + flat_id), Flat_data.class);
+	public  Flat getFlat(int flat_id) {
+		return gson.fromJson(get(server + "/flats/" + flat_id), Flat.class);
 	}
 
 	//get whole list of flats
-	public  Flat_data[] getFlats() {
-		return gson.fromJson(get(server + "/flats"), Flat_data[].class);
+	public  Flat[] getFlats() {
+		return gson.fromJson(get(server + "/flats"), Flat[].class);
 	}
 
+	//return my flat, needs authentication code
+	public Flat getMyFlat() {
+		return gson.fromJson(get(server + "/flats/m"), Flat.class);
+	}
+	
 	//*****************************************message stuff*****************************************
 
 	//get all messages for flat with given id
@@ -162,16 +182,8 @@ public class ServerConnection {
 	public  void postMessage(Message m) {
 		if (m.getTo_id() > 0 && m.getFlat_id() > 0) {
 			//HAZ TEMPER TANTRUM
-		} else if (m.getTo_id() > 0) {
-			String messageDetails = "message[from_id]=" + m.getFrom_id();
-			messageDetails += "&message[to_id]=" + m.getTo_id();
-			messageDetails += "&message[contents]=" + m.getContents();
-			putOrPost(server + "/users/" + m.getTo_id() + "/messages", messageDetails, false);
-		} else if (m.getFlat_id() > 0) {
-			String messageDetails = "message[from_id]=" + m.getFrom_id();
-			messageDetails += "&message[flat_id]=" + m.getFlat_id();
-			messageDetails += "&message[contents]=" + m.getContents();
-			putOrPost(server + "/flats/" + m.getTo_id() + "/messages", messageDetails, false);
+		} else {
+			post(server + "/users/" + m.getTo_id() + "/messages", m.toHTTPString());
 		}
 	}
 
@@ -180,13 +192,13 @@ public class ServerConnection {
 	//add item to flats shopping list given by item
 	public void addItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
-		String jsonResult = putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items/", itemInfo, false);
+		String jsonResult = post(server + "/flats/" + item.getFlat_Id() + "/shop_items", itemInfo);
 	}
 	
 	//update item with given item
 	public void updateItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
-		putOrPost(server + "/flats/" + item.getFlat_Id() + "/shop_items/" + item.getId(), itemInfo, true);
+		put(server + "/flats/" + item.getFlat_Id() + "/shop_items/" + item.getId(), itemInfo);
 	}
 	
 	//delete item given by flat id (fid) and item id (iid)
@@ -199,8 +211,18 @@ public class ServerConnection {
 		return gson.fromJson(get(server + "/flats/" + flat_id + "/shop_items"), ShopItem[].class);		
 	}
 
-	//*****************************************connection stuff*****************************************
-
+	//*****************************************connection stuff***************************************** 
+	
+	//put to server
+	private String put(String tu, String up) {
+		return putOrPost(tu, up, true);
+	}
+	
+	//post to server
+	private String post(String tu, String up) {
+		return putOrPost(tu, up, false);
+	}
+	
 	//put/post to server
 	//note: true is put, false is post
 	private  String putOrPost(String targetURL, String urlParameters, boolean put) {

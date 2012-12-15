@@ -19,23 +19,23 @@ public class Flat {
 		return result;
 	}
 	
-	public String getGeocode_lat() {
-		return geocode_lat;
+	public float getGeocode_lat() {
+		return Float.parseFloat(geocode_lat);
 	}
-	public void setGeocode_lat(String geocode_lat) {
-		this.geocode_lat = geocode_lat;
+	public void setGeocode_lat(float geocode_lat) {
+		this.geocode_lat = Float.toString(geocode_lat);
 	}
-	public String getGeocode_long() {
-		return geocode_long;
+	public float getGeocode_long() {
+		return Float.parseFloat(geocode_long);
 	}
-	public void setGeocode_long(String geocode_long) {
-		this.geocode_long = geocode_long;
+	public void setGeocode_long(float geocode_long) {
+		this.geocode_long = Float.toString(geocode_long);
 	}
-	public String getId() {
-		return id;
+	public int getId() {
+		return Integer.parseInt(id);
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(int id) {
+		this.id = Integer.toString(id);
 	}
 	public String getNickname() {
 		return nickname;

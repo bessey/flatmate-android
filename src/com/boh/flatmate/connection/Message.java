@@ -10,6 +10,17 @@ public class Message {
 	Message () {
 		//do nothing
 	}
+	public String toHTTPString() {
+		String result = "";
+		result = "message[from_id]=" + from_id;
+		if (to_id > 0) {
+			result += "&message[to_id]=" + to_id;
+		} else if (flat_id > 0) {
+			result += "&message[flat_id]=" + flat_id;
+		}
+		result += "&message[contents]=" + contents;
+		return result;
+	}
 	public int getFrom_id() {
 		return from_id;
 	}
