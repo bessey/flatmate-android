@@ -44,7 +44,9 @@ public class FlatMate_data {
 	}
 	
 	public int isHome(){
-		double distanceFromHome = gps2m(Lat,Long,FlatDataExchanger.flatData.getFlatLat(),FlatDataExchanger.flatData.getFlatLong());
+		float FlatMate_Lat = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_lat());
+		float FlatMate_Long = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_long());
+		double distanceFromHome = gps2m(Lat,Long,FlatMate_Lat,FlatMate_Long);
 		if(distanceFromHome > 50){
 			return 0;
 		}

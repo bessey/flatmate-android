@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.Ballin_Octo_Hipster.flatmate.R;
+import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 
 public class FlatListFragment extends ListFragment {
@@ -19,7 +19,7 @@ public class FlatListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		mAdapter = new FlatMateRowAdapter(getActivity(), android.R.id.list, FlatDataExchanger.flatData.getFlatMates());
+		mAdapter = new FlatMateRowAdapter(getActivity(), android.R.id.list, FlatDataExchanger.flatData.getUsers());
 	}
 
 	@Override

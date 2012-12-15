@@ -1,6 +1,6 @@
 package com.boh.flatmate;
 
-import com.Ballin_Octo_Hipster.flatmate.R;
+import com.boh.flatmate.R;
 import com.boh.flatmate.data.Flat_data;
 import com.boh.flatmate.data.ShoppingList_data;
 import com.google.android.maps.MapView;
@@ -65,10 +65,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		actionBar.addTab(
 				actionBar.newTab()
 				.setIcon(R.drawable.tasks_tab)
-				.setTabListener(this));
-		actionBar.addTab(
-				actionBar.newTab()
-				.setText("???")
 				.setTabListener(this));
 
 	}

@@ -1,80 +1,69 @@
 package com.boh.flatmate.data;
 
-import java.util.ArrayList;
-
 public class Flat_data {
 	
-	private ArrayList<FlatMate_data> FlatMates = new ArrayList<FlatMate_data>();
-	private int    FlatID;
-	private String FlatName;
-	private String PostCode;
-	private String Address1;
-	private float Lat;
-	private float Long;
+	private String geocode_lat;
+	private String geocode_long;
+	private String id;
+	private String nickname;	//for displaying purposes, so don't just display postcode
+	private String postcode;
+	private FlatMate_data[] users;
 	
 	public Flat_data(){
-		setFlatID(1);
-		FlatName = "Our Flat";
-		setPostCode("BS8 2LG");
-		setAddress1("20 Whiteladies Rd");
-		Lat = 51.460291f;
-		Long = -2.608701f;
-			
-		FlatMate_data temp_FlatMate = new FlatMate_data(1,"James Grant","07944652549",51.460291f,-2.608701f);
-		FlatMates.add(temp_FlatMate);
+		setId("1");
+		setNickname("Our Flat");
+		setPostcode("BS8 2LG");
+		setGeocode_lat("51.460291");
+		setGeocode_long("-2.608701");
 		
-		temp_FlatMate = new FlatMate_data(2,"Matt Bessey","07957151787",51.455752f,-2.602839f);
-		FlatMates.add(temp_FlatMate);
-		
-		temp_FlatMate = new FlatMate_data(3,"Adam Coales","07539419348",51.460291f,-2.608701f);
-		FlatMates.add(temp_FlatMate);
+		FlatMate_data[] tempFlatMates = {new FlatMate_data(1,"James Grant","07944652549",51.460291f,-2.608701f),
+										 new FlatMate_data(2,"Matt Bessey","07957151787",51.455752f,-2.602839f),
+										 new FlatMate_data(3,"Adam Coales","07539419348",51.460291f,-2.608701f)};
+		users = tempFlatMates;
 	}
 	
-	public ArrayList<FlatMate_data> getFlatMates(){
-		return FlatMates;
+	public String toHTTPString() {
+		String result = "flat[nickname]=" + nickname;
+		if (geocode_lat != null) result += "&flat[geocode_lat]" + geocode_lat;
+		if (geocode_long != null) result += "&flat[geocode_long]" + geocode_long;
+		if (postcode != null) result += "&flat[price]" + postcode;
+		return result;
 	}
 	
-	public int getFlatMatesNo(){
-		return FlatMates.size();
+	public String getGeocode_lat() {
+		return geocode_lat;
 	}
-	
-	public FlatMate_data getFlatMateAtPosition(int position){
-		return FlatMates.get(position);
+	public void setGeocode_lat(String geocode_lat) {
+		this.geocode_lat = geocode_lat;
 	}
-	
-	public float getFlatLat(){
-		return Lat;
+	public String getGeocode_long() {
+		return geocode_long;
 	}
-	
-	public float getFlatLong(){
-		return Long;
+	public void setGeocode_long(String geocode_long) {
+		this.geocode_long = geocode_long;
 	}
-
-	public String getFlatName() {
-		return FlatName;
+	public String getId() {
+		return id;
 	}
-
-	public String getAddress1() {
-		return Address1;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public void setAddress1(String address1) {
-		Address1 = address1;
+	public String getNickname() {
+		return nickname;
 	}
-
-	public String getPostCode() {
-		return PostCode;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-
-	public void setPostCode(String postCode) {
-		PostCode = postCode;
+	public String getPostcode() {
+		return postcode;
 	}
-
-	public int getFlatID() {
-		return FlatID;
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
-
-	public void setFlatID(int flatID) {
-		FlatID = flatID;
+	public FlatMate_data[] getUsers() {
+		return users;
+	}
+	public void setUsers(FlatMate_data[] users) {
+		this.users = users;
 	}
 }

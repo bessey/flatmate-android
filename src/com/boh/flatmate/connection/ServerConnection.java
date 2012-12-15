@@ -94,6 +94,11 @@ public class ServerConnection {
 		put(server + "/users/" + id, "user[password]=" + password);
 	}
 
+	//return me, needs authentication code
+	public User getMe() {
+		return gson.fromJson(get(server + "/users/m"), User.class);
+	}
+
 	//*****************************************flat stuff*****************************************
 
 	//create a new flat
@@ -117,6 +122,11 @@ public class ServerConnection {
 		return gson.fromJson(get(server + "/flats"), Flat[].class);
 	}
 
+	//return my flat, needs authentication code
+	public Flat getMyFlat() {
+		return gson.fromJson(get(server + "/flats/m"), Flat.class);
+	}
+	
 	//*****************************************message stuff*****************************************
 
 	//get all messages for flat with given id

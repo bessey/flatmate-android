@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.Ballin_Octo_Hipster.flatmate.R;
+import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.mapExchanger;
 import com.google.android.maps.GeoPoint;
@@ -45,8 +45,8 @@ public class MapFragment extends Fragment {
 		mapExchanger.mMapView.setClickable(true);
 		mapExchanger.mMapView.setSatellite(false);
 		mapController = mapExchanger.mMapView.getController();
-		double latitude = FlatDataExchanger.flatData.getFlatLat();
-		double longitude = FlatDataExchanger.flatData.getFlatLong();
+		double latitude = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_lat());
+		double longitude = Float.parseFloat(FlatDataExchanger.flatData.getGeocode_long());
 		mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
 		mapController.setZoom(14); // Zoom 1 is world view
 		

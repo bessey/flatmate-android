@@ -1,15 +1,11 @@
 package com.boh.flatmate;
 
-import java.util.ArrayList;
-
-import com.Ballin_Octo_Hipster.flatmate.R;
+import com.boh.flatmate.R;
 import com.boh.flatmate.data.FlatMate_data;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -19,9 +15,9 @@ import android.widget.TextView;
 public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
 
 	private Context context;
-	private ArrayList<FlatMate_data> FlatData;
+	private FlatMate_data[] FlatData;
 
-	public FlatMateRowAdapter(Context c, int textViewResourceId, ArrayList<FlatMate_data> data) {
+	public FlatMateRowAdapter(Context c, int textViewResourceId, FlatMate_data[] data) {
 		super(c, textViewResourceId, data);
 		FlatData = data;
 		context = c;
@@ -29,7 +25,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<FlatMate_data> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		FlatMate_data flatMate = FlatData.get(position);
+		FlatMate_data flatMate = FlatData[position];
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.flat_row, null);

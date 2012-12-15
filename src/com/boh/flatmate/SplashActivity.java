@@ -1,6 +1,11 @@
 package com.boh.flatmate;
 
-import com.Ballin_Octo_Hipster.flatmate.R;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.boh.flatmate.R;
 import com.boh.flatmate.connection.ServerConnection;
 
 import android.accounts.Account;
@@ -35,11 +40,13 @@ public class SplashActivity extends Activity {
 		if(loggedin == 1){
 			finish();
 			startApp();
+		}else{
+			newLogin();
 		}
 	}
 
 	private int userLogin(){
-		AccountManager am = AccountManager.get(this);
+		/*AccountManager am = AccountManager.get(this);
         Account[] accounts = am.getAccountsByType("com.Ballin_Octo_Hipster");
         if(accounts.length == 0 || accounts == null){
         	newLogin();
@@ -47,7 +54,29 @@ public class SplashActivity extends Activity {
         }else{
         	//connection setAuthCode;
         	return 1;
-        }
+        }*/
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new FileReader("UserAuthCode.txt"));
+		} catch (FileNotFoundException e) {
+        	return 0;
+		}
+		String AuthCode;
+		try {
+			if((AuthCode = in.readLine()) != null)
+			{
+			    System.out.println(AuthCode);
+			    //connection setAuthCode
+			    in.close();
+			    return 1;
+			}
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return 0;
+		
 	}
 
 	private void newLogin(){
