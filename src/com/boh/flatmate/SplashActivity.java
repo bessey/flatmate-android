@@ -1,6 +1,8 @@
 package com.boh.flatmate;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import android.widget.Toast;
 public class SplashActivity extends Activity {
 
 	ServerConnection connection = new ServerConnection();
-	String UserAuthCodeFile = "flatmateDataFile";
+	String FILENAME;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class SplashActivity extends Activity {
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
 		StrictMode.setThreadPolicy(policy);
+		FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
 
 		int loggedin = userLogin();
 
@@ -55,26 +58,35 @@ public class SplashActivity extends Activity {
         	//connection setAuthCode;
         	return 1;
         }*/
-		BufferedReader in;
-		try {
-			in = new BufferedReader(new FileReader("UserAuthCode.txt"));
-		} catch (FileNotFoundException e) {
-        	return 0;
-		}
-		String AuthCode;
-		try {
-			if((AuthCode = in.readLine()) != null)
-			{
-			    System.out.println(AuthCode);
-			    //connection setAuthCode
-			    in.close();
-			    return 1;
+		//String FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
+		File logFile = new File(FILENAME);
+		String authCode = "null";
+		if (logFile.exists())
+	    {
+			BufferedReader input;
+			try {
+				input = new BufferedReader(new FileReader(FILENAME));
+			} catch (FileNotFoundException e1) {
+				return 0;
 			}
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		      try {
+		        String line = null;
+		        if (( line = input.readLine()) != null){
+		        	authCode = line;
+		        }
+		      }catch (Exception e){
+		    	  
+		      }
+		    try {
+				input.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    System.out.println(authCode);
+			return 1;
+	    }
+		
     	return 0;
 		
 	}
@@ -148,7 +160,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String[] details) {
-			String key = connection.login(details[0], details[1]);
+			String key = connection.login(details[0], details[1], FILENAME);
 			return key;
 		}
 		

@@ -3,6 +3,7 @@ package com.boh.flatmate.connection;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +47,7 @@ public class ServerConnection {
 	}
 
 	//login and receive auth_token
-	public  String login (String uname, String pword) {
+	public  String login (String uname, String pword, String FILENAME) {
 		String info = "email=" + uname + "&password=" + pword;
 		//System.out.println(info);
 		String jsonResult = putOrPost(server+"/tokens", info, false);
@@ -56,16 +57,33 @@ public class ServerConnection {
 		Login log = gson.fromJson(jsonResult, Login.class);
 
 		auth_token = log.getToken();
-		try{
-			  // Create file 
-			  FileWriter fstream = new FileWriter("UserAuthCode.txt");
-			  BufferedWriter out = new BufferedWriter(fstream);
-			  out.write("auth_token");
-			  //Close the output stream
-			  out.close();
-		}catch (Exception e){//Catch exception if any
-			  System.err.println("Error: " + e.getMessage());
-		}
+
+	    File logFile = new File(FILENAME);
+	       if (!logFile.exists())
+	       {
+	          try
+	          {
+	             logFile.createNewFile();
+	          } 
+	          catch (IOException e)
+	          {
+	             // TODO Auto-generated catch block
+	             e.printStackTrace();
+	          }
+	       }
+	       try
+	       {
+	          //BufferedWriter for performance, true to set append to file flag
+	          BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+	          buf.append(auth_token);
+	          buf.newLine();
+	          buf.close();
+	       }
+	       catch (IOException e)
+	       {
+	          // TODO Auto-generated catch block
+	          e.printStackTrace();
+	       }
 		return auth_token;
 	}
 
