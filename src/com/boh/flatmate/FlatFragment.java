@@ -13,6 +13,8 @@ import android.widget.Button;
 public class FlatFragment extends Fragment {
 
 	private ViewGroup c;
+	private int dataLoaded = 0;
+	FlatListFragment flatList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -31,7 +33,7 @@ public class FlatFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-		FlatListFragment flatList = new FlatListFragment();
+		flatList = new FlatListFragment();
 		ft.add(R.id.list, flatList,"flat_fragment");
 		//ft.addToBackStack(null);
 		ft.commit();

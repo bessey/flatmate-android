@@ -33,8 +33,11 @@ public class ShoppingList_data {
 		return ShoppingList;
 	}
 	
+	public void addItem(String itemName){
+		ShoppingList.add(0,new ShoppingItem_data(itemName));
+	}
+	
 	public int totalToBuy(){
-		
 		return 2;
 	}
 }

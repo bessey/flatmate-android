@@ -39,14 +39,36 @@ public class SplashActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 		FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
 
-		int loggedin = userLogin();
+	}
 
-		if(loggedin == 1){
-			finish();
-			startApp();
-		}else{
-			newLogin();
-		}
+	@Override
+	public void onStart(){
+		super.onStart();
+
+		Thread splashWait = new Thread(){
+			@Override
+			public void run(){
+				try {
+					int i = 0;
+					int showSplashFor = 20;
+					while(i < showSplashFor){
+						sleep(100);
+						i += 1;
+					}
+				} catch(InterruptedException e){
+				}finally {
+					int loggedin = userLogin();
+
+					if(loggedin == 1){
+						finish();
+						startApp();
+					}else{
+						newLogin();
+					}
+				}
+			}
+		};
+		splashWait.start();
 	}
 
 	private int userLogin(){
@@ -63,33 +85,33 @@ public class SplashActivity extends Activity {
 		File logFile = new File(FILENAME);
 		String authCode = "null";
 		if (logFile.exists())
-	    {
+		{
 			BufferedReader input;
 			try {
 				input = new BufferedReader(new FileReader(FILENAME));
 			} catch (FileNotFoundException e1) {
 				return 0;
 			}
-		      try {
-		        String line = null;
-		        if (( line = input.readLine()) != null){
-		        	authCode = line;
-		        }
-		      }catch (Exception e){
-		    	  
-		      }
-		    try {
+			try {
+				String line = null;
+				if (( line = input.readLine()) != null){
+					authCode = line;
+				}
+			}catch (Exception e){
+
+			}
+			try {
 				input.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    System.out.println(authCode);
+			System.out.println(authCode);
 			return 1;
-	    }
-		
-    	return 0;
-		
+		}
+
+		return 0;
+
 	}
 
 	private void newLogin(){
@@ -100,15 +122,15 @@ public class SplashActivity extends Activity {
 		Account googleAccount = accounts[0];
 		String email = googleAccount.name;
 		EditText emailBox = (EditText) findViewById(R.id.emailTbox);
-		
+
 		//emailBox.setText(email);
-		
+
 		//temp for testing ---- use above line for real
 		emailBox.setText("adam9@bla.com");
 		EditText passwordBox1 = (EditText) findViewById(R.id.passwordBox);
 		passwordBox1.setText("Password");
-		
-		
+
+
 		Button login = (Button) findViewById(R.id.loginButton);
 		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -120,7 +142,6 @@ public class SplashActivity extends Activity {
 				login2.setVisibility(View.GONE);
 				ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 				spinner.setVisibility(View.VISIBLE);
-				new serverLogin().execute(emailInput,passwordInput);
 			}
 		});
 
@@ -129,32 +150,32 @@ public class SplashActivity extends Activity {
 	private void serverLogin(String key){
 		if(key != "failed"){
 			File logFile = new File(FILENAME);
-		       if (!logFile.exists())
-		       {
-		          try
-		          {
-		             logFile.createNewFile();
-		          } 
-		          catch (IOException e)
-		          {
-		             // TODO Auto-generated catch block
-		             e.printStackTrace();
-		          }
-		       }
-		       try
-		       {
-		          //BufferedWriter for performance, true to set append to file flag
-		          BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
-		          buf.append(key);
-		          buf.newLine();
-		          buf.close();
-		       }
-		       catch (IOException e)
-		       {
-		          // TODO Auto-generated catch block
-		          e.printStackTrace();
-		       }
-			
+			if (!logFile.exists())
+			{
+				try
+				{
+					logFile.createNewFile();
+				} 
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try
+			{
+				//BufferedWriter for performance, true to set append to file flag
+				BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+				buf.append(key);
+				buf.newLine();
+				buf.close();
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			finish();
 			startApp();
 		}else{
@@ -166,12 +187,12 @@ public class SplashActivity extends Activity {
 			toast.show();
 		}
 	}
-	
+
 	private void startApp() {
 		Intent intent = new Intent(SplashActivity.this, FlatMate.class);
 		startActivity(intent);
 	}
-	
+
 	private class serverLogin extends AsyncTask<String,Void,String>{
 
 		@Override
@@ -179,10 +200,10 @@ public class SplashActivity extends Activity {
 			String key = connection.login(details[0], details[1]);
 			return key;
 		}
-		
+
 		protected void onPostExecute(String result) {
 			serverLogin(result);
-	    }
-		
+		}
+
 	}
 }

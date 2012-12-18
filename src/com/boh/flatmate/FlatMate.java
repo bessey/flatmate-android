@@ -1,7 +1,6 @@
 package com.boh.flatmate;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import com.google.android.maps.MapView;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -101,6 +101,12 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setTabListener(this));
 
 	}
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		//new loadData().execute();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,8 +159,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				return ShoppingList;   
 			case 2:
 				return new TasksFragment();
-			case 3:
-				return new TasksFragment();
 			default:
 				Fragment FlatListDefault =  new FlatListFragment();
 				return FlatListDefault;
@@ -163,7 +167,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 		@Override
 		public int getCount() {
-			return 4;
+			return 3;
 		}
 
 		@Override

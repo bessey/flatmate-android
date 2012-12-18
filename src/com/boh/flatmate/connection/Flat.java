@@ -8,7 +8,7 @@ public class Flat {
 	private String postcode;
 	private User[] users;
 	public Flat() {
-		//do nothing
+		users = new User[0];
 	}
 	
 	/*public Flat_data(){

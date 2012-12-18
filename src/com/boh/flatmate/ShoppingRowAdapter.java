@@ -5,8 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.data.ShoppingItem_data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
@@ -36,7 +38,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		final ShoppingItem_data shoppingItem = ShoppingData.get(position);
+		final ShoppingItem_data shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
 		if (v == null || shoppingItem.isBought() == 1) {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
@@ -51,52 +53,56 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 		}
 		if(shoppingItem.isBought() == 1){
 			TextView priceTextView = (TextView) v.findViewById(R.id.Price);
-			System.out.println(name);
+			//System.out.println(name);
 			Double priceDouble = shoppingItem.itemPrice();
 			String priceString = String.format("%.2f",priceDouble);
 			priceTextView.setText("£"+priceString);
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
-			
+
 			// TODO flatmate name get()
 			flatMateTextView.setText("James Grant");
-			
+
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
 			dateTextView.setText(shoppingItem.itemDate());
 		}else{
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
-			final Editable priceText = priceInput.getText();
-			priceInput.setFilters(new InputFilter[] {new InputFilter(){
-				Pattern mPattern;			    
-				@Override
-				public CharSequence filter(CharSequence source, int start,
-						int end, Spanned dest, int dstart, int dend) {
-					mPattern=Pattern.compile("[0-9]{0," + (2) + "}+((\\.[0-9]{0," + (1) + "})?)||(\\.)?");
-					Matcher matcher=mPattern.matcher(dest);       
-			        if(!matcher.matches())
-			            return "";
-			        return null;
-				}
-			}});
-			priceInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-				
-				@Override
-				public void onFocusChange(final View view, boolean hasFocus) {
-					if(hasFocus){
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-						    public void run() {
-						        if (view.findViewById(R.id.priceInput) != null) {
-						        	view.findViewById(R.id.priceInput).requestFocus();
-						        }
-						    }
-						}, 100);
+			if(priceInput != null){
+				priceInput.setFilters(new InputFilter[] {new InputFilter(){
+					Pattern mPattern;			    
+					@Override
+					public CharSequence filter(CharSequence source, int start,
+							int end, Spanned dest, int dstart, int dend) {
+						mPattern=Pattern.compile("[0-9]{0," + (2) + "}+((\\.[0-9]{0," + (1) + "})?)||(\\.)?");
+						Matcher matcher=mPattern.matcher(dest);       
+						if(!matcher.matches())
+							return "";
+						return null;
 					}
-				}
-			});
-			setPriceButton.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View view) {
+				}});
+				priceInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+					@Override
+					public void onFocusChange(final View view, boolean hasFocus) {
+						if(hasFocus){
+							Handler handler = new Handler();
+							handler.postDelayed(new Runnable() {
+								public void run() {
+									if (view.findViewById(R.id.priceInput) != null) {
+										view.findViewById(R.id.priceInput).requestFocus();
+									}
+								}
+							}, 100);
+						}
+					}
+				});
+			}
+			if(setPriceButton != null){
+				setPriceButton.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View view) {
+						EditText priceInput = (EditText)view.findViewById(R.id.priceInput);
+						Editable priceText = priceInput.getText();
 						if(priceText.toString() == null || priceText.toString().length() == 0){
 							Toast toast = Toast.makeText(getContext(), "Please enter valid price!", Toast.LENGTH_SHORT);
 							toast.show();
@@ -106,8 +112,9 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 							System.out.println("Item Bought for "+ price);
 							notifyDataSetChanged();
 						}
-				}
-			});
+					}
+				});
+			}
 		}
 		return v;
 	}
