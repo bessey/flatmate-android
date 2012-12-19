@@ -14,7 +14,6 @@ import com.google.android.maps.MapView;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -155,7 +154,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				Fragment FlatList =  new FlatFragment();
 				return FlatList;
 			case 1:
-				Fragment ShoppingList =  new ShoppingListFragment();
+				Fragment ShoppingList =  new ShoppingFragment();
 				return ShoppingList;   
 			case 2:
 				return new TasksFragment();

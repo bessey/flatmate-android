@@ -40,4 +40,9 @@ public class ShoppingList_data {
 	public int totalToBuy(){
 		return 2;
 	}
+
+	public void boughtToday(int position, double price) {
+		ShoppingItem_data item = ShoppingList.get(position);
+		item.boughtToday(price);
+	}
 }

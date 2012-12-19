@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity {
 
 	ServerConnection connection = new ServerConnection();
 	String FILENAME;
+	final Handler myHandler = new Handler();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,13 +65,19 @@ public class SplashActivity extends Activity {
 						finish();
 						startApp();
 					}else{
-						newLogin();
+						myHandler.post(newLogin);
 					}
 				}
 			}
 		};
 		splashWait.start();
 	}
+
+	final Runnable newLogin = new Runnable() {
+		public void run() {
+			newLogin();
+		}
+	};
 
 	private int userLogin(){
 		/*AccountManager am = AccountManager.get(this);
@@ -123,18 +131,18 @@ public class SplashActivity extends Activity {
 		String email = googleAccount.name;
 		EditText emailBox = (EditText) findViewById(R.id.emailTbox);
 
-		//emailBox.setText(email);
+		emailBox.setText(email);
 
 		//temp for testing ---- use above line for real
-		emailBox.setText("adam9@bla.com");
-		EditText passwordBox1 = (EditText) findViewById(R.id.passwordBox);
-		passwordBox1.setText("Password");
+		//emailBox.setText("adam9@bla.com");
+		//EditText passwordBox1 = (EditText) findViewById(R.id.passwordBox);
+		//passwordBox1.setText("Password");
 
 
 		Button login = (Button) findViewById(R.id.loginButton);
 		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				EditText emailBox2 = (EditText) findViewById(R.id.emailTbox);			
+				EditText emailBox2 = (EditText) findViewById(R.id.emailTbox);		
 				String emailInput = emailBox2.getText().toString();
 				EditText passwordBox1 = (EditText) findViewById(R.id.passwordBox);			
 				String passwordInput = passwordBox1.getText().toString();
@@ -142,6 +150,7 @@ public class SplashActivity extends Activity {
 				login2.setVisibility(View.GONE);
 				ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 				spinner.setVisibility(View.VISIBLE);
+				new serverLogin().execute(emailInput,passwordInput);
 			}
 		});
 
@@ -196,7 +205,7 @@ public class SplashActivity extends Activity {
 	private class serverLogin extends AsyncTask<String,Void,String>{
 
 		@Override
-		protected String doInBackground(String[] details) {
+		protected String doInBackground(String... details) {
 			String key = connection.login(details[0], details[1]);
 			return key;
 		}

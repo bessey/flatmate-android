@@ -8,7 +8,6 @@ import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.data.ShoppingItem_data;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
@@ -27,23 +26,21 @@ import android.widget.Toast;
 public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 
 	private Context context;
-	private ArrayList<ShoppingItem_data> ShoppingData;
-	private int BoxWithFocus = -1;
 
 	public ShoppingRowAdapter(Context c, int textViewResourceId, ArrayList<ShoppingItem_data> data) {
 		super(c, textViewResourceId, data);
-		ShoppingData = data;
 		context = c;
 	}
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		final ShoppingItem_data shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
-		if (v == null || shoppingItem.isBought() == 1) {
+		ShoppingItem_data shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
+		System.out.println(shoppingItem.itemName() + " - " + shoppingItem.isBought());
+		
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
 			else v = vi.inflate(R.layout.shopping_row, null);
-		}		
+			
 		String name = shoppingItem.itemName();
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
@@ -66,7 +63,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 			dateTextView.setText(shoppingItem.itemDate());
 		}else{
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
-			EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
+			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
 			if(priceInput != null){
 				priceInput.setFilters(new InputFilter[] {new InputFilter(){
 					Pattern mPattern;			    
@@ -101,14 +98,13 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 				setPriceButton.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View view) {
-						EditText priceInput = (EditText)view.findViewById(R.id.priceInput);
 						Editable priceText = priceInput.getText();
 						if(priceText.toString() == null || priceText.toString().length() == 0){
 							Toast toast = Toast.makeText(getContext(), "Please enter valid price!", Toast.LENGTH_SHORT);
 							toast.show();
 						}else{
 							double price = Double.valueOf(priceText.toString());
-							shoppingItem.boughtToday(price);
+							ShoppingDataExchanger.shoppingData.boughtToday(position,price);
 							System.out.println("Item Bought for "+ price);
 							notifyDataSetChanged();
 						}

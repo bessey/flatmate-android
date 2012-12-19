@@ -13,7 +13,6 @@ import android.widget.Button;
 public class FlatFragment extends Fragment {
 
 	private ViewGroup c;
-	private int dataLoaded = 0;
 	FlatListFragment flatList;
 
 	@Override

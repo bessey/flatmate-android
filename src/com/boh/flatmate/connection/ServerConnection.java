@@ -1,10 +1,7 @@
 package com.boh.flatmate.connection;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -107,6 +104,7 @@ public class ServerConnection {
 	//create a new flat
 	public void addFlat(Flat flat) {
 		String flatInfo = flat.toHTTPString();
+		@SuppressWarnings("unused")
 		String jsonResult  = post(server + "/flats", flatInfo);
 	}
 	
@@ -141,7 +139,7 @@ public class ServerConnection {
 	//get all message for user with given id
 	public  Message[] getUserMessages(int user_id) {
 		Message[] messages = gson.fromJson(get(server + "/users/" + user_id + "/messages"), Message[].class);
-		for (Message m : messages) {
+		for (@SuppressWarnings("unused") Message m : messages) {
 			//put(server + "/users/" + m.g)
 		}
 		return messages;
@@ -166,6 +164,7 @@ public class ServerConnection {
 	//add item to flats shopping list given by item
 	public void addItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
+		@SuppressWarnings("unused")
 		String jsonResult = post(server + "/flats/" + item.getFlat_Id() + "/shop_items", itemInfo);
 	}
 	
@@ -300,6 +299,7 @@ public class ServerConnection {
 					"Content-Type", "application/x-www-form-urlencoded" );
 			httpCon.setRequestMethod("DELETE");
 			httpCon.connect();
+			@SuppressWarnings("unused")
 			int responseCode = httpCon.getResponseCode();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
