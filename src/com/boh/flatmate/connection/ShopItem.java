@@ -5,6 +5,7 @@ public class ShopItem {
 	private String flat_id;
 	private String user_want_id;	//used when working out who owes who money
 	private String user_bought_id;	//used with above, also when this stops being null, don't display item in shopping list
+	private String bought_date;
 	private String price;
 	private String name;		//name of item, maybe implement getting this from list (to help with image recog)
 	private String paid_back;	//when this becomes true the item gets deleted
@@ -13,6 +14,12 @@ public class ShopItem {
 		//do nothing
 	}
 	
+	public ShopItem(String itemName, int user_id, int current_flat_id) {
+		name = itemName;
+		user_want_id = ""+user_id;
+		flat_id = ""+current_flat_id;
+	}
+		
 	public String toHTTPString() {
 		String result = "shop_item[name]=" + name;
 		if (user_want_id != null) result += "&shop_item[user_want_id]" + user_want_id;
@@ -20,6 +27,14 @@ public class ShopItem {
 		if (price != null) result += "&shop_item[price]" + price;
 		if (paid_back != null) result += "&shop_item[paid_back]" + paid_back;
 		return result;
+	}
+	
+	public int isBought(){
+		if(user_bought_id != null){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 	public int getFlat_Id() {
@@ -46,8 +61,8 @@ public class ShopItem {
 		this.user_bought_id = Integer.toString(user_bought_id);
 	}
 
-	public String getPrice() {
-		return price;
+	public Double getPrice() {
+		return Double.parseDouble(price);
 	}
 
 	public void setPrice(String price) {
@@ -76,5 +91,13 @@ public class ShopItem {
 
 	public void setId(int id) {
 		this.id = Integer.toString(id);
+	}
+
+	public String getBought_date() {
+		return bought_date;
+	}
+
+	public void setBought_date(String bought_date) {
+		this.bought_date = bought_date;
 	}
 }

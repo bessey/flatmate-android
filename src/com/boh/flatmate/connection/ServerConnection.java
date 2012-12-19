@@ -200,6 +200,7 @@ public class ServerConnection {
 	//note: true is put, false is post
 	private  String putOrPost(String targetURL, String urlParameters, boolean put) {
 		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
+		System.out.println(urlParameters);
 		URL url;
 		HttpURLConnection connection = null;  
 		try {

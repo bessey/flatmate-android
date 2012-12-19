@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
+import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 
 import android.accounts.Account;
@@ -62,8 +64,8 @@ public class SplashActivity extends Activity {
 					int loggedin = userLogin();
 
 					if(loggedin == 1){
-						finish();
 						startApp();
+						finish();
 					}else{
 						myHandler.post(newLogin);
 					}
@@ -80,16 +82,6 @@ public class SplashActivity extends Activity {
 	};
 
 	private int userLogin(){
-		/*AccountManager am = AccountManager.get(this);
-        Account[] accounts = am.getAccountsByType("com.Ballin_Octo_Hipster");
-        if(accounts.length == 0 || accounts == null){
-        	newLogin();
-        	return 0;
-        }else{
-        	//connection setAuthCode;
-        	return 1;
-        }*/
-		//String FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
 		File logFile = new File(FILENAME);
 		String authCode = "null";
 		if (logFile.exists())
@@ -111,11 +103,10 @@ public class SplashActivity extends Activity {
 			try {
 				input.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println(authCode);
-			return 1;
+			return 1;		//sucessfull login here return 1; test return 0;
 		}
 
 		return 0;
@@ -148,6 +139,8 @@ public class SplashActivity extends Activity {
 				String passwordInput = passwordBox1.getText().toString();
 				Button login2 = (Button) findViewById(R.id.loginButton);
 				login2.setVisibility(View.GONE);
+				Button register = (Button) findViewById(R.id.registerButton);
+				register.setVisibility(View.GONE);
 				ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 				spinner.setVisibility(View.VISIBLE);
 				new serverLogin().execute(emailInput,passwordInput);
@@ -184,12 +177,13 @@ public class SplashActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			finish();
 			startApp();
+			finish();
 		}else{
 			Button login2 = (Button) findViewById(R.id.loginButton);
 			login2.setVisibility(View.VISIBLE);
+			Button register = (Button) findViewById(R.id.registerButton);
+			register.setVisibility(View.VISIBLE);
 			ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 			spinner.setVisibility(View.GONE);
 			Toast toast = Toast.makeText(getApplicationContext(), "Failed to Login... Please Try Again!", Toast.LENGTH_SHORT);

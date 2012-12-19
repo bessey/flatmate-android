@@ -1,7 +1,10 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
+import com.boh.flatmate.connection.ShoppingList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,7 +56,8 @@ public class ShoppingFragment extends Fragment {
 					ShoppingDataExchanger.shoppingData.addItem(inputText.toString());
 					System.out.println("Item Added - "+ inputText);
 					textInput.setText("");
-					//getFragmentManager().
+					int flatId = FlatDataExchanger.flatData.getId();
+					//ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
 					//mAdapter.notifyDataSetChanged();
 				}
 			}

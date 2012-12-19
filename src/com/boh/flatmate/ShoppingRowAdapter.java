@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
-import com.boh.flatmate.data.ShoppingItem_data;
+import com.boh.flatmate.connection.ShopItem;
 
 import android.content.Context;
 import android.os.Handler;
@@ -23,25 +23,25 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
+public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 
 	private Context context;
 
-	public ShoppingRowAdapter(Context c, int textViewResourceId, ArrayList<ShoppingItem_data> data) {
+	public ShoppingRowAdapter(Context c, int textViewResourceId, ArrayList<ShopItem> data) {
 		super(c, textViewResourceId, data);
 		context = c;
 	}
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		ShoppingItem_data shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
-		System.out.println(shoppingItem.itemName() + " - " + shoppingItem.isBought());
+		ShopItem shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
+		System.out.println(shoppingItem.getName() + " - " + shoppingItem.isBought());
 		
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
 			else v = vi.inflate(R.layout.shopping_row, null);
 			
-		String name = shoppingItem.itemName();
+		String name = shoppingItem.getName();
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
 			if (tt != null) {
@@ -51,7 +51,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 		if(shoppingItem.isBought() == 1){
 			TextView priceTextView = (TextView) v.findViewById(R.id.Price);
 			//System.out.println(name);
-			Double priceDouble = shoppingItem.itemPrice();
+			Double priceDouble = shoppingItem.getPrice();
 			String priceString = String.format("%.2f",priceDouble);
 			priceTextView.setText("£"+priceString);
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
@@ -60,7 +60,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShoppingItem_data> {
 			flatMateTextView.setText("James Grant");
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
-			dateTextView.setText(shoppingItem.itemDate());
+			dateTextView.setText(shoppingItem.getBought_date());
 		}else{
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);

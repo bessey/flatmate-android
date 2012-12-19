@@ -1,11 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
     android:background="@drawable/splash"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".SplashActivity" >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_logo" />
+
     <LinearLayout
         android:id="@+id/loginBox"
         android:layout_width="match_parent"
@@ -13,9 +21,9 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="100dp"
+        android:paddingTop="10dp"
         android:visibility="gone" >
-
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -30,7 +38,7 @@
             android:gravity="right"
             android:paddingLeft="60dp"
             android:paddingRight="10dp" >
-
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -38,7 +46,7 @@
                 android:text="Email"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/emailTbox"
                 android:layout_width="wrap_content"
@@ -46,7 +54,6 @@
                 android:ems="15"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/lightText" >
-
             </EditText>
         </LinearLayout>
 
@@ -56,7 +63,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" >
-
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
@@ -64,7 +71,7 @@
                 android:text="Password"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/passwordBox"
                 android:layout_width="wrap_content"
@@ -75,16 +82,32 @@
 
             <requestFocus />
         </LinearLayout>
-        <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register" />
+        </LinearLayout>
+
         <ProgressBar
-        android:id="@+id/loginSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+            android:id="@+id/loginSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

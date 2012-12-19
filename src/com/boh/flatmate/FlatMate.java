@@ -8,7 +8,7 @@ import java.io.IOException;
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
-import com.boh.flatmate.data.ShoppingList_data;
+import com.boh.flatmate.connection.ShoppingList;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
@@ -32,7 +32,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	ViewPager mViewPager;
 	View mMapViewContainer;
 	MapView mMapView;
-	ServerConnection connection;
 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
@@ -59,13 +58,17 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			e.printStackTrace();
 		}
 		
-		connection = new ServerConnection();
-		connection.setAuth(authCode);
+		ConnectionExchanger.connection = new ServerConnection();
+		ConnectionExchanger.connection.setAuth(authCode);
 
 		FlatDataExchanger.flatData = new Flat();
-		FlatDataExchanger.flatData = connection.getFlat(1);
+		FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
 		
-		ShoppingDataExchanger.shoppingData = new ShoppingList_data();
+		int flatId = FlatDataExchanger.flatData.getId();
+		
+		ShoppingDataExchanger.shoppingData = new ShoppingList();
+		ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
+		
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 
@@ -174,13 +177,17 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			return "";
 		}
 	}
+	
+	public static class ConnectionExchanger{
+		public static ServerConnection connection;
+	}
 
 	public static class FlatDataExchanger{
 		public static Flat flatData;
 	}
 
 	public static class ShoppingDataExchanger{
-		public static ShoppingList_data shoppingData;
+		public static ShoppingList shoppingData;
 	}
 
 	public static class contextExchanger{
