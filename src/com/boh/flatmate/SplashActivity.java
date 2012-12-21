@@ -9,8 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
-import com.boh.flatmate.FlatMate.FlatDataExchanger;
-import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 
 import android.accounts.Account;

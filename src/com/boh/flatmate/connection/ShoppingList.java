@@ -1,6 +1,10 @@
 package com.boh.flatmate.connection;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import android.text.format.DateFormat;
 
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
@@ -39,6 +43,11 @@ public class ShoppingList {
 
 	public void boughtToday(int position, double price) {
 		ShopItem item = shoppingList.get(position);
-		//item.boughtToday(price);
+		int user_id = FlatDataExchanger.flatData.getCurrentUserId();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		Date date = new Date();
+		String dateString = dateFormat.format(date);
+		item.boughtToday(price, user_id, dateString);
+		ConnectionExchanger.connection.updateItem(item);
 	}
 }

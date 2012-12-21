@@ -26,6 +26,8 @@ public class ShopItem {
 		if (user_bought_id != null) result += "&shop_item[user_bought_id]" + user_bought_id;
 		if (price != null) result += "&shop_item[price]" + price;
 		if (paid_back != null) result += "&shop_item[paid_back]" + paid_back;
+		//JUST UNTILL THE SERVER IS FIXED
+		result += "&shop_item[flat_id]" + flat_id;
 		return result;
 	}
 	
@@ -35,6 +37,12 @@ public class ShopItem {
 		}else{
 			return 0;
 		}
+	}
+	
+	public void boughtToday(double boughtPrice, int id, String date){
+		user_bought_id = ""+id;
+		price = ""+boughtPrice;
+		bought_date = ""+date;
 	}
 
 	public int getFlat_Id() {

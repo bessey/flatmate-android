@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
@@ -57,7 +58,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
 
 			// TODO flatmate name get()
-			flatMateTextView.setText("James Grant");
+			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUser_bought_id()));
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
 			dateTextView.setText(shoppingItem.getBought_date());

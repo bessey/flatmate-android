@@ -11,8 +11,20 @@ public class Flat {
 		users = new User[0];
 	}
 	
+	public String getUserName(int id){
+		System.out.println("USER BOUGHT ID "+id);
+		for (User u : users){
+			System.out.println("USER ID "+u.getId());
+			if(u.getId() == id){
+				return u.getFirst_name();
+			}
+		}
+		return "";
+	}
+	
 	public int getCurrentUserId(){
 		for (User u : users){
+			System.out.println("USER ID "+u.getId());
 			if(u.getEmail().equals("adam9@bla.com")){
 				return u.getId();
 			}
