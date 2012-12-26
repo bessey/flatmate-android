@@ -116,8 +116,13 @@ public class SplashActivity extends Activity {
 		loginBox.setVisibility(View.VISIBLE);
 		AccountManager am = AccountManager.get(this);
 		Account[] accounts = am.getAccountsByType("com.google");
-		Account googleAccount = accounts[0];
-		String email = googleAccount.name;
+		String email;
+		if(accounts.length > 0){
+			Account googleAccount = accounts[0];
+			email = googleAccount.name;
+		} else {
+			email = "";
+		}
 		EditText emailBox = (EditText) findViewById(R.id.emailTbox);
 
 		emailBox.setText(email);
