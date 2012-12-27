@@ -105,15 +105,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setIcon(R.drawable.tasks_tab)
 				.setTabListener(this));
 		
-		GCMRegistrar.checkDevice(this);
-		GCMRegistrar.checkManifest(this);
-		final String regId = GCMRegistrar.getRegistrationId(this);
-		if (regId.equals("")) {
-		  GCMRegistrar.register(this, "1098971778005");
-		} else {
-		  Log.v("GCM", "Already registered");
-		}
-
 	}
 	
 	@Override

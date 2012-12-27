@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.util.Log;
+
+import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
 
 public class ServerConnection {
@@ -24,12 +27,31 @@ public class ServerConnection {
 		String userInfo = null;
 		@SuppressWarnings("unused")
 		String jsonResult;
+		
+		/*
+		 * 		GCM Stuff. Should be in onCreate according to instructions, but obviously
+		 * 		we don't want to register the phone for push updates until the user registers
+		 * 		or logs in.
+		 * 	
+		 * 		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		final String regId = GCMRegistrar.getRegistrationId(this);
+		if (regId.equals("")) {
+		  GCMRegistrar.register(this, "1098971778005");
+		} else {
+		  Log.v("GCM", "Already registered");
+		}
+
+
+		 */
 
 		//setup http string for registering user, in same order as API
 		userInfo = newUser.toHTTPString();
 		userInfo += "&user[password]=" + password;
 
 		jsonResult = post(server + "/users", userInfo);
+		
+
 
 		//Check JSON string:
 		// System.out.println(jsonResult);
