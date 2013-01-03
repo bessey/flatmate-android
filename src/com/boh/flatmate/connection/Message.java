@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import com.boh.flatmate.R;
+
 public class Message {
 	private int from_id;
 	private int to_id;		//either send to an individual and flat_id is null

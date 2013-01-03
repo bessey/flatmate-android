@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import com.boh.flatmate.R;
+
 public class Flat {
 	private String geocode_lat;
 	private String geocode_long;

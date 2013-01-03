@@ -10,6 +10,7 @@ import java.net.URL;
 
 import android.util.Log;
 
+import com.boh.flatmate.R;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
 

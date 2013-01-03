@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import com.boh.flatmate.R;
+
 public class Registration {
 	private String email;
 	private String first_name;

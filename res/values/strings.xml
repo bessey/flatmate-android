@@ -7,4 +7,8 @@
     <string name="imgContext">img</string>
     <string name="maps_api_key">0Lr7FW5xSHF2jgE0POUim59PDvsTMVHD2hu2JVw</string>
     <string name="flatName">Flat Name</string>
+    <string name="login_email">Email</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

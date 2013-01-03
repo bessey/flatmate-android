@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import com.boh.flatmate.R;
+
 public class Login {
 	private String token;
 	public Login() {
