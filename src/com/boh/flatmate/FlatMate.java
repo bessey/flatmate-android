@@ -10,7 +10,7 @@ import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 import com.boh.flatmate.connection.ShoppingList;
 import com.google.android.maps.MapView;
-import com.google.android.gcm.GCMRegistrar;
+//import com.google.android.gcm.GCMRegistrar;
 
 
 import android.app.ActionBar;
@@ -65,12 +65,12 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		ConnectionExchanger.connection.setAuth(authCode);
 
 		FlatDataExchanger.flatData = new Flat();
-		FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
 		
-		int flatId = FlatDataExchanger.flatData.getId();
+		//FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
+		//int flatId = FlatDataExchanger.flatData.getId();
 		
 		ShoppingDataExchanger.shoppingData = new ShoppingList();
-		ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
+		//ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
 		
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));

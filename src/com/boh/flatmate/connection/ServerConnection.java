@@ -331,5 +331,4 @@ public class ServerConnection {
 		}
 		System.out.println();
 	}
-
 }
