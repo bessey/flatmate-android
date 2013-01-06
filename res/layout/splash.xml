@@ -12,9 +12,9 @@
         android:id="@+id/splashLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/splash_logo"
-        android:contentDescription="@string/contentDescriptionImage" />
-
+        android:contentDescription="@string/contentDescriptionImage"
+        android:src="@drawable/splash_logo" />
+
     <LinearLayout
         android:id="@+id/loginBox"
         android:layout_width="match_parent"
@@ -123,168 +123,167 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-    
+
     <LinearLayout
-            android:id="@+id/registerBox"
+        android:id="@+id/registerBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="0dp"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/password2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="0dp"
-            android:visibility="gone" >
+            android:gravity="center_horizontal"
+            android:paddingBottom="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:visibility="visible" >
 
-            <LinearLayout
-                android:id="@+id/password2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:visibility="visible" >
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/password"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/lightText" />
-
-                <EditText
-                    android:id="@+id/passwordBox2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="@string/re_password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/lightText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/firstNameBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:visibility="visible" >
-
-                <TextView
-                    android:id="@+id/FirstNameLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/first_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/lightText" />
-
-                <EditText
-                    android:id="@+id/firstBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="@string/first_name"
-                    android:inputType="text"
-                    android:textColor="@color/lightText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lastNameBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:visibility="visible" >
-
-                <TextView
-                    android:id="@+id/LastNameLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/lightText" />
-
-                <EditText
-                    android:id="@+id/lastBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="@string/last_name"
-                    android:inputType="text"
-                    android:textColor="@color/lightText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/phoneBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp" >
-
-                <TextView
-                    android:id="@+id/phoneLable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/phone"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/lightText" />
-
-                <EditText
-                    android:id="@+id/phoneTextBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="@string/phone_no"
-                    android:inputType="phone"
-                    android:textColor="@color/lightText" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/backNextButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingTop="30dp"
-                android:visibility="visible" >
-
-                <Button
-                    android:id="@+id/backButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightText"
-                    android:text="@string/back" />
-
-                <Button
-                    android:id="@+id/nextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:textColor="@color/lightText"
-                    android:text="@string/next" />
-            </LinearLayout>
-        </LinearLayout>
-        
-        <LinearLayout
-            android:id="@+id/flatBox"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:gravity="top|center_horizontal"
-            android:orientation="vertical"
-            android:paddingTop="30dp"
-            android:visibility="gone" >
-
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Find Flat"
-                android:textColor="@color/lightText"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="@string/password"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText" />
+
+            <EditText
+                android:id="@+id/passwordBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="@string/re_password"
+                android:inputType="textPassword"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/firstNameBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/FirstNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/first_name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText" />
+
+            <EditText
+                android:id="@+id/firstBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="@string/first_name"
+                android:inputType="text"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lastNameBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/LastNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText" />
+
+            <EditText
+                android:id="@+id/lastBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="@string/last_name"
+                android:inputType="text"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phoneBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:id="@+id/phoneLable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText" />
+
+            <EditText
+                android:id="@+id/phoneTextBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="@string/phone_no"
+                android:inputType="phone"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backNextButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="30dp"
+            android:visibility="visible" >
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:textColor="@color/lightText" />
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="@string/next"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/flatBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="30dp"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Flat"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/lightText" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -304,7 +303,7 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
             <EditText
                 android:id="@+id/searchTextBox"
                 android:layout_width="wrap_content"
@@ -323,7 +322,16 @@
                 android:text="Search"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
-        </LinearLayout>            
+        </LinearLayout>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:descendantFocusability="beforeDescendants"
+            android:drawSelectorOnTop="false" >
+
+        </ListView>
     </LinearLayout>
 
 </LinearLayout>

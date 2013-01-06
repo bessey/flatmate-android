@@ -46,7 +46,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 				tt.setText(name);
 			}
 		}
-		if(flatMate.getId() == 1){
+		if(flatMate.getId() == FlatDataExchanger.flatData.getCurrentUserId()){
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
 			phoneButton.setVisibility(View.INVISIBLE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);
@@ -66,8 +66,17 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		double distance = flatMate.distanceFromHome();
 		
 		TextView disFHText = (TextView) v.findViewById(R.id.distanceText);
-		disFHText.setText(distance+"mi from flat");
+		disFHText.setText(round(distance,2)+"mi from flat");
 		
 		return v;
+	}
+	
+	public double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
 	}
 }

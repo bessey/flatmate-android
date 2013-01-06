@@ -60,6 +60,8 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			e.printStackTrace();
 		}
 		
+		contextExchanger.context = this;
+		
 		ConnectionExchanger.connection = new ServerConnection();
 		ConnectionExchanger.connection.setAuth(authCode);
 
@@ -67,12 +69,11 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
 		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
-		//int flatId = FlatDataExchanger.flatData.getId();
+		int flatId = FlatDataExchanger.flatData.getId();
 		
 		ShoppingDataExchanger.shoppingData = new ShoppingList();
-		//ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
+		ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
 		
-		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
 		Intent service = new Intent(FlatMate.this, UpdateService.class);
