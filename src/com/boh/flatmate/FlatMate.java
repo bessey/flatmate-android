@@ -65,8 +65,8 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 		FlatDataExchanger.flatData = new Flat();
 		
-		//FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
-		//FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
+		FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
+		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
 		//int flatId = FlatDataExchanger.flatData.getId();
 		
 		ShoppingDataExchanger.shoppingData = new ShoppingList();

@@ -39,9 +39,9 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/distanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.21mi from flat"

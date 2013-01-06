@@ -112,6 +112,13 @@ public class User {
 		return 1;
 	}
 
+	public double distanceFromHome(){
+		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();
+		float FlatMate_Long = FlatDataExchanger.flatData.getGeocode_long();
+		double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
+		return distanceFromHome*0.00062137;
+	}
+
 	public OnClickListener phoneListener = new OnClickListener(){ // the book's action
 		@Override
 		public void onClick(View v) {

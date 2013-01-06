@@ -1,6 +1,7 @@
 package com.boh.flatmate;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.connection.User;
 
 import android.content.Context;
@@ -61,6 +62,11 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 			ImageView image = (ImageView) v.findViewById(R.id.icon);
 			image.setImageResource(R.drawable.home_x);
 		}
+		
+		double distance = flatMate.distanceFromHome();
+		
+		TextView disFHText = (TextView) v.findViewById(R.id.distanceText);
+		disFHText.setText(distance+"mi from flat");
 		
 		return v;
 	}
