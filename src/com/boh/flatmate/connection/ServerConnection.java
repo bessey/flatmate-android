@@ -60,6 +60,16 @@ public class ServerConnection {
 		auth_token = log.getToken();
 		return auth_token;
 	}
+	
+	public String login (String uname, String pword, String deviceID) {
+		String auth = login(uname, pword);
+		
+		User u = new User();
+		u.setRegistration_id(deviceID);
+		updateUser(u);
+		
+		return auth;
+	}
 
 	//set authentication code
 	public  void setAuth(String at) {
@@ -190,7 +200,8 @@ public class ServerConnection {
 	
 	//get all shopping items for flat with given id
 	public  ShopItem[] getFlatShoppingList(int flat_id) {
-		return gson.fromJson(get(server + "/flats/" + flat_id + "/shop_items"), ShopItem[].class);		
+		//return gson.fromJson(get(server + "/flats/" + flat_id + "/shop_items"), ShopItem[].class);
+		return new ShopItem[0]; //FIXME the above line causes my client to crash - Matt
 	}
 
 	//*****************************************connection stuff***************************************** 
