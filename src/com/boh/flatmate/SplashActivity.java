@@ -122,8 +122,8 @@ public class SplashActivity extends Activity {
 			}
 			System.out.println(authCode);
 			// sucessfull login here return 1; test return 0;
-			return 1;
-			//return 0;
+			//return 1;
+			return 0;
 		}
 
 		return 0;
