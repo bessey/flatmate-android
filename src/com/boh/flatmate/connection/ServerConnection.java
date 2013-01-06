@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -13,7 +14,6 @@ import com.google.gson.Gson;
 public class ServerConnection {
 
 	private String auth_token = null;
-	
 	
 	private Gson gson = new Gson();
 	private String server = "http://whispering-plains-6470.herokuapp.com";
@@ -212,8 +212,27 @@ public class ServerConnection {
 	//*****************************************connection stuff***************************************** 
 	
 	//put to server
-	private String put(String tu, String up) {
-		return putOrPost(tu, up, true);
+	private void put(String tu, String up) {
+		System.out.println("Put Command:");
+		if (auth_token != null) tu += "?auth_token=" + auth_token;
+		URL url;
+		System.out.println(tu);
+		try {
+			url = new URL(tu);
+			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("PUT");
+			OutputStreamWriter out = new OutputStreamWriter(
+			    httpCon.getOutputStream());
+			out.write(up);
+			out.close();
+			
+			int responseCode = httpCon.getResponseCode();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println();
 	}
 	
 	//post to server

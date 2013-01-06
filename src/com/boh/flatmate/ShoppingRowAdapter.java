@@ -37,11 +37,11 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 		View v = convertView;
 		ShopItem shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
 		System.out.println(shoppingItem.getName() + " - " + shoppingItem.isBought());
-		
-			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
-			else v = vi.inflate(R.layout.shopping_row, null);
-			
+
+		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
+		else v = vi.inflate(R.layout.shopping_row, null);
+
 		String name = shoppingItem.getName();
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
@@ -49,7 +49,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 				tt.setText(name);
 			}
 		}
-		if(shoppingItem.isBought() == 1){
+		if(shoppingItem.isBought() == 1) {
 			TextView priceTextView = (TextView) v.findViewById(R.id.Price);
 			//System.out.println(name);
 			Double priceDouble = shoppingItem.getPrice();
@@ -62,7 +62,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
 			dateTextView.setText(shoppingItem.getBought_date());
-		}else{
+		} else {
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
 			if(priceInput != null){
