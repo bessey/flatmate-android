@@ -5,7 +5,7 @@ public class ShopItem {
 	private String flat_id;
 	private String user_want_id;	//used when working out who owes who money
 	private String user_bought_id;	//used with above, also when this stops being null, don't display item in shopping list
-	private String bought_date;
+	private String updated_at;
 	private String price;
 	private String name;		//name of item, maybe implement getting this from list (to help with image recog)
 	private String paid_back;	//when this becomes true the item gets deleted
@@ -40,7 +40,7 @@ public class ShopItem {
 	public void boughtToday(double boughtPrice, int id, String date){
 		user_bought_id = ""+id;
 		price = ""+boughtPrice;
-		bought_date = ""+date;
+		updated_at = ""+date;
 	}
 
 	public int getFlat_Id() {
@@ -99,11 +99,11 @@ public class ShopItem {
 		this.id = Integer.toString(id);
 	}
 
-	public String getBought_date() {
-		return bought_date;
+	public String getUpdated_at() {
+		return updated_at;
 	}
 
-	public void setBought_date(String bought_date) {
-		this.bought_date = bought_date;
+	public void setUpdated_at(String updated_at) {
+		this.updated_at = updated_at;
 	}
 }
