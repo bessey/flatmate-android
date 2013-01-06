@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 
@@ -32,6 +33,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -46,6 +48,9 @@ public class SplashActivity extends Activity {
 	private String registrationFirstName;
 	private String registrationLastName;
 	private String registrationPhone;
+	
+	private ListView mListView;
+	private SplashRowAdapter mAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -479,6 +484,9 @@ public class SplashActivity extends Activity {
 			for(Flat f : flats){
 				System.out.println(f.toHTTPString());
 			}
+			mAdapter = new SplashRowAdapter(this, android.R.id.list, flats);
+			mListView = (ListView)findViewById(android.R.id.list);
+			mListView.setAdapter(mAdapter);
 		}else{
 			Toast.makeText(getApplicationContext(), "No Flats Found", Toast.LENGTH_SHORT).show();
 		}

@@ -5,20 +5,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
-import com.boh.flatmate.FlatMate;
-import com.boh.flatmate.FlatMate.contextExchanger;
-import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
 
 public class ServerConnection {
 
 	private String auth_token = null;
-	
 	
 	private Gson gson = new Gson();
 	private String server = "http://whispering-plains-6470.herokuapp.com";
@@ -31,7 +26,23 @@ public class ServerConnection {
 		String userInfo = null;
 		@SuppressWarnings("unused")
 		String jsonResult;
+		
+		/*
+		 * 		GCM Stuff. Should be in onCreate according to instructions, but obviously
+		 * 		we don't want to register the phone for push updates until the user registers
+		 * 		or logs in.
+		 * 	
+		 * 		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		final String regId = GCMRegistrar.getRegistrationId(this);
+		if (regId.equals("")) {
+		  GCMRegistrar.register(this, "1098971778005");
+		} else {
+		  Log.v("GCM", "Already registered");
+		}
 
+
+		 */
 
 		//setup http string for registering user, in same order as API
 		userInfo = newUser.toHTTPString();
@@ -63,7 +74,6 @@ public class ServerConnection {
 		Login log = gson.fromJson(jsonResult, Login.class);
 
 		auth_token = log.getToken();
-		
 		return auth_token;
 	}
 
@@ -202,8 +212,27 @@ public class ServerConnection {
 	//*****************************************connection stuff***************************************** 
 	
 	//put to server
-	private String put(String tu, String up) {
-		return putOrPost(tu, up, true);
+	private void put(String tu, String up) {
+		System.out.println("Put Command:");
+		if (auth_token != null) tu += "?auth_token=" + auth_token;
+		URL url;
+		System.out.println(tu);
+		try {
+			url = new URL(tu);
+			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("PUT");
+			OutputStreamWriter out = new OutputStreamWriter(
+			    httpCon.getOutputStream());
+			out.write(up);
+			out.close();
+			
+			int responseCode = httpCon.getResponseCode();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println();
 	}
 	
 	//post to server
