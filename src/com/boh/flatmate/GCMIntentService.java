@@ -28,7 +28,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	 * the message has a payload, its contents are available as extras in the intent.
 	 */
 	protected void onMessage(Context context, Intent intent){
-		
+		Log.v("GCM","Recieved a message!" + intent);		
 	}
 	
 	/*

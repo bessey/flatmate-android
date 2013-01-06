@@ -2,6 +2,9 @@ package com.boh.flatmate.connection;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,14 +12,16 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 
 public class ServerConnection {
 
-	private String auth_token = null;
+	private static String auth_token = null;
 	
 	private Gson gson = new Gson();
-	private String server = "http://whispering-plains-6470.herokuapp.com";
+	private static String server = "http://whispering-plains-6470.herokuapp.com";
 
 	//*****************************************user stuff*****************************************
 
@@ -63,17 +68,64 @@ public class ServerConnection {
 	
 	public String login (String uname, String pword, String deviceID) {
 		String auth = login(uname, pword);
-		
-		User u = new User();
-		u.setRegistration_id(deviceID);
-		updateUser(u);
+		new MaintainGcmRegistration().execute(deviceID);
 		
 		return auth;
 	}
+	
+	/* Reminds the server that this device is still active, if a long period between the device's
+	*  initial registration and now passes without it firing this, it will be removed from the 
+	*  database of saved device IDs.
+	*  Therefore this must run on every app open.
+	*/
+	public class MaintainGcmRegistration extends AsyncTask<String,Integer,Integer> {
+		protected Integer doInBackground(String... deviceID){
+			User u = getMe();
+			
+			u.setRegistration_id(deviceID[0]);
+			updateUser(u);
+			return 1;
+		}
+	}
 
 	//set authentication code
-	public  void setAuth(String at) {
+	public static void setAuth(String at) {
 		auth_token = at;
+	}
+	
+	// load the authentication code from a file, returns null if failed.
+	public static String loadAuth(String filename){
+		File logFile = new File(filename);
+		String authCode = null;
+		if (logFile.exists())
+		{
+			BufferedReader input;
+			try {
+				input = new BufferedReader(new FileReader(filename));
+			} catch (FileNotFoundException e1) {
+				return null;
+			}
+			try {
+				String line = null;
+				if (( line = input.readLine()) != null){
+					authCode = line;
+				}
+			}catch (Exception e){
+
+			}
+			try {
+				input.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			setAuth(authCode);
+			// sucessfull login here returns the authcode
+			return authCode;
+			// to test without logging in automatically, set to null:
+			//return null;
+		}
+
+		return null;	
 	}
 
 	//logout by deleting auth_token from server
