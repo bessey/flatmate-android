@@ -22,10 +22,10 @@ public class ShopItem {
 		
 	public String toHTTPString() {
 		String result = "shop_item[name]=" + name;
-		if (user_want_id != null) result += "&shop_item[user_want_id]" + user_want_id;
-		if (user_bought_id != null) result += "&shop_item[user_bought_id]" + user_bought_id;
-		if (price != null) result += "&shop_item[price]" + price;
-		//if (paid_back != null) result += "&shop_item[paid_back]" + paid_back;
+		if (user_want_id != null) result += "&shop_item[user_want_id]=" + user_want_id;
+		if (user_bought_id != null) result += "&shop_item[user_bought_id]=" + user_bought_id;
+		if (price != null) result += "&shop_item[price]=" + price;
+		//if (paid_back != null) result += "&shop_item[paid_back]=" + paid_back;
 		return result;
 	}
 	

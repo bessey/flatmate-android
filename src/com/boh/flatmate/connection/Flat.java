@@ -59,9 +59,9 @@ public class Flat {
 
 	public String toHTTPString() {
 		String result = "flat[nickname]=" + nickname;
-		if (geocode_lat != null) result += "&flat[geocode_lat]" + geocode_lat;
-		if (geocode_long != null) result += "&flat[geocode_long]" + geocode_long;
-		if (postcode != null) result += "&flat[price]" + postcode;
+		if (geocode_lat != null) result += "&flat[geocode_lat]=" + geocode_lat;
+		if (geocode_long != null) result += "&flat[geocode_long]=" + geocode_long;
+		if (postcode != null) result += "&flat[price]=" + postcode;
 		return result;
 	}
 
