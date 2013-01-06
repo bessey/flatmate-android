@@ -10,15 +10,15 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 
 public class User {
-	private String email;
-	private String password;
-	private String first_name;
-	private String flat_id;
-	private String geocode_lat;
-	private String geocode_long;
-	private String id;
-	private String last_name;
-	private String phone_number;
+	private String email = "dummy@dum.my";
+	private String password = "dummy";
+	private String first_name = "DUM";
+	private String flat_id = "9001";
+	private String geocode_lat = "99";
+	private String geocode_long = "99";
+	private String id = "17";
+	private String last_name = "MY";
+	private String phone_number = "0987654321";
 	User() {
 		//does nothing
 	}

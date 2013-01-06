@@ -1,15 +1,21 @@
 package com.boh.flatmate.connection;
 
 public class Flat {
-	private String geocode_lat;
-	private String geocode_long;
-	private String id;
-	private String nickname;	//for displaying purposes, so don't just display postcode
-	private String postcode;
+	private String geocode_lat = "100";
+	private String geocode_long = "100";
+	private String id = "9001";
+	private String nickname = "dummy";	//for displaying purposes, so don't just display postcode
+	private String postcode = "DUM MY55";
 	private User[] users;
 	private User currentUser;
 	public Flat() {
-		users = new User[0];
+		users = new User[3];
+		users[0] = new User();
+		users[0].setId(1010101);
+		users[1] = new User();
+		users[0].setId(1010102);
+		users[2] = new User();
+		users[0].setId(1010103);
 		currentUser = new User();
 	}
 
