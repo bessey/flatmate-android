@@ -5,6 +5,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,9 @@ public class FlatListFragment extends ListFragment {
 		
 		TextView atFlat = (TextView) v1.findViewById(R.id.atFlatText);
 		atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
+		
+		ImageButton messageButton = (ImageButton)v1.findViewById(R.id.messageButton);
+		messageButton.setOnClickListener(FlatDataExchanger.flatData.messageListener);
 		
 		return v1;
 	}

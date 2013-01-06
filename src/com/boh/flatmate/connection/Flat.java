@@ -1,5 +1,12 @@
 package com.boh.flatmate.connection;
 
+import com.boh.flatmate.FlatMate.contextExchanger;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.view.View;
+import android.view.View.OnClickListener;
+
 public class Flat {
 	private String geocode_lat = "100";
 	private String geocode_long = "100";
@@ -98,4 +105,21 @@ public class Flat {
 	public void setUsers(User[] users) {
 		this.users = users;
 	}
+	
+	public OnClickListener messageListener = new OnClickListener(){ // the book's action
+		@Override
+		public void onClick(View v) {
+			Intent messageIntent = new Intent(Intent.ACTION_SENDTO);
+			messageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			String numbers = "";
+			boolean first = true;
+			for (User u : users) {
+				if (first) first = false;
+				else numbers += ";";
+				numbers += u.getPhone_number();
+			}
+			messageIntent.setData(Uri.parse("sms:"+numbers));
+			contextExchanger.context.startActivity(messageIntent);
+		}
+	};
 }
