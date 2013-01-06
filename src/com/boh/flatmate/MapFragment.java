@@ -47,7 +47,11 @@ public class MapFragment extends Fragment {
 		mapController = mapExchanger.mMapView.getController();
 		double latitude = FlatDataExchanger.flatData.getGeocode_lat();
 		double longitude = FlatDataExchanger.flatData.getGeocode_long();
-		mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
+		if(latitude == 0 || longitude == 0){
+			mapController.setCenter(new GeoPoint((int)(51.456333 * 1E6),(int)(-2.606084 * 1E6)));
+		}else{
+			mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
+		}
 		mapController.setZoom(14); // Zoom 1 is world view
 		
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();

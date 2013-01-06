@@ -16,13 +16,13 @@ import com.google.android.maps.MapView;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,7 +57,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		try {
 			input.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -67,6 +66,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		FlatDataExchanger.flatData = new Flat();
 		
 		//FlatDataExchanger.flatData = ConnectionExchanger.connection.getFlat(1);
+		//FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
 		//int flatId = FlatDataExchanger.flatData.getId();
 		
 		ShoppingDataExchanger.shoppingData = new ShoppingList();
@@ -74,6 +74,9 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		contextExchanger.context = getBaseContext();
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
+		
+		Intent service = new Intent(FlatMate.this, UpdateService.class);
+		startService(service);
 
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 

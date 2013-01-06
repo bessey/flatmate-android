@@ -11,4 +11,12 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="re_password">Re-Enter Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="phone_no">Phone Number</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="contentDescriptionImage">Image</string>
 </resources>

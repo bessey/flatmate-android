@@ -11,28 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class ShoppingFragment extends Fragment {
-	
+
 	private ViewGroup c;
 	ShoppingListFragment shoppingList;
+	private int addOpen = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v1 = inflater.inflate(R.layout.shopping_page, container, false);
 		c = container;
 		return v1;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -41,6 +46,40 @@ public class ShoppingFragment extends Fragment {
 		ft.add(R.id.list2, shoppingList,"shopping_fragment");
 		//ft.addToBackStack(null);
 		ft.commit();
+		ImageButton addButton = (ImageButton)c.findViewById(R.id.addButton);
+		addButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				View addItemBox = c.findViewById(R.id.addItem);
+				ImageButton addButton = (ImageButton)c.findViewById(R.id.addButton);
+				if(addOpen == 0){
+					addOpen = 1;
+					addButton.setImageResource(R.drawable.cross);
+					addItemBox.setVisibility(View.VISIBLE);
+					int offset = addItemBox.getHeight();
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , -offset, 0 );
+					anim.setDuration(250);
+					c.findViewById(R.id.list2).startAnimation(anim);
+				}else{
+					addOpen = 0;
+					addButton.setImageResource(R.drawable.new_shopping);
+					int offset = addItemBox.getHeight();
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , 0, -offset );
+					anim.setDuration(250);
+					anim.setAnimationListener(new AnimationListener() {
+						@Override
+						public void onAnimationEnd(Animation animation) {
+							c.findViewById(R.id.addItem).setVisibility(View.GONE);
+						}
+						@Override
+						public void onAnimationRepeat(Animation animation) { }
+						@Override
+						public void onAnimationStart(Animation animation) { }
+					});
+					c.findViewById(R.id.list2).startAnimation(anim);
+				}
+			}
+		});
 		ImageButton addShoppingButton = (ImageButton)c.findViewById(R.id.AddListItem);
 		addShoppingButton.setOnClickListener(new OnClickListener(){
 			@Override

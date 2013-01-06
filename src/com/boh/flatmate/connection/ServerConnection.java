@@ -8,15 +8,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
-import com.boh.flatmate.R;
-import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
 
 public class ServerConnection {
 
 	private String auth_token = null;
+	
+	
 	private Gson gson = new Gson();
 	private String server = "http://whispering-plains-6470.herokuapp.com";
 
@@ -70,7 +68,7 @@ public class ServerConnection {
 		String info = "email=" + uname + "&password=" + pword;
 		//System.out.println(info);
 		String jsonResult = putOrPost(server+"/tokens", info, false);
-		if(jsonResult == "failed"){
+		if(jsonResult == "failed" || jsonResult == "connection" || jsonResult == "invalid"){
 			return jsonResult;
 		}
 		Login log = gson.fromJson(jsonResult, Login.class);
@@ -133,6 +131,9 @@ public class ServerConnection {
 	
 	//search for flats
 	public Flat[] searchFlats(String pCode, String nName) {
+		
+		auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
+		
 		return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
 	}
 	
@@ -143,6 +144,7 @@ public class ServerConnection {
 
 	//get whole list of flats
 	public  Flat[] getFlats() {
+		auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
 		return gson.fromJson(get(server + "/flats"), Flat[].class);
 	}
 
@@ -264,8 +266,13 @@ public class ServerConnection {
 
 		} catch (Exception e) {
 			System.err.println("Problem with POST request:" + e);
+			if(e.toString().contains("authentication challenge is null")){
+				return "invalid";
+			}else if(e.toString().contains("UnknownHostException")){
+				return "connection";
+			}
 			return "failed";
-
+		
 		} finally {
 
 			if(connection != null) {

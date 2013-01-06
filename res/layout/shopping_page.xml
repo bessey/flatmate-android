@@ -57,13 +57,14 @@
                 android:src="@drawable/new_shopping" />
         </LinearLayout>
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/addItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" >
+        android:layout_marginRight="15dp"
+        android:visibility="gone" >
 
         <EditText
             android:id="@+id/addShoppingItem"

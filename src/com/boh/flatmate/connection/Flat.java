@@ -1,7 +1,5 @@
 package com.boh.flatmate.connection;
 
-import com.boh.flatmate.R;
-
 public class Flat {
 	private String geocode_lat;
 	private String geocode_long;
@@ -9,10 +7,12 @@ public class Flat {
 	private String nickname;	//for displaying purposes, so don't just display postcode
 	private String postcode;
 	private User[] users;
+	private User currentUser;
 	public Flat() {
 		users = new User[0];
+		currentUser = new User();
 	}
-	
+
 	public String getUserName(int id){
 		System.out.println("USER BOUGHT ID "+id);
 		for (User u : users){
@@ -23,17 +23,27 @@ public class Flat {
 		}
 		return "";
 	}
-	
-	public int getCurrentUserId(){
-		for (User u : users){
-			System.out.println("USER ID "+u.getId());
-			if(u.getEmail().equals("adam9@bla.com")){
-				return u.getId();
-			}
-		}
-		return 0;
+
+	public void setCurrentUser(User u){
+		currentUser = u;
 	}
-	
+
+	public User getCurrentUser(){
+		return currentUser;
+	}
+
+	public int getCurrentUserId(){
+		return currentUser.getId();
+	}
+
+	public int getNoAtFlat(){
+		int count = 0;
+		for (User u : users){
+			count += u.isHome();
+		}
+		return count;
+	}
+
 	public String toHTTPString() {
 		String result = "flat[nickname]=" + nickname;
 		if (geocode_lat != null) result += "&flat[geocode_lat]" + geocode_lat;
@@ -41,15 +51,19 @@ public class Flat {
 		if (postcode != null) result += "&flat[price]" + postcode;
 		return result;
 	}
-	
+
 	public float getGeocode_lat() {
-		return Float.parseFloat(geocode_lat);
+		if(geocode_lat != null){
+			return Float.parseFloat(geocode_lat);
+		}else return 0.0f;
 	}
 	public void setGeocode_lat(float geocode_lat) {
 		this.geocode_lat = Float.toString(geocode_lat);
 	}
 	public float getGeocode_long() {
-		return Float.parseFloat(geocode_long);
+		if(geocode_long != null){
+			return Float.parseFloat(geocode_long);
+		}else return 0.0f;
 	}
 	public void setGeocode_long(float geocode_long) {
 		this.geocode_long = Float.toString(geocode_long);

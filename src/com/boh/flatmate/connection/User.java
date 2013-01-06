@@ -6,7 +6,6 @@ import android.util.FloatMath;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 

@@ -1,7 +1,5 @@
 package com.boh.flatmate.connection;
 
-import com.boh.flatmate.R;
-
 public class ShopItem {
 	private String id;
 	private String flat_id;

@@ -53,6 +53,9 @@
 		
        	<!-- See: http://developer.android.com/google/gcm/gs.html -->
        	<service android:name=".GCMIntentService" />
+       	<service
+             android:enabled="true"
+            android:name=".UpdateService"/>
        	
         <activity
             android:name=".SplashActivity"
