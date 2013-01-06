@@ -9,9 +9,8 @@ import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 import com.boh.flatmate.connection.ShoppingList;
+import com.google.android.gcm.GCMRegistrar;
 import com.google.android.maps.MapView;
-//import com.google.android.gcm.GCMRegistrar;
-
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -23,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +40,15 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flat_mate);
+
+		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		final String regId = GCMRegistrar.getRegistrationId(this);
+		if (regId.equals("")) {
+		  GCMRegistrar.register(this, "1098971778005");
+		} else {
+		  Log.v("GCM", "Already registered");
+		}
 
 		String authCode = "null";
 		BufferedReader input = null;
