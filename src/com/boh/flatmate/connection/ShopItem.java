@@ -118,6 +118,12 @@ public class ShopItem {
 	public String getUpdatedAt() {
 		return updated_at;
 	}
+	
+	public String getUpdatedAtPretty() {
+		// TODO: use relative dates 
+		// DateUtils.getRelativeTimeSpanString(Context, long, boolean)
+		return updated_at;
+	}
 
 	public void setUpdatedAt(String updated_at) {
 		this.updated_at = updated_at;
