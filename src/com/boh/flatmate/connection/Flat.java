@@ -15,7 +15,7 @@ public class Flat {
 	private String postcode = "DUM MY55";
 	private User[] users;
 	private User currentUser;
-	public Flat() {
+	/*public Flat() {
 		users = new User[3];
 		users[0] = new User();
 		users[0].setId(1010101);
@@ -24,7 +24,7 @@ public class Flat {
 		users[2] = new User();
 		users[0].setId(1010103);
 		currentUser = new User();
-	}
+	}*/
 
 	public String getUserName(int id){
 		System.out.println("USER BOUGHT ID "+id);

@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -197,7 +198,12 @@ public class ServerConnection {
 	//return my flat, needs authentication code -- note will return users but doesn't currently
 
 	public Flat getMyFlat() {
-		return gson.fromJson(get(server + "/flats/m"), Flat.class);
+		String body = get(server + "/flats/m");
+		Flat f = gson.fromJson(body, Flat.class);
+		if(f == null) {
+			Log.e("FLAT", "Flat gson conversion was null for body: '" + body + "'");
+		}
+		return f;
 	}
 	
 	//*****************************************message stuff*****************************************
