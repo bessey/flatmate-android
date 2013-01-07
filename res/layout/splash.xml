@@ -123,7 +123,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-
+
+
     <LinearLayout
         android:id="@+id/registerBox"
         android:layout_width="match_parent"
@@ -132,7 +133,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="0dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <LinearLayout
             android:id="@+id/password2"
@@ -297,7 +298,11 @@
                 android:text="Register"
                 android:textColor="@color/lightText" />
         </LinearLayout>
-
+
+
+
+
+
         <ProgressBar
             android:id="@+id/registerSpinner"
             android:layout_width="wrap_content"
@@ -305,7 +310,9 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
+
+
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -361,7 +368,8 @@
                 android:text="Search"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
-
+
+
             <ProgressBar
                 android:id="@+id/searchSpinner"
                 android:layout_width="wrap_content"

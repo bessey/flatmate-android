@@ -59,7 +59,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUserBoughtId()));
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
-			dateTextView.setText(shoppingItem.getUpdatedAt());
+			dateTextView.setText(shoppingItem.getUpdatedAtPretty());
 		} else {
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
