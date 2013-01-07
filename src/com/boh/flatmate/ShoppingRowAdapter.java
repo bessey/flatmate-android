@@ -56,7 +56,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			priceTextView.setText("£"+priceString);
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
 
-			// TODO flatmate name get()
 			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUserBoughtId()));
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);

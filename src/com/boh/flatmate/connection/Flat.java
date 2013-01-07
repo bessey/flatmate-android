@@ -20,9 +20,7 @@ public class Flat {
 	private ShopItem[] shop_items;
 
 	public String getUserName(int id){
-		System.out.println("USER BOUGHT ID "+id);
 		for (User u : users){
-			System.out.println("USER ID "+u.getId());
 			if(u.getId() == id){
 				return u.getFirst_name();
 			}

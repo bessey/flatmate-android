@@ -1,6 +1,5 @@
 package com.boh.flatmate;
 
-import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
@@ -94,10 +92,9 @@ public class ShoppingFragment extends Fragment {
 					item.addItem();
 					System.out.println("Item Added - "+ inputText);
 					textInput.setText("");
-					@SuppressWarnings("unused")
-					int flatId = FlatDataExchanger.flatData.getId();
-					//ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
-					//mAdapter.notifyDataSetChanged();
+					FlatMate.ConnectionExchanger.connection.getMyFlat();
+					// TODO: do something with this; atm nothing updates
+					ShoppingListFragment.mAdapter.notifyDataSetChanged();
 				}
 			}
 		});

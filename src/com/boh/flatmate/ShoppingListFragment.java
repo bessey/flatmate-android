@@ -14,7 +14,7 @@ public class ShoppingListFragment extends ListFragment {
 	@SuppressWarnings("unused")
 	private ViewGroup c;
 	private ListView mListView;
-	private ShoppingRowAdapter mAdapter;
+	public static ShoppingRowAdapter mAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 

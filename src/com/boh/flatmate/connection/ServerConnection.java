@@ -259,7 +259,7 @@ public class ServerConnection {
 	//get all shopping items for flat with given id
 	public  ShopItem[] getFlatShoppingList(int flat_id) {
 		//return gson.fromJson(get(server + "/flats/" + flat_id + "/shop_items"), ShopItem[].class);
-		return new ShopItem[0]; //FIXME the above line causes my client to crash - Matt
+		return new ShopItem[0]; //FIXME the above line causes my client to crash - Matt. Not that this is needed anymore. Delete function?
 	}
 
 	//*****************************************connection stuff***************************************** 
