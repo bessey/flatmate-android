@@ -12,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -36,7 +35,7 @@ public class ServerConnection {
 
 		//setup http string for registering user, in same order as API
 		userInfo = newUser.toHTTPString();
-		userInfo += "&user[password]=" + password;
+		//userInfo += "&user[password]=" + password;
 
 		jsonResult = post(server + "/users.json", userInfo);
 		
