@@ -10,22 +10,16 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 
 public class User {
-	/*
-	 * Don't specify dummy data here, as if I don't explicitly
-	 * replace it, it will fill every new user with this data!
-	 */
-	private String email;// = "dummy@dum.my";
-	private String password;// = "dummy";
-	private String first_name;// = "DUM";
-	private String flat_id;// = "9001";
-	private String geocode_lat;// = "99";
-	private String geocode_long;// = "99";
-	private String id;// = "17";
-	private String last_name;// = "MY";
-	private String phone_number;// = "0987654321";
-	private String registration_id;
-
-	User() {
+	private String email;
+	private String password;
+	private String first_name;
+	private String flat_id;
+	private String geocode_lat;
+	private String geocode_long;
+	private String id;
+	private String last_name;
+	private String phone_number;
+	public User() {
 		//does nothing
 	}
 	public String toHTTPString() {
@@ -38,7 +32,6 @@ public class User {
 		if (last_name != null) result += "&user[last_name]=" + last_name;
 		if (phone_number != null) result += "&user[phone_number]=" + phone_number;
 		if (password != null) result += "&user[password]=" + password;
-		if (registration_id != null) result += "&gcm[registration_id]=" + registration_id;
 		return result;
 	}
 
@@ -107,12 +100,6 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getRegistration_id() {
-		return registration_id;
-	}
-	public void setRegistration_id(String registration_id) {
-		this.registration_id = registration_id;
 	}
 
 	public int isHome(){

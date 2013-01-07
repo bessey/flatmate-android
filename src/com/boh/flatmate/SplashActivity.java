@@ -9,10 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
-import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
-import com.google.android.gcm.GCMRegistrar;
+import com.boh.flatmate.connection.User;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -27,7 +27,6 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Profile;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -37,21 +36,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashActivity extends Activity {
+	
+	int screenPosition = 0;
 
 	ServerConnection connection = new ServerConnection();
 	String FILENAME;
 	final Handler myHandler = new Handler();
-	
+
 	private String registrationEmail;
 	private String registrationPassword;
 	private String registrationFirstName;
 	private String registrationLastName;
 	private String registrationPhone;
-	private String deviceId;
-	
+	private String registrationFlatID;
+
 	private ListView mListView;
 	private SplashRowAdapter mAdapter;
 
@@ -66,15 +68,6 @@ public class SplashActivity extends Activity {
 
 		FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
 
-		GCMRegistrar.checkDevice(this);
-		GCMRegistrar.checkManifest(this);
-		deviceId = GCMRegistrar.getRegistrationId(this);
-		if (deviceId.equals("")) {
-		  GCMRegistrar.register(this, "1098971778005");
-		} else {
-		  Log.v("GCM", "Already registered");
-		}
-
 	}
 
 	@Override
@@ -86,7 +79,7 @@ public class SplashActivity extends Activity {
 			public void run(){
 				try {
 					int i = 0;
-					int showSplashFor = 10;
+					int showSplashFor = 20;
 					while(i < showSplashFor){
 						sleep(100);
 						i += 1;
@@ -96,7 +89,6 @@ public class SplashActivity extends Activity {
 					int loggedin = userLogin();
 
 					if(loggedin == 1){
-						if(deviceId != null) connection.new MaintainGcmRegistration().execute(deviceId);
 						startApp();
 						finish();
 					}else{
@@ -115,12 +107,37 @@ public class SplashActivity extends Activity {
 	};
 
 	private int userLogin(){
-		String auth = ServerConnection.loadAuth(FILENAME);
-		if(auth == null){
+		File logFile = new File(FILENAME);
+		String authCode = "null";
+		if (logFile.exists())
+		{
+			BufferedReader input;
+			try {
+				input = new BufferedReader(new FileReader(FILENAME));
+			} catch (FileNotFoundException e1) {
+				return 0;
+			}
+			try {
+				String line = null;
+				if (( line = input.readLine()) != null){
+					authCode = line;
+				}
+			}catch (Exception e){
+
+			}
+			try {
+				input.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(authCode);
+			// sucessfull login here return 1; test return 0;
+			//return 1;
 			return 0;
-		} else {
-			return 1;
 		}
+
+		return 0;
+
 	}
 
 	private void newLogin(){
@@ -197,7 +214,7 @@ public class SplashActivity extends Activity {
 				register.setVisibility(View.GONE);
 				ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 				spinner.setVisibility(View.VISIBLE);
-				new serverLogin().execute(emailInput,passwordInput,deviceId);
+				new serverLogin().execute(emailInput,passwordInput);
 			}
 		});
 
@@ -212,8 +229,9 @@ public class SplashActivity extends Activity {
 
 	@TargetApi(14)
 	private void registerButtonPressed(){
+		screenPosition = 1; 
 		View loginButtonBox = findViewById(R.id.loginButtonBox);
-		
+
 		AlphaAnimation anim3 = new AlphaAnimation( 1, 0 );
 		anim3.setDuration(25);
 		anim3.setFillAfter( false );
@@ -268,21 +286,28 @@ public class SplashActivity extends Activity {
 			public void onAnimationStart(Animation animation) { }
 		});
 		loginButtonBox.startAnimation(anim3);
-		
+
 		Button back = (Button) findViewById(R.id.backButton);
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				backButtonPressed();
 			}
 		});
-		
-		Button next = (Button) findViewById(R.id.nextButton);
-		next.setOnClickListener(new View.OnClickListener() {
+
+		Button flat = (Button) findViewById(R.id.flatButton);
+		flat.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				nextButtonPressed();
+				flatButtonPressed();
 			}
 		});
 		
+		Button register = (Button) findViewById(R.id.createButton);
+		register.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				createButtonPressed();
+			}
+		});
+
 		EditText phoneInput = (EditText)findViewById(R.id.phoneTextBox);
 		EditText firstInput = (EditText)findViewById(R.id.firstBox);
 		EditText lastInput = (EditText)findViewById(R.id.lastBox);
@@ -324,9 +349,9 @@ public class SplashActivity extends Activity {
 			}
 		} while (phoneNumber.moveToNext());
 	}
-	
+
 	private void backButtonPressed(){
-		
+		screenPosition = 0;
 		View flatLogo = findViewById(R.id.splashLogo);
 		View loginBox = findViewById(R.id.loginBox);
 		View registerBox = findViewById(R.id.registerBox);
@@ -373,13 +398,80 @@ public class SplashActivity extends Activity {
 			public void onAnimationStart(Animation animation) { }
 		});
 		registerBox.startAnimation(anim2);
-		
-	}  
-	
-	private void nextButtonPressed(){
-		//int correct = registerCheck1();
-		int correct = 1;
-		
+
+	}
+
+	private void flatButtonPressed(){
+		screenPosition = 2;
+		TranslateAnimation anim = new TranslateAnimation( 0, -750 , 0, 0 );
+		anim.setDuration(300);
+		anim.setStartOffset(0);
+		anim.setFillAfter( false );
+		anim.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				View loginBox = findViewById(R.id.loginBox);
+				View registerBox = findViewById(R.id.registerBox);
+				View flatBox = findViewById(R.id.flatBox);
+				loginBox.setVisibility(View.GONE);
+				registerBox.setVisibility(View.GONE);
+				flatBox.setVisibility(View.VISIBLE);
+				TranslateAnimation anim = new TranslateAnimation( 750, 0 , 0, 0 );
+				anim.setDuration(300);
+				anim.setStartOffset(0);
+				anim.setFillAfter( false );
+				anim.setAnimationListener(new AnimationListener() {
+					@Override
+					public void onAnimationEnd(Animation animation) {}
+					@Override
+					public void onAnimationRepeat(Animation animation) {}
+					@Override
+					public void onAnimationStart(Animation animation) {}
+				});
+				flatBox.startAnimation(anim);
+
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) { }
+			@Override
+			public void onAnimationStart(Animation animation) { }
+		});
+		View loginBox = findViewById(R.id.loginBox);
+		View registerBox = findViewById(R.id.registerBox);
+		loginBox.startAnimation(anim);
+		registerBox.startAnimation(anim);
+
+		View flatLogo = findViewById(R.id.splashLogo);
+
+		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 80 );
+		anim2.setDuration(300);
+		anim2.setFillAfter( false );
+		anim2.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 0 );
+				anim2.setDuration(1);
+				findViewById(R.id.splashLogo).startAnimation(anim2);
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) { }
+			@Override
+			public void onAnimationStart(Animation animation) { }
+		});
+		flatLogo.startAnimation(anim2);
+
+		Button search = (Button) findViewById(R.id.searchButton);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				searchButtonPressed();
+			}
+		});
+	}
+
+	private void createButtonPressed(){
+		int correct = registerCheck1();
+		//int correct = 1;
+
 		if(correct == 1){
 			EditText emailInput = (EditText)findViewById(R.id.emailTbox);
 			EditText password1Input = (EditText)findViewById(R.id.passwordBox);
@@ -392,82 +484,125 @@ public class SplashActivity extends Activity {
 			registrationLastName = lastInput.getText().toString();
 			registrationPhone = phoneInput.getText().toString();
 			
-			TranslateAnimation anim = new TranslateAnimation( 0, -750 , 0, 0 );
-			anim.setDuration(300);
-			anim.setStartOffset(0);
-			anim.setFillAfter( false );
-			anim.setAnimationListener(new AnimationListener() {
-				@Override
-				public void onAnimationEnd(Animation animation) {
-					View loginBox = findViewById(R.id.loginBox);
-					View registerBox = findViewById(R.id.registerBox);
-					View flatBox = findViewById(R.id.flatBox);
-					loginBox.setVisibility(View.GONE);
-					registerBox.setVisibility(View.GONE);
-					flatBox.setVisibility(View.VISIBLE);
-					TranslateAnimation anim = new TranslateAnimation( 750, 0 , 0, 0 );
-					anim.setDuration(300);
-					anim.setStartOffset(0);
-					anim.setFillAfter( false );
-					anim.setAnimationListener(new AnimationListener() {
-						@Override
-						public void onAnimationEnd(Animation animation) {}
-						@Override
-						public void onAnimationRepeat(Animation animation) {}
-						@Override
-						public void onAnimationStart(Animation animation) {}
-					});
-					flatBox.startAnimation(anim);
-					
-				}
-				@Override
-				public void onAnimationRepeat(Animation animation) { }
-				@Override
-				public void onAnimationStart(Animation animation) { }
-			});
-			View loginBox = findViewById(R.id.loginBox);
-			View registerBox = findViewById(R.id.registerBox);
-			loginBox.startAnimation(anim);
-			registerBox.startAnimation(anim);
+			User newUser = new User();
+			newUser.setEmail(registrationEmail);
+			newUser.setFirst_name(registrationFirstName);
+			newUser.setLast_name(registrationLastName);
+			newUser.setPhone_number(registrationPhone);
+			newUser.setFlat_id(registrationFlatID);
+			newUser.setPassword(registrationPassword);
 			
-			View flatLogo = findViewById(R.id.splashLogo);
-
-			TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 250 );
-			anim2.setDuration(300);
-			anim2.setFillAfter( false );
-			anim2.setAnimationListener(new AnimationListener() {
-				@Override
-				public void onAnimationEnd(Animation animation) {
-					TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 0 );
-					anim2.setDuration(1);
-					findViewById(R.id.splashLogo).startAnimation(anim2);
-				}
-				@Override
-				public void onAnimationRepeat(Animation animation) { }
-				@Override
-				public void onAnimationStart(Animation animation) { }
-			});
-			flatLogo.startAnimation(anim2);
+			View buttons = findViewById(R.id.backNextButtons);
+			buttons.setVisibility(View.INVISIBLE);
 			
-			Button search = (Button) findViewById(R.id.searchButton);
-			search.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					searchButtonPressed();
-				}
-			});
-			
-			
+			new registerUser().execute(newUser);
 		}
 	}
 	
+	public void registrationComplete(){
+		View buttons = findViewById(R.id.backNextButtons);
+		buttons.setVisibility(View.VISIBLE);
+		new serverLogin().execute(registrationEmail,registrationPassword);
+	}
+	
+	public void flatSelectionBack(){
+		screenPosition = 1;
+		int offset = findViewById(R.id.flatBox).getWidth();
+		TranslateAnimation anim = new TranslateAnimation( 0, offset , 0, 0 );
+		anim.setDuration(300);
+		anim.setStartOffset(0);
+		anim.setFillAfter( false );
+		anim.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				View loginBox = findViewById(R.id.loginBox);
+				View registerBox = findViewById(R.id.registerBox);
+				View flatBox = findViewById(R.id.flatBox);
+				loginBox.setVisibility(View.VISIBLE);
+				registerBox.setVisibility(View.VISIBLE);
+				flatBox.setVisibility(View.GONE);
+				int offset = findViewById(R.id.loginBox).getWidth();
+				TranslateAnimation anim = new TranslateAnimation( -offset, 0 , 0, 0 );
+				anim.setDuration(300);
+				anim.setStartOffset(0);
+				anim.setFillAfter( false );
+				anim.setAnimationListener(new AnimationListener() {
+					@Override
+					public void onAnimationEnd(Animation animation) {}
+					@Override
+					public void onAnimationRepeat(Animation animation) {}
+					@Override
+					public void onAnimationStart(Animation animation) {}
+				});
+				loginBox.startAnimation(anim);
+				registerBox.startAnimation(anim);
+
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) { }
+			@Override
+			public void onAnimationStart(Animation animation) { }
+		});
+		View flatBox = findViewById(R.id.flatBox);
+		flatBox.startAnimation(anim);
+
+		View flatLogo = findViewById(R.id.splashLogo);
+
+		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, -80 );
+		anim2.setDuration(300);
+		anim2.setFillAfter( false );
+		anim2.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 0 );
+				anim2.setDuration(1);
+				findViewById(R.id.splashLogo).startAnimation(anim2);
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) { }
+			@Override
+			public void onAnimationStart(Animation animation) { }
+		});
+		flatLogo.startAnimation(anim2);
+	}
+	
+	public void flatSelected(Flat flat){
+		registrationFlatID = flat.getId()+"";
+		Button flatButton = (Button) findViewById(R.id.flatButton);
+		flatButton.setText("Change Flat");
+		String name = flat.getNickname();
+		if (name != null) {
+			TextView nameTextView = (TextView) findViewById(R.id.name);
+			if (nameTextView != null) {
+				nameTextView.setText(name);
+			}
+		}
+		String postCode = flat.getPostcode();
+		if (postCode != null) {
+			TextView postCodeView = (TextView) findViewById(R.id.postcodeText);
+			if (postCodeView != null) {
+				postCodeView.setText(postCode);
+			}
+		}
+		flatSelectionBack();
+	}
+
 	private void searchButtonPressed(){
 		String searchText = "";
 		EditText phoneInput = (EditText)findViewById(R.id.searchTextBox);
 		searchText = phoneInput.getText().toString();
+		Button search = (Button) findViewById(R.id.searchButton);
+		search.setVisibility(View.GONE);
+		ProgressBar spinner = (ProgressBar) findViewById(R.id.searchSpinner);
+		spinner.setVisibility(View.VISIBLE);
 		new searchFlats().execute(searchText);
 	}
-	
+
 	private void updateFlatList(Flat[] flats){
+		Button search = (Button) findViewById(R.id.searchButton);
+		search.setVisibility(View.VISIBLE);
+		ProgressBar spinner = (ProgressBar) findViewById(R.id.searchSpinner);
+		spinner.setVisibility(View.GONE);
 		if(flats.length != 0){
 			for(Flat f : flats){
 				System.out.println(f.toHTTPString());
@@ -479,7 +614,7 @@ public class SplashActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "No Flats Found", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	private int registerCheck1(){
 		//Check that correct information has been added.
 		EditText emailInput = (EditText)findViewById(R.id.emailTbox);
@@ -518,9 +653,23 @@ public class SplashActivity extends Activity {
 		}else if(!phoneInput.getText().toString().matches("^[+]?[0-9]{10,13}$")){
 			Toast.makeText(getApplicationContext(), "Enter a Valid Phone Number", Toast.LENGTH_SHORT).show();
 			return 0;
+		}else if(registrationFlatID == null){
+			Toast.makeText(getApplicationContext(), "Please Find Your Flat", Toast.LENGTH_SHORT).show();
+			return 0;
 		}
-		
+
 		return 1;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if(screenPosition == 0){
+			super.onBackPressed();
+		}else if(screenPosition == 1){
+			backButtonPressed();
+		}else if(screenPosition == 2){
+			flatSelectionBack();
+		}
 	}
 
 	private void serverLogin(String key){
@@ -528,7 +677,7 @@ public class SplashActivity extends Activity {
 		if(key == "failed" || key == "connection" || key == "invalid"){
 			failed = 1; 
 		}
-		
+
 		if(failed == 0){
 			File logFile = new File(FILENAME);
 			if (!logFile.exists())
@@ -580,13 +729,12 @@ public class SplashActivity extends Activity {
 		Intent intent = new Intent(SplashActivity.this, FlatMate.class);
 		startActivity(intent);
 	}
-	
+
 	private class searchFlats extends AsyncTask<String,Void,Flat[]>{
 
 		@Override
 		protected Flat[] doInBackground(String... search) {
-			//Flat[] flats = connection.searchFlats(search[0], "");
-			Flat[] flats = connection.getFlats();
+			Flat[] flats = connection.searchFlats(search[0], "");
 			return flats;
 		}
 
@@ -595,12 +743,27 @@ public class SplashActivity extends Activity {
 		}
 
 	}
+	
+	private class registerUser extends AsyncTask<User,Void,Void>{
+
+		@Override
+		protected Void doInBackground(User... users) {
+			connection.registerUser(users[0],registrationPassword);
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			registrationComplete();
+			return;
+		}
+
+	}
 
 	private class serverLogin extends AsyncTask<String,Void,String>{
 
 		@Override
 		protected String doInBackground(String... details) {
-			String key = connection.login(details[0], details[1],details[2]);
+			String key = connection.login(details[0], details[1]);
 			return key;
 		}
 
