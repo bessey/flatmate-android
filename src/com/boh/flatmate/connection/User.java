@@ -19,6 +19,7 @@ public class User {
 	private String id;
 	private String last_name;
 	private String phone_number;
+	private String registration_id;
 	public User() {
 		//does nothing
 	}
@@ -32,6 +33,7 @@ public class User {
 		if (last_name != null) result += "&user[last_name]=" + last_name;
 		if (phone_number != null) result += "&user[phone_number]=" + phone_number;
 		if (password != null) result += "&user[password]=" + password;
+		if (registration_id != null) result += "&gcm[registration_id]=" + registration_id;
 		return result;
 	}
 
@@ -101,6 +103,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getRegistration_id() {
+		return registration_id;
+	}
+	
+	public void setRegistration_id(String registration_id) {
+		this.registration_id = registration_id;
+	}
+
 
 	public int isHome(){
 		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();

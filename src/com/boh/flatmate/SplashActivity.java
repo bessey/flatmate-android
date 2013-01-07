@@ -9,10 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.R;
-import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 import com.boh.flatmate.connection.User;
+import com.google.android.gcm.GCMRegistrar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Profile;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -53,6 +54,7 @@ public class SplashActivity extends Activity {
 	private String registrationLastName;
 	private String registrationPhone;
 	private String registrationFlatID;
+	private String deviceId;
 
 	private ListView mListView;
 	private SplashRowAdapter mAdapter;
@@ -67,6 +69,16 @@ public class SplashActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 
 		FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
+		
+		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		deviceId = GCMRegistrar.getRegistrationId(this);
+		if (deviceId.equals("")) {
+		  GCMRegistrar.register(this, "1098971778005");
+		} else {
+		  Log.v("GCM", "Already registered");
+		}
+
 
 	}
 
@@ -89,6 +101,7 @@ public class SplashActivity extends Activity {
 					int loggedin = userLogin();
 
 					if(loggedin == 1){
+						if(deviceId != null) connection.new MaintainGcmRegistration().execute(deviceId);
 						startApp();
 						finish();
 					}else{
@@ -107,37 +120,14 @@ public class SplashActivity extends Activity {
 	};
 
 	private int userLogin(){
-		File logFile = new File(FILENAME);
-		String authCode = "null";
-		if (logFile.exists())
-		{
-			BufferedReader input;
-			try {
-				input = new BufferedReader(new FileReader(FILENAME));
-			} catch (FileNotFoundException e1) {
-				return 0;
-			}
-			try {
-				String line = null;
-				if (( line = input.readLine()) != null){
-					authCode = line;
-				}
-			}catch (Exception e){
-
-			}
-			try {
-				input.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println(authCode);
-			// sucessfull login here return 1; test return 0;
-			//return 1;
+		String auth = ServerConnection.loadAuth(FILENAME);
+		if(auth == null){
 			return 0;
+		} else {
+			// sucessfull login here return 1; test return 0;
+			return 1;
+			//return 0;
 		}
-
-		return 0;
-
 	}
 
 	private void newLogin(){
@@ -214,7 +204,7 @@ public class SplashActivity extends Activity {
 				register.setVisibility(View.GONE);
 				ProgressBar spinner = (ProgressBar) findViewById(R.id.loginSpinner);
 				spinner.setVisibility(View.VISIBLE);
-				new serverLogin().execute(emailInput,passwordInput);
+				new serverLogin().execute(emailInput,passwordInput,deviceId);
 			}
 		});
 
@@ -763,7 +753,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... details) {
-			String key = connection.login(details[0], details[1]);
+			String key = connection.login(details[0], details[1],details[2]);
 			return key;
 		}
 
