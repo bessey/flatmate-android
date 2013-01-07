@@ -1,10 +1,15 @@
 package com.boh.flatmate.connection;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import android.text.format.DateUtils;
 
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
+import com.boh.flatmate.FlatMate.contextExchanger;
 
 public class ShopItem {
 	private String id;
@@ -122,7 +127,24 @@ public class ShopItem {
 	public String getUpdatedAtPretty() {
 		// TODO: use relative dates 
 		// DateUtils.getRelativeTimeSpanString(Context, long, boolean)
-		return updated_at;
+		Date date = new Date();
+		try {
+			date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.ENGLISH).parse(updated_at);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		CharSequence str = DateUtils.getRelativeDateTimeString (
+		        contextExchanger.context, // Suppose you are in an activity or other Context subclass
+		        date.getTime(), // The time to display
+		        DateUtils.SECOND_IN_MILLIS, // The resolution. This will display only minutes 
+		                          // (no "3 seconds ago"
+		        DateUtils.YEAR_IN_MILLIS, // The maximum resolution at which the time will switch 
+		                         // to default date instead of spans. This will not 
+		                         // display "3 weeks ago" but a full date instead
+		        0); // Eventual flags
+		String[] result = ((String)str).split(",");
+		return result[0];
 	}
 
 	public void setUpdatedAt(String updated_at) {

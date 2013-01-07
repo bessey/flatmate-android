@@ -1,10 +1,7 @@
 package com.boh.flatmate;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -308,6 +305,7 @@ public class SplashActivity extends Activity {
 
 		int firstName = people.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
 
+		
 		people.moveToFirst();
 		String[] name = people.getString(firstName).split(" ");
 		if(name.length > 1){
@@ -492,7 +490,7 @@ public class SplashActivity extends Activity {
 	public void registrationComplete(){
 		View buttons = findViewById(R.id.backNextButtons);
 		buttons.setVisibility(View.VISIBLE);
-		new serverLogin().execute(registrationEmail,registrationPassword);
+		new serverLogin().execute(registrationEmail,registrationPassword,deviceId);
 	}
 	
 	public void flatSelectionBack(){
@@ -758,7 +756,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... details) {
-			String key = connection.login(details[0], details[1],details[2]);
+			String key = connection.login(details[0], details[1], details[2]);
 			return key;
 		}
 
