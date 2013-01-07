@@ -308,6 +308,7 @@ public class SplashActivity extends Activity {
 
 		int firstName = people.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
 
+		
 		people.moveToFirst();
 		String[] name = people.getString(firstName).split(" ");
 		if(name.length > 1){
