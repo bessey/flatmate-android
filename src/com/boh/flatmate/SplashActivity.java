@@ -97,7 +97,7 @@ public class SplashActivity extends Activity {
 						i += 1;
 					}
 				} catch(InterruptedException e){
-				}finally {
+				} finally {
 					int loggedin = userLogin();
 
 					if(loggedin == 1){
