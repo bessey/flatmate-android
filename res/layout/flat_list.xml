@@ -1,7 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+
+
+
+
     <LinearLayout
         android:id="@+id/topLayout"
         android:layout_width="fill_parent"
@@ -44,7 +47,8 @@
                 android:layout_gravity="center_vertical"
                 android:text="Name"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
+
             <TextView
                 android:id="@+id/atFlatText"
                 android:layout_width="wrap_content"
