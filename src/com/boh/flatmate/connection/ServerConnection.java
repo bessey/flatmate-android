@@ -69,7 +69,7 @@ public class ServerConnection {
 	
 	public String login (String uname, String pword, String deviceID) {
 		String auth = login(uname, pword);
-		new MaintainGcmRegistration().execute(deviceID);
+		maintainGcmRegistration(deviceID);
 		
 		return auth;
 	}
@@ -79,14 +79,12 @@ public class ServerConnection {
 	*  database of saved device IDs.
 	*  Therefore this must run on every app open.
 	*/
-	public class MaintainGcmRegistration extends AsyncTask<String,Integer,Integer> {
-		protected Integer doInBackground(String... deviceID){
+	public int maintainGcmRegistration(String deviceID){
 			User u = getMe();
 			
-			u.setRegistration_id(deviceID[0]);
+			u.setRegistration_id(deviceID);
 			updateUser(u);
 			return 1;
-		}
 	}
 
 	//set authentication code
@@ -181,7 +179,8 @@ public class ServerConnection {
 		
 		auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
 		
-		return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
+		return gson.fromJson(get(server + "/flats/search/" + pCode), Flat[].class);
+		//return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
 	}
 	
 	//get a single flat by id
