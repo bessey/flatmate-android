@@ -134,7 +134,7 @@ public class ShopItem {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		CharSequence str = DateUtils.getRelativeDateTimeString(
+		CharSequence str = DateUtils.getRelativeDateTimeString (
 		        contextExchanger.context, // Suppose you are in an activity or other Context subclass
 		        date.getTime(), // The time to display
 		        DateUtils.SECOND_IN_MILLIS, // The resolution. This will display only minutes 
