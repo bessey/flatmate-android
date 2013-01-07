@@ -208,9 +208,9 @@ public class ServerConnection {
 	
 	//*****************************************message stuff*****************************************
 
-	//get all messages for flat with given id
-	public  Message[] getFlatMessages(int flat_id) {
-		return gson.fromJson(get(server + "/flats/" + flat_id + "/messages"), Message[].class);
+	//get all messages for your flat
+	public  Message[] getMyFlatMessages() {
+		return gson.fromJson(get(server + "/flats/m/messages"), Message[].class);
 	}
 
 	//get all message for user with given id
