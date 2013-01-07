@@ -1,8 +1,8 @@
 package com.boh.flatmate;
 
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
-import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
+import com.boh.flatmate.connection.ShopItem;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -90,7 +90,8 @@ public class ShoppingFragment extends Fragment {
 					Toast toast = Toast.makeText(contextExchanger.context, "Please enter valid item!", Toast.LENGTH_SHORT);
 					toast.show();
 				}else{
-					ShoppingDataExchanger.shoppingData.addItem(inputText.toString());
+					ShopItem item = new ShopItem(inputText.toString());
+					item.addItem();
 					System.out.println("Item Added - "+ inputText);
 					textInput.setText("");
 					@SuppressWarnings("unused")

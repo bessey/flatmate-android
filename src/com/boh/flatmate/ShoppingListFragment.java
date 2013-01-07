@@ -1,8 +1,7 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.R;
-import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
-
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ public class ShoppingListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		mAdapter = new ShoppingRowAdapter(getActivity(), android.R.id.list, ShoppingDataExchanger.shoppingData.getShoppingList());
+		mAdapter = new ShoppingRowAdapter(getActivity(), android.R.id.list, FlatDataExchanger.flatData.getShopItems());
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.boh.flatmate;
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
-import com.boh.flatmate.connection.ShoppingList;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
@@ -16,7 +15,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,9 +42,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
 		int flatId = FlatDataExchanger.flatData.getId();
-		
-		ShoppingDataExchanger.shoppingData = new ShoppingList();
-		ShoppingDataExchanger.shoppingData = new ShoppingList(ConnectionExchanger.connection.getFlatShoppingList(flatId));
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
@@ -165,10 +160,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 	public static class FlatDataExchanger{
 		public static Flat flatData;
-	}
-
-	public static class ShoppingDataExchanger{
-		public static ShoppingList shoppingData;
 	}
 
 	public static class contextExchanger{

@@ -1,5 +1,11 @@
 package com.boh.flatmate.connection;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
+
 public class ShopItem {
 	private String id;
 	private String flat_id;
@@ -14,10 +20,10 @@ public class ShopItem {
 		//do nothing
 	}
 	
-	public ShopItem(String itemName, int user_id, int current_flat_id) {
+	public ShopItem(String itemName) {
+		setUserWantId(FlatDataExchanger.flatData.getCurrentUserId());
+		setFlatId(FlatDataExchanger.flatData.getId());
 		name = itemName;
-		user_want_id = ""+user_id;
-		flat_id = ""+current_flat_id;
 	}
 		
 	public String toHTTPString() {
@@ -37,33 +43,43 @@ public class ShopItem {
 		}
 	}
 	
-	public void boughtToday(double boughtPrice, int id, String date){
+	public void addItem(){
+		ConnectionExchanger.connection.addItem(this);		
+	}
+	
+	public void setBoughtToday(double boughtPrice){
+		int id = FlatDataExchanger.flatData.getCurrentUserId();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		Date date = new Date();
+		String dateString = dateFormat.format(date);
+		
 		user_bought_id = ""+id;
 		price = ""+boughtPrice;
-		updated_at = ""+date;
+		updated_at = ""+dateString;
+		ConnectionExchanger.connection.updateItem(this);
 	}
 
-	public int getFlat_Id() {
+	public int getFlatId() {
 		return Integer.parseInt(flat_id);
 	}
 
-	public void setFlat_Id(int flat_id) {
+	public void setFlatId(int flat_id) {
 		this.flat_id = Integer.toString(flat_id);
 	}
 
-	public int getUser_want_id() {
+	public int getUserWantId() {
 		return Integer.parseInt(user_want_id);
 	}
 
-	public void setUser_want_id(int user_want_id) {
+	public void setUserWantId(int user_want_id) {
 		this.user_want_id = Integer.toString(user_want_id);
 	}
 
-	public int getUser_bought_id() {
+	public int getUserBoughtId() {
 		return Integer.parseInt(user_bought_id);
 	}
 
-	public void setUser_bought_id(int user_bought_id) {
+	public void setUserBoughtId(int user_bought_id) {
 		this.user_bought_id = Integer.toString(user_bought_id);
 	}
 
@@ -83,11 +99,11 @@ public class ShopItem {
 		this.name = name;
 	}
 
-	public boolean isPaid_back() {
+	public boolean isPaidBack() {
 		return Boolean.parseBoolean(paid_back);
 	}
 
-	public void setPaid_back(boolean paid_back) {
+	public void setPaidBack(boolean paid_back) {
 		this.paid_back = Boolean.toString(paid_back);
 	}
 
@@ -99,11 +115,11 @@ public class ShopItem {
 		this.id = Integer.toString(id);
 	}
 
-	public String getUpdated_at() {
+	public String getUpdatedAt() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(String updated_at) {
+	public void setUpdatedAt(String updated_at) {
 		this.updated_at = updated_at;
 	}
 }

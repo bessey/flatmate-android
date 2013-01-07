@@ -242,13 +242,13 @@ public class ServerConnection {
 	public void addItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
 		@SuppressWarnings("unused")
-		String jsonResult = post(server + "/flats/" + item.getFlat_Id() + "/shop_items", itemInfo);
+		String jsonResult = post(server + "/flats/" + item.getFlatId() + "/shop_items", itemInfo);
 	}
 	
 	//update item with given item
 	public void updateItem(ShopItem item) {
 		String itemInfo = item.toHTTPString();
-		put(server + "/flats/" + item.getFlat_Id() + "/shop_items/" + item.getId(), itemInfo);
+		put(server + "/flats/" + item.getFlatId() + "/shop_items/" + item.getId(), itemInfo);
 	}
 	
 	//delete item given by flat id (fid) and item id (iid)

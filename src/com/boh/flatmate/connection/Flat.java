@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import java.util.ArrayList;
+
 import com.boh.flatmate.FlatMate.contextExchanger;
 
 import android.content.Intent;
@@ -15,16 +17,7 @@ public class Flat {
 	private String postcode = "DUM MY55";
 	private User[] users;
 	private User currentUser;
-	/*public Flat() {
-		users = new User[3];
-		users[0] = new User();
-		users[0].setId(1010101);
-		users[1] = new User();
-		users[0].setId(1010102);
-		users[2] = new User();
-		users[0].setId(1010103);
-		currentUser = new User();
-	}*/
+	private ShopItem[] shop_items;
 
 	public String getUserName(int id){
 		System.out.println("USER BOUGHT ID "+id);
@@ -39,6 +32,15 @@ public class Flat {
 
 	public void setCurrentUser(User u){
 		currentUser = u;
+		
+		// Remove us from the users array
+		ArrayList<User> usersWithoutMe = new ArrayList<User>();
+		for(int i = 0; i < users.length; i++){
+			if(users[i].getId() != currentUser.getId()){
+				usersWithoutMe.add(users[i]);
+			}
+		}
+		users = usersWithoutMe.toArray(new User[usersWithoutMe.size()]);
 	}
 
 	public User getCurrentUser(){
@@ -106,6 +108,14 @@ public class Flat {
 		this.users = users;
 	}
 	
+	public ShopItem getShopItem(int position) {
+		return shop_items[position];
+	}
+
+	public ShopItem[] getShopItems() {
+		return shop_items;
+	}
+
 	public OnClickListener messageListener = new OnClickListener(){ // the book's action
 		@Override
 		public void onClick(View v) {

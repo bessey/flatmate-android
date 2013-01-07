@@ -1,12 +1,10 @@
 package com.boh.flatmate;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
-import com.boh.flatmate.FlatMate.ShoppingDataExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
 import android.content.Context;
@@ -14,6 +12,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,14 +27,14 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 
 	private Context context;
 
-	public ShoppingRowAdapter(Context c, int textViewResourceId, ArrayList<ShopItem> data) {
+	public ShoppingRowAdapter(Context c, int textViewResourceId, ShopItem[] data) {
 		super(c, textViewResourceId, data);
 		context = c;
 	}
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		ShopItem shoppingItem = ShoppingDataExchanger.shoppingData.getShoppingList().get(position);
+		ShopItem shoppingItem = FlatDataExchanger.flatData.getShopItem(position);
 		System.out.println(shoppingItem.getName() + " - " + shoppingItem.isBought());
 
 		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,10 +57,10 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
 
 			// TODO flatmate name get()
-			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUser_bought_id()));
+			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUserBoughtId()));
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
-			dateTextView.setText(shoppingItem.getUpdated_at());
+			dateTextView.setText(shoppingItem.getUpdatedAt());
 		} else {
 			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
@@ -105,7 +104,9 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 							toast.show();
 						}else{
 							double price = Double.valueOf(priceText.toString());
-							ShoppingDataExchanger.shoppingData.boughtToday(position,price);
+							Time now = new Time();
+							now.setToNow();
+							FlatDataExchanger.flatData.getShopItem(position).setBoughtToday(price);
 							System.out.println("Item Bought for "+ price);
 							notifyDataSetChanged();
 						}
