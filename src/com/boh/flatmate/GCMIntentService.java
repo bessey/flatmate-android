@@ -1,7 +1,14 @@
 package com.boh.flatmate;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
 
 public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentService {
@@ -28,7 +35,20 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	 * the message has a payload, its contents are available as extras in the intent.
 	 */
 	protected void onMessage(Context context, Intent intent){
-		Log.v("GCM","Recieved a message!" + intent);		
+		Bundle payload = intent.getExtras();
+		Log.v("GCM","Recieved a message!" + payload.toString());
+		NotificationCompat.Builder mBuilder =
+		        new NotificationCompat.Builder(this)
+		        .setSmallIcon(R.drawable.add)
+		        .setContentTitle("New shop item added")
+		        .setContentText(payload.getString("item"));
+
+		NotificationManager mNotificationManager =
+		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		// mId allows you to update the notification later on.
+		mNotificationManager.notify(0, mBuilder.build());
+		
+		// TODO update the shop items list in the app
 	}
 	
 	/*
