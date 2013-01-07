@@ -91,7 +91,7 @@ public class SplashActivity extends Activity {
 			public void run(){
 				try {
 					int i = 0;
-					int showSplashFor = 20;
+					int showSplashFor = 1;
 					while(i < showSplashFor){
 						sleep(100);
 						i += 1;
@@ -101,7 +101,7 @@ public class SplashActivity extends Activity {
 					int loggedin = userLogin();
 
 					if(loggedin == 1){
-						if(deviceId != null) connection.new MaintainGcmRegistration().execute(deviceId);
+						if(deviceId != null) connection.maintainGcmRegistration(deviceId);
 						startApp();
 						finish();
 					}else{
@@ -125,8 +125,8 @@ public class SplashActivity extends Activity {
 			return 0;
 		} else {
 			// sucessfull login here return 1; test return 0;
-			return 1;
-			//return 0;
+			//return 1;
+			return 0;
 		}
 	}
 
@@ -724,7 +724,12 @@ public class SplashActivity extends Activity {
 
 		@Override
 		protected Flat[] doInBackground(String... search) {
-			Flat[] flats = connection.searchFlats(search[0], "");
+			Flat[] flats;
+			if(search[0].length() != 0){
+				flats = connection.searchFlats(search[0], "");
+			}else{
+				flats = connection.getFlats();
+			}
 			return flats;
 		}
 
