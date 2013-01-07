@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/registerBox"
         android:layout_width="match_parent"
@@ -132,7 +132,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="0dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <LinearLayout
             android:id="@+id/password2"
@@ -243,6 +243,39 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/flatButtonBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <Button
+                android:id="@+id/flatButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="Find Flat"
+                android:textColor="@color/lightText" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/lightText" />
+
+            <TextView
+                android:id="@+id/postcodeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/lightText" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/backNextButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -258,15 +291,21 @@
                 android:textColor="@color/lightText" />
 
             <Button
-                android:id="@+id/nextButton"
+                android:id="@+id/createButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:text="@string/next"
+                android:text="Register"
                 android:textColor="@color/lightText" />
         </LinearLayout>
-    </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/registerSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -275,7 +314,7 @@
         android:gravity="top|center_horizontal"
         android:orientation="vertical"
         android:paddingTop="30dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/textView1"
@@ -322,16 +361,25 @@
                 android:text="Search"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
+
+            <ProgressBar
+                android:id="@+id/searchSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
         </LinearLayout>
-
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:descendantFocusability="beforeDescendants"
-            android:drawSelectorOnTop="false" >
-
+            android:drawSelectorOnTop="false"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp" >
         </ListView>
+
     </LinearLayout>
 
 </LinearLayout>
