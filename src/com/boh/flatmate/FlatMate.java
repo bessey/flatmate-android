@@ -1,5 +1,11 @@
 package com.boh.flatmate;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
@@ -98,6 +104,35 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.menu_logout:
+			/*File logFile = new File(filename);
+			String authCode = null;
+			if (logFile.exists())
+			{
+				BufferedReader input;
+				try {
+					input = new BufferedReader(new FileReader(filename));
+				} catch (FileNotFoundException e1) {
+					return null;
+				}
+				try {
+					String line = null;
+					if (( line = input.readLine()) != null){
+						authCode = line;
+					}
+				}catch (Exception e){
+
+				}
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				setAuth(authCode);
+				// sucessfull login here returns the authcode
+				return authCode;
+				// to test without logging in automatically, set to null:
+				//return null;
+			}*/
 			return true;
 		case R.id.menu_settings:
 			return true;

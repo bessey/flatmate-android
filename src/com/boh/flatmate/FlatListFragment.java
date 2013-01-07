@@ -28,16 +28,7 @@ public class FlatListFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v1 = inflater.inflate(R.layout.flat_list, container, false);
 		mListView = (ListView) v1.findViewById(android.R.id.list);
-		
-		TextView flatName = (TextView) v1.findViewById(R.id.flatName);
-		flatName.setText(FlatDataExchanger.flatData.getNickname());
-		
-		TextView atFlat = (TextView) v1.findViewById(R.id.atFlatText);
-		atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
-		
-		ImageButton messageButton = (ImageButton)v1.findViewById(R.id.messageButton);
-		messageButton.setOnClickListener(FlatDataExchanger.flatData.messageListener);
-		
+				
 		return v1;
 	}
 
