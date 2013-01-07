@@ -38,7 +38,7 @@ public class ServerConnection {
 		userInfo = newUser.toHTTPString();
 		userInfo += "&user[password]=" + password;
 
-		jsonResult = post(server + "/users", userInfo);
+		jsonResult = post(server + "/users.json", userInfo);
 		
 
 
