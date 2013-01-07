@@ -25,7 +25,8 @@ public class Flat {
 				return u.getFirst_name();
 			}
 		}
-		return "";
+		// If the name isn't in the list, it must be you
+		return "You";
 	}
 
 	public void setCurrentUser(User u){
