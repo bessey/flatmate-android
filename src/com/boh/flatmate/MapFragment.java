@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.mapExchanger;
+import com.boh.flatmate.connection.User;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
@@ -57,8 +58,19 @@ public class MapFragment extends Fragment {
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.flat_marker);
 		FlatMateMapOverlay itemizedoverlay = new FlatMateMapOverlay(drawable, context);
-		GeoPoint point = new GeoPoint((int)(51.460291*1E6),(int)(-2.608701*1E6));
+		float flatLat = FlatDataExchanger.flatData.getGeocode_lat();
+		float flatLong = FlatDataExchanger.flatData.getGeocode_long();
+		GeoPoint point = new GeoPoint((int)(flatLat*1E6),(int)(flatLong*1E6));
 		OverlayItem overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
+		itemizedoverlay.addOverlay(overlayitem);
+		for (User u : FlatDataExchanger.flatData.getUsers()) {
+			point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
+			overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
+			itemizedoverlay.addOverlay(overlayitem);
+		}
+		User currU = FlatDataExchanger.flatData.getCurrentUser();
+		point = new GeoPoint((int)(currU.getGeocode_lat()*1E6),(int)(currU.getGeocode_long()*1E6));
+		overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
 	}
