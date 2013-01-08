@@ -5,8 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.os.AsyncTask;
 import android.text.format.DateUtils;
 
+import com.boh.flatmate.FlatMate;
+import com.boh.flatmate.ShoppingListFragment;
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
@@ -19,7 +22,7 @@ public class ShopItem {
 	private String updated_at;
 	private String price;
 	private String name;		//name of item, maybe implement getting this from list (to help with image recog)
-	private String paid_back;	//when this becomes true the item gets deleted
+	private String paid_back = "false";	//when this becomes true the item gets deleted
 	
 	ShopItem() {
 		//do nothing
@@ -36,7 +39,7 @@ public class ShopItem {
 		if (user_want_id != null) result += "&shop_item[user_want_id]=" + user_want_id;
 		if (user_bought_id != null) result += "&shop_item[user_bought_id]=" + user_bought_id;
 		if (price != null) result += "&shop_item[price]=" + price;
-		//if (paid_back != null) result += "&shop_item[paid_back]=" + paid_back;
+		if (paid_back != null) result += "&shop_item[paid_back]=" + paid_back;
 		return result;
 	}
 	
@@ -49,7 +52,7 @@ public class ShopItem {
 	}
 	
 	public void addItem(){
-		ConnectionExchanger.connection.addItem(this);		
+		new serverAddItem().execute(this);
 	}
 	
 	public void setBoughtToday(double boughtPrice){
@@ -61,7 +64,7 @@ public class ShopItem {
 		user_bought_id = ""+id;
 		price = ""+boughtPrice;
 		updated_at = ""+dateString;
-		ConnectionExchanger.connection.updateItem(this);
+		new serverUpdateItem().execute(this);
 	}
 
 	public int getFlatId() {
@@ -149,5 +152,29 @@ public class ShopItem {
 
 	public void setUpdatedAt(String updated_at) {
 		this.updated_at = updated_at;
+	}
+	
+	private class serverAddItem extends AsyncTask<ShopItem,Void,Void>{
+		protected Void doInBackground(ShopItem... item) {
+			ConnectionExchanger.connection.addItem(item[0]);
+			return null;
+		}
+
+		protected void onPostExecute(String result) {
+			FlatMate.ConnectionExchanger.connection.getMyFlat();
+			// TODO: do something with this; atm nothing updates
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+		}
+	}
+	
+	private class serverUpdateItem extends AsyncTask<ShopItem,Void,Void>{
+		protected Void doInBackground(ShopItem... item) {
+			ConnectionExchanger.connection.updateItem(item[0]);
+			return null;
+		}
+
+		protected void onPostExecute(String result) {
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+		}
 	}
 }

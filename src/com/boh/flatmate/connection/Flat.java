@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class Flat {
-	private String geocode_lat = "100";
-	private String geocode_long = "100";
-	private String id = "9001";
-	private String nickname = "dummy";	//for displaying purposes, so don't just display postcode
-	private String postcode = "DUM MY55";
+	private String geocode_lat;
+	private String geocode_long;
+	private String id;
+	private String nickname;	//for displaying purposes, so don't just display postcode
+	private String postcode;
 	private User[] users;
 	private User currentUser;
 	private ShopItem[] shop_items;
@@ -27,6 +27,21 @@ public class Flat {
 		}
 		// If the name isn't in the list, it must be you
 		return "You";
+	}
+	
+	public int getUserColourID(int id) {
+		for (User u : users){
+			if(u.getId() == id){
+				return u.getColour_Id();
+			}
+		}
+		// If the name isn't in the list, it must be you
+		return currentUser.getColour_Id();
+	}
+	
+	public Debt[] getMyDebts() {
+		Debt[] debts;
+		return null;
 	}
 
 	public void setCurrentUser(User u){

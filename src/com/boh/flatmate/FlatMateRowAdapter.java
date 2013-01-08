@@ -23,6 +23,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		FlatData = data;
 		context = c;
 	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -31,14 +32,18 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.flat_row, null);
 		}
-		if(position == 0){
-			v.setBackgroundResource(R.drawable.box1);
-		}else if(position == 1){
-			v.setBackgroundResource(R.drawable.box2);
-		}else{
-			v.setBackgroundResource(R.drawable.box3);
-		}
 		
+		if(flatMate.getColour_Id() == 0) {
+			v.setBackgroundResource(R.drawable.box1);
+		} else if(flatMate.getColour_Id() == 1) {
+			v.setBackgroundResource(R.drawable.box2);
+		} else if (flatMate.getColour_Id() == 2) {
+			v.setBackgroundResource(R.drawable.box3);
+		} else if (flatMate.getColour_Id() == 3) {
+			v.setBackgroundResource(R.drawable.box4);
+		} else {
+			v.setBackgroundResource(R.drawable.box5);
+		}
 		String name = flatMate.getFirst_name() +" "+ flatMate.getLast_name();
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
@@ -70,7 +75,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		
 		return v;
 	}
-	
+
 	public double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 

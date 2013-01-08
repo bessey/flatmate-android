@@ -20,6 +20,7 @@ public class User {
 	private String last_name;
 	private String phone_number;
 	private String registration_id;
+	private String colour_id = "0";
 	public User() {
 		//does nothing
 	}
@@ -33,6 +34,7 @@ public class User {
 		if (last_name != null) result += "&user[last_name]=" + last_name;
 		if (phone_number != null) result += "&user[phone_number]=" + phone_number;
 		if (password != null) result += "&user[password]=" + password;
+		if (colour_id != null) result += "&user[colour_id]=" + colour_id;
 		if (registration_id != null) result += "&gcm[registration_id]=" + registration_id;
 		return result;
 	}
@@ -103,11 +105,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getRegistration_id() {
 		return registration_id;
 	}
-	
+
 	public void setRegistration_id(String registration_id) {
 		this.registration_id = registration_id;
 	}
@@ -164,5 +166,15 @@ public class User {
 		double tt = Math.acos(t1 + t2 + t3);
 
 		return 6366000*tt;
+	}
+	public int getColour_Id() {
+		if (colour_id != null) {
+			return Integer.parseInt(colour_id);
+		} else {
+			return 100;
+		}
+	}
+	public void setColour_Id(int colour_id) {
+		this.colour_id = Integer.toString(colour_id);
 	}
 }

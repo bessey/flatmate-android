@@ -38,7 +38,7 @@ public class UpdateService extends Service {
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		locationListener = new MyLocationListener();
-
+		
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 
 				minTimeMillis, 
 				minDistanceMeters,
@@ -50,7 +50,6 @@ public class UpdateService extends Service {
 	}
 
 	public class MyLocationListener implements LocationListener {
-
 		public void onLocationChanged(Location loc) {
 			if (loc != null) {
 				boolean pointIsRecorded = false;

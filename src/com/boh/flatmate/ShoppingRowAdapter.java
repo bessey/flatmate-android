@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.connection.ShopItem;
+import com.boh.flatmate.connection.User;
 
 import android.content.Context;
 import android.os.Handler;
@@ -31,6 +32,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 		super(c, textViewResourceId, data);
 		context = c;
 	}
+	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -55,9 +57,23 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			String priceString = String.format("%.2f",priceDouble);
 			priceTextView.setText("£"+priceString);
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
-
-			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(shoppingItem.getUserBoughtId()));
-
+			
+			int buyerID = shoppingItem.getUserBoughtId();
+			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(buyerID));
+			
+			int colourID = FlatDataExchanger.flatData.getUserColourID(buyerID);
+			if(colourID == 0) {
+				v.setBackgroundResource(R.drawable.box1);
+			} else if(colourID == 1) {
+				v.setBackgroundResource(R.drawable.box2);
+			} else if (colourID == 2) {
+				v.setBackgroundResource(R.drawable.box3);
+			} else if (colourID == 3) {
+				v.setBackgroundResource(R.drawable.box4);
+			} else {
+				v.setBackgroundResource(R.drawable.box5);
+			}
+			
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
 			dateTextView.setText(shoppingItem.getUpdatedAtPretty());
 		} else {
@@ -107,7 +123,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 							now.setToNow();
 							FlatDataExchanger.flatData.getShopItem(position).setBoughtToday(price);
 							System.out.println("Item Bought for "+ price);
-							notifyDataSetChanged();
 						}
 					}
 				});

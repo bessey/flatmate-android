@@ -78,23 +78,21 @@ public class ShoppingFragment extends Fragment {
 				}
 			}
 		});
+		
 		ImageButton addShoppingButton = (ImageButton)c.findViewById(R.id.AddListItem);
 		addShoppingButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View view) {
 				EditText textInput = (EditText)c.findViewById(R.id.addShoppingItem);
 				Editable inputText = textInput.getText();
-				if(inputText.toString() == null || inputText.toString().length() == 0){
+				if(inputText.toString() == null || inputText.toString().length() == 0) {
 					Toast toast = Toast.makeText(contextExchanger.context, "Please enter valid item!", Toast.LENGTH_SHORT);
 					toast.show();
-				}else{
+				} else {
 					ShopItem item = new ShopItem(inputText.toString());
 					item.addItem();
 					System.out.println("Item Added - "+ inputText);
 					textInput.setText("");
-					FlatMate.ConnectionExchanger.connection.getMyFlat();
-					// TODO: do something with this; atm nothing updates
-					ShoppingListFragment.mAdapter.notifyDataSetChanged();
 				}
 			}
 		});
