@@ -2,6 +2,7 @@ package com.boh.flatmate;
 
 import java.text.DecimalFormat;
 
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 
 import android.app.NotificationManager;
@@ -24,9 +25,9 @@ public class UpdateService extends Service {
 	private LocationManager lm;
 	private LocationListener locationListener;
 
-	private static long minTimeMillis = 20000;
+	private static long minTimeMillis = 22;
 	private static long minDistanceMeters = 10;
-	private static float minAccuracyMeters = 35;
+	private static float minAccuracyMeters = 50;
 
 	private int lastStatus = 0;
 	private static boolean showingDebugToast = false;
@@ -38,7 +39,7 @@ public class UpdateService extends Service {
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		locationListener = new MyLocationListener();
-		
+		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, minDistanceMeters, locationListener);
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 
 				minTimeMillis, 
 				minDistanceMeters,
@@ -53,11 +54,19 @@ public class UpdateService extends Service {
 		public void onLocationChanged(Location loc) {
 			if (loc != null) {
 				boolean pointIsRecorded = false;
+				System.out.println(loc.getAccuracy());
 					if (loc.hasAccuracy() && loc.getAccuracy() <= minAccuracyMeters) {
 						pointIsRecorded = true;
 
+						try{
 						FlatDataExchanger.flatData.getCurrentUser().setGeocode_lat((float)loc.getLatitude());
 						FlatDataExchanger.flatData.getCurrentUser().setGeocode_long((float)loc.getLongitude());
+						System.out.println(FlatDataExchanger.flatData.getCurrentUser().getGeocode_lat());
+						System.out.println(FlatDataExchanger.flatData.getCurrentUser().getGeocode_long());
+						
+						ConnectionExchanger.connection.updateUser(FlatDataExchanger.flatData.getCurrentUser());
+						}catch(Exception e){}
+						
 					}
 				if (pointIsRecorded) {
 					if (showingDebugToast) Toast.makeText(

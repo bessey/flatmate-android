@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/contentDescriptionImage"
         android:src="@drawable/splash_logo" />
-
+
     <LinearLayout
         android:id="@+id/loginBox"
         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
 
-            <requestFocus />
+            
         </LinearLayout>
 
         <LinearLayout
@@ -107,15 +107,16 @@
                 android:text="@string/login"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
-
+
             <Button
                 android:id="@+id/registerButton"
                 style="@color/lightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register"
+                android:text="New User"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
+
         </LinearLayout>
 
         <ProgressBar
@@ -124,7 +125,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/registerBox"
         android:layout_width="match_parent"
@@ -255,42 +256,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/flatButtonBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <Button
-                android:id="@+id/flatButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:text="Find Flat"
-                android:textColor="@color/lightText" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/lightText" />
-
-            <TextView
-                android:id="@+id/postcodeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/lightText" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/backNextButtons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:gravity="center_horizontal"
             android:paddingTop="30dp"
             android:visibility="visible" >
@@ -308,20 +276,17 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:textColor="@color/lightText" />
+
+            <ProgressBar
+                android:id="@+id/registerSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
         </LinearLayout>
 
-
-
-
-
-        <ProgressBar
-            android:id="@+id/registerSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -367,7 +332,8 @@
                 android:hint="Post Code"
                 android:inputType="text|textPostalAddress"
                 android:textColor="@color/lightText"
-                android:textSize="@dimen/Medium" />
+                android:textSize="@dimen/Medium"
+                 />
 
             <Button
                 android:id="@+id/searchButton"
@@ -396,6 +362,189 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp" >
         </ListView>
+
+        <LinearLayout
+            android:id="@+id/addFlatSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/newFlat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Flat"
+                android:textColor="@color/lightText" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/addFlatBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="30dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Flat"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/lightText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium"
+                android:width="100dp" />
+
+            <EditText
+                android:id="@+id/flatNameInput"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="5"
+                android:hint="Flat Nickname"
+                android:inputType="text|textPostalAddress"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:id="@+id/adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Address"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium"
+                android:width="100dp" />
+
+            <EditText
+                android:id="@+id/address1Text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="5"
+                android:hint="Address Line 1"
+                android:inputType="text|textPostalAddress"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Post Code"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium"
+                android:width="100dp" />
+
+            <EditText
+                android:id="@+id/postCodeTextBox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Post Code"
+                android:inputType="text|textPostalAddress"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/createButtons"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="30dp" >
+
+            <Button
+                android:id="@+id/newFlatBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textColor="@color/lightText" />
+
+            <Button
+                android:id="@+id/createFlatButton"
+                style="@color/lightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Flat"
+                android:textColor="@color/lightText"
+                android:textSize="@dimen/Medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/createSpinnerBox"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="30dp" >
+
+            <ProgressBar
+                android:id="@+id/createSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

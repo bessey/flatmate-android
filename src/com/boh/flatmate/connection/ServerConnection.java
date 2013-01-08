@@ -22,6 +22,7 @@ public class ServerConnection {
 	
 	private Gson gson = new Gson();
 	private static String server = "http://whispering-plains-6470.herokuapp.com";
+	public static String FileName = "";
 
 	//*****************************************user stuff*****************************************
 
@@ -93,6 +94,7 @@ public class ServerConnection {
 	
 	// load the authentication code from a file, returns null if failed.
 	public static String loadAuth(String filename){
+		FileName = filename;
 		File logFile = new File(filename);
 		String authCode = null;
 		if (logFile.exists())
@@ -153,6 +155,13 @@ public class ServerConnection {
 		//System.out.println(userInfo);
 		put(server + "/users/" + user.getId(), userInfo);
 	}
+	
+	//edit user given by user
+		public  void updateMe(User user) {
+			String userInfo = user.toHTTPString();
+			//System.out.println(userInfo);
+			put(server + "/users/m", userInfo);
+		}
 
 	//change password, note: not 100% sure this is how to do it
 	public  void changePassword(int id, String password) {
@@ -167,16 +176,15 @@ public class ServerConnection {
 	//*****************************************flat stuff*****************************************
 
 	//create a new flat
-	public void addFlat(Flat flat) {
+	public Flat addFlat(Flat flat) {
 		String flatInfo = flat.toHTTPString();
-		@SuppressWarnings("unused")
-		String jsonResult  = post(server + "/flats", flatInfo);
+		return gson.fromJson(post(server + "/flats", flatInfo), Flat.class);
 	}
 	
 	//search for flats
 	public Flat[] searchFlats(String pCode, String nName) {
 		
-		auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
+		//auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
 		
 		return gson.fromJson(get(server + "/flats/search/" + pCode), Flat[].class);
 		//return gson.fromJson(get(server + "/flats/search/" + pCode + "/" + nName), Flat[].class);
@@ -189,7 +197,7 @@ public class ServerConnection {
 
 	//get whole list of flats
 	public  Flat[] getFlats() {
-		auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
+		//auth_token = "4sfmMSJroUn3bU9YpAso"; //Only used as the server requires authentication for this task.
 		return gson.fromJson(get(server + "/flats"), Flat[].class);
 	}
 
@@ -268,6 +276,7 @@ public class ServerConnection {
 		if (auth_token != null) tu += "?auth_token=" + auth_token;
 		URL url;
 		System.out.println(tu);
+		System.out.println(up);
 		try {
 			url = new URL(tu);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();

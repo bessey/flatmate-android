@@ -39,7 +39,7 @@ public class FlatFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
 		flatList = new FlatListFragment();
-		ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
+		//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
 		ft.replace(R.id.list, flatList,"flat_fragment");
 		//ft.addToBackStack(null);
 		ft.commit();
