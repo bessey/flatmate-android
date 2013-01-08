@@ -122,8 +122,8 @@ public class SplashActivity extends Activity {
 			return 0;
 		} else {
 			// sucessfull login here return 1; test return 0;
-			//return 1;
-			return 0;
+			return 1;
+			//return 0;
 		}
 	}
 

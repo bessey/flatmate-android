@@ -321,7 +321,7 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -330,7 +330,7 @@
         android:gravity="top|center_horizontal"
         android:orientation="vertical"
         android:paddingTop="30dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/textView1"

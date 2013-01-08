@@ -37,8 +37,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ShopItem shoppingItem = FlatDataExchanger.flatData.getShopItem(position);
-		System.out.println(shoppingItem.getName() + " - " + shoppingItem.isBought());
-
+		
 		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
 		else v = vi.inflate(R.layout.shopping_row, null);
@@ -52,7 +51,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 		}
 		if(shoppingItem.isBought() == 1) {
 			TextView priceTextView = (TextView) v.findViewById(R.id.Price);
-			//System.out.println(name);
 			Double priceDouble = shoppingItem.getPrice();
 			String priceString = String.format("%.2f",priceDouble);
 			priceTextView.setText("£"+priceString);

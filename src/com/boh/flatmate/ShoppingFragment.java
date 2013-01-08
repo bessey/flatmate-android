@@ -91,7 +91,6 @@ public class ShoppingFragment extends Fragment {
 				} else {
 					ShopItem item = new ShopItem(inputText.toString());
 					item.addItem();
-					System.out.println("Item Added - "+ inputText);
 					textInput.setText("");
 				}
 			}
