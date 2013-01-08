@@ -38,7 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashActivity extends Activity {
-	
+
 	int screenPosition = 0;
 
 	ServerConnection connection = new ServerConnection();
@@ -66,14 +66,14 @@ public class SplashActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 
 		FILENAME = this.getFilesDir().getPath().toString() + "UserAuthCode.txt";
-		
+
 		GCMRegistrar.checkDevice(this);
 		GCMRegistrar.checkManifest(this);
 		deviceId = GCMRegistrar.getRegistrationId(this);
 		if (deviceId.equals("")) {
-		  GCMRegistrar.register(this, "1098971778005");
+			GCMRegistrar.register(this, "1098971778005");
 		} else {
-		  Log.v("GCM", "Already registered");
+			Log.v("GCM", "Already registered");
 		}
 
 
@@ -287,7 +287,7 @@ public class SplashActivity extends Activity {
 				flatButtonPressed();
 			}
 		});
-		
+
 		Button register = (Button) findViewById(R.id.createButton);
 		register.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -305,15 +305,17 @@ public class SplashActivity extends Activity {
 
 		int firstName = people.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
 
-		
+
 		people.moveToFirst();
-		String[] name = people.getString(firstName).split(" ");
-		if(name.length > 1){
-			String first = name[0];
-			String last = name[1];
-			System.out.println("first = "+first+", last = "+last);
-			firstInput.setText(first);
-			lastInput.setText(last);
+		if(people != null && people.getCount() >0){
+			String[] name = people.getString(firstName).split(" ");
+			if(name.length > 1){
+				String first = name[0];
+				String last = name[1];
+				System.out.println("first = "+first+", last = "+last);
+				firstInput.setText(first);
+				lastInput.setText(last);
+			}
 		}
 
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -324,18 +326,20 @@ public class SplashActivity extends Activity {
 		int userNumber = phoneNumber.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
 
 		phoneNumber.moveToFirst();
-		do {
-			String id   = phoneNumber.getString(userID);
-			String number = phoneNumber.getString(userNumber);
-			System.out.println("id = "+id+", number = "+number);
-			if(id.equals("1")){
-				if(number.startsWith("+44")){
-					number = number.replace("+44", "0");
+		if(phoneNumber != null && phoneNumber.getCount() >0){
+			do {
+				String id   = phoneNumber.getString(userID);
+				String number = phoneNumber.getString(userNumber);
+				System.out.println("id = "+id+", number = "+number);
+				if(id.equals("1")){
+					if(number.startsWith("+44")){
+						number = number.replace("+44", "0");
+					}
+					phoneInput.setText(number);
+					break;
 				}
-				phoneInput.setText(number);
-				break;
-			}
-		} while (phoneNumber.moveToNext());
+			} while (phoneNumber.moveToNext());
+		}
 	}
 
 	private void backButtonPressed(){
@@ -471,7 +475,7 @@ public class SplashActivity extends Activity {
 			registrationFirstName = firstInput.getText().toString();
 			registrationLastName = lastInput.getText().toString();
 			registrationPhone = phoneInput.getText().toString();
-			
+
 			User newUser = new User();
 			newUser.setEmail(registrationEmail);
 			newUser.setFirst_name(registrationFirstName);
@@ -479,20 +483,20 @@ public class SplashActivity extends Activity {
 			newUser.setPhone_number(registrationPhone);
 			newUser.setFlat_id(registrationFlatID);
 			newUser.setPassword(registrationPassword);
-			
+
 			View buttons = findViewById(R.id.backNextButtons);
 			buttons.setVisibility(View.INVISIBLE);
-			
+
 			new registerUser().execute(newUser);
 		}
 	}
-	
+
 	public void registrationComplete(){
 		View buttons = findViewById(R.id.backNextButtons);
 		buttons.setVisibility(View.VISIBLE);
 		new serverLogin().execute(registrationEmail,registrationPassword,deviceId);
 	}
-	
+
 	public void flatSelectionBack(){
 		screenPosition = 1;
 		int offset = findViewById(R.id.flatBox).getWidth();
@@ -553,7 +557,7 @@ public class SplashActivity extends Activity {
 		});
 		flatLogo.startAnimation(anim2);
 	}
-	
+
 	public void flatSelected(Flat flat){
 		registrationFlatID = flat.getId()+"";
 		Button flatButton = (Button) findViewById(R.id.flatButton);
@@ -648,7 +652,7 @@ public class SplashActivity extends Activity {
 
 		return 1;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		if(screenPosition == 0){
@@ -736,7 +740,7 @@ public class SplashActivity extends Activity {
 		}
 
 	}
-	
+
 	private class registerUser extends AsyncTask<User,Void,Void>{
 
 		@Override

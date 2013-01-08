@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/contentDescriptionImage"
         android:src="@drawable/splash_logo" />
-
+
     <LinearLayout
         android:id="@+id/loginBox"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="90dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:paddingRight="10dp"
@@ -43,16 +43,17 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
             <EditText
                 android:id="@+id/emailTbox"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
                 android:hint="@string/login_email"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" >
+
             </EditText>
         </LinearLayout>
 
@@ -65,8 +66,8 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="90dp"
                 android:layout_height="wrap_content"
+                android:layout_width="100dp"
                 android:gravity="right"
                 android:paddingRight="10dp"
                 android:text="@string/password"
@@ -74,10 +75,10 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
             <EditText
                 android:id="@+id/passwordBox"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
                 android:hint="@string/password"
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/registerBox"
         android:layout_width="match_parent"
@@ -146,20 +147,23 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/password"
+                android:layout_width="100dp"
+                android:gravity="right"
+                android:paddingRight="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/passwordBox2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
                 android:textColor="@color/lightText" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -173,20 +177,22 @@
 
             <TextView
                 android:id="@+id/FirstNameLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:gravity="right"
+                android:paddingRight="10dp"
                 android:layout_height="wrap_content"
                 android:text="@string/first_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/firstBox"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="15"
                 android:hint="@string/first_name"
                 android:inputType="text"
                 android:textColor="@color/lightText" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -200,20 +206,23 @@
 
             <TextView
                 android:id="@+id/LastNameLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:gravity="right"
+                android:paddingRight="10dp"
                 android:layout_height="wrap_content"
                 android:text="@string/last_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/lastBox"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
                 android:hint="@string/last_name"
                 android:inputType="text"
                 android:textColor="@color/lightText" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -226,20 +235,23 @@
 
             <TextView
                 android:id="@+id/phoneLable"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:gravity="right"
+                android:paddingRight="10dp"
                 android:layout_height="wrap_content"
                 android:text="@string/phone"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
             <EditText
                 android:id="@+id/phoneTextBox"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
                 android:hint="@string/phone_no"
                 android:inputType="phone"
                 android:textColor="@color/lightText" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -309,9 +321,7 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
-
-
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -336,10 +346,10 @@
             android:gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" >
-
+
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:paddingRight="10dp"
@@ -348,12 +358,12 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
             <EditText
                 android:id="@+id/searchTextBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="7"
+                android:ems="5"
                 android:hint="Post Code"
                 android:inputType="text|textPostalAddress"
                 android:textColor="@color/lightText"

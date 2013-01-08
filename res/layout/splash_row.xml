@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Name"
+            android:text=""
+            android:textColor="@color/lightText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -27,7 +28,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:paddingTop="8dp"
-            android:text="0.21mi from flat"
+            android:text=""
+            android:textColor="@color/lightText"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -40,6 +42,7 @@
         <Button
             android:id="@+id/selectButton"
             style="?android:attr/buttonStyleSmall"
+            android:textColor="@color/lightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Flat" />
