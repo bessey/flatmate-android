@@ -40,8 +40,33 @@ public class Flat {
 	}
 	
 	public Debt[] getMyDebts() {
-		Debt[] debts;
-		return null;
+		Debt[] debts = new Debt[users.length];
+		for (int i = 0; i < users.length; i++) {
+			debts[i] = new Debt(users[i].getId(), 0.0);
+		}
+		int uid = currentUser.getId();
+		for (ShopItem si : shop_items) {
+			int ub = si.getUserBoughtId();
+			int uw = si.getUserWantId();
+			if (ub != -1) {
+				if (uw == uid && ub != uid) {
+					for (Debt d : debts) {
+						if (d.getId() == ub) {
+							d.add(si.getPrice());
+							break;
+						}
+					}
+				} else if (ub == uid && uw != uid) {
+					for (Debt d : debts) {
+						if (d.getId() == uw) {
+							d.sub(si.getPrice());
+							break;
+						}
+					}
+				}
+			}
+		}
+		return debts;
 	}
 
 	public void setCurrentUser(User u){

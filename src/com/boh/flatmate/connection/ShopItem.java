@@ -84,7 +84,9 @@ public class ShopItem {
 	}
 
 	public int getUserBoughtId() {
-		return Integer.parseInt(user_bought_id);
+		if (user_bought_id == null) {
+			return -1;
+		} else return Integer.parseInt(user_bought_id);
 	}
 
 	public void setUserBoughtId(int user_bought_id) {
