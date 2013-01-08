@@ -18,6 +18,7 @@ public class Flat {
 	private User[] users;
 	private User currentUser;
 	private ShopItem[] shop_items;
+	private Debt[] debts;
 
 	public String getUserName(int id){
 		for (User u : users){
@@ -39,8 +40,8 @@ public class Flat {
 		return currentUser.getColour_Id();
 	}
 	
-	public Debt[] getMyDebts() {
-		Debt[] debts = new Debt[users.length];
+	public void updateDebts() {
+		debts = new Debt[users.length];
 		for (int i = 0; i < users.length; i++) {
 			debts[i] = new Debt(users[i].getId(), 0.0);
 		}
@@ -66,6 +67,9 @@ public class Flat {
 				}
 			}
 		}
+	}
+	
+	public Debt[] getDebts() {
 		return debts;
 	}
 
@@ -126,6 +130,7 @@ public class Flat {
 		return Integer.parseInt(id);
 	}
 	public void setId(int id) {
+		if (id < 0) this.id = null;
 		this.id = Integer.toString(id);
 	}
 	public String getNickname() {

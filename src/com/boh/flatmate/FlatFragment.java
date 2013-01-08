@@ -44,13 +44,13 @@ public class FlatFragment extends Fragment {
 		//ft.addToBackStack(null);
 		ft.commit();
 		final Button button = (Button) c.findViewById(R.id.map_button);
-		button.setText("View Map");
+		button.setText("View Debts");
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if(mapViewOpen == 0){
 					android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-					Fragment map = new MapFragment();
-					ft.replace(R.id.list, map, "Map_fragment");
+					//Fragment map = new MapFragment();
+					//ft.replace(R.id.list, map, "Map_fragment");
 					ft.addToBackStack(null);
 					ft.commit();
 					button.setText("View Flat List");
@@ -66,6 +66,7 @@ public class FlatFragment extends Fragment {
 				}
 			}
 		});
+		
 		getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
 			public void onBackStackChanged(){
 				if(mapViewOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){

@@ -156,7 +156,7 @@ public class ShopItem {
 		this.updated_at = updated_at;
 	}
 	
-	private class serverAddItem extends AsyncTask<ShopItem,Void,Void>{
+	private class serverAddItem extends AsyncTask<ShopItem,Void,Void> {
 		protected Void doInBackground(ShopItem... item) {
 			ConnectionExchanger.connection.addItem(item[0]);
 			return null;
@@ -169,7 +169,7 @@ public class ShopItem {
 		}
 	}
 	
-	private class serverUpdateItem extends AsyncTask<ShopItem,Void,Void>{
+	private class serverUpdateItem extends AsyncTask<ShopItem,Void,Void> {
 		protected Void doInBackground(ShopItem... item) {
 			ConnectionExchanger.connection.updateItem(item[0]);
 			return null;
@@ -177,6 +177,7 @@ public class ShopItem {
 
 		protected void onPostExecute(String result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+			FlatMate.FlatDataExchanger.flatData.updateDebts();
 		}
 	}
 }

@@ -171,7 +171,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				Fragment ShoppingList =  new ShoppingFragment();
 				return ShoppingList;   
 			case 2:
-				return new TasksFragment();
+				return new MapFragment();
 			default:
 				Fragment FlatListDefault =  new FlatListFragment();
 				return FlatListDefault;
