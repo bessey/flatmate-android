@@ -87,7 +87,11 @@ public class Flat {
 	
 	public String getDebt(int id) {
 		double debt = 0.0;
+		System.out.println("*****************---*********************");
 		for (Debt d : debts) {
+			System.out.println("***********************************************");
+			System.out.println(d.getId() + ":" + id);
+			System.out.println("***********************************************");
 			if (d.getId() == id) {
 				debt = d.getDebt();
 				break;

@@ -5,7 +5,7 @@ public class Debt {
 	private double debt;
 	
 	public Debt (int id, double debt) {
-		id = id;
+		this.id = id;
 		this.debt = debt;
 	}
 	
