@@ -19,4 +19,10 @@ public class Location {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
+	
+	public boolean isEquals(Location loc){
+		if(lat == loc.getLat() && lng == loc.getLng()){
+			return true;
+		}else return false;
+	}
 }

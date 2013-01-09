@@ -359,12 +359,24 @@ public class ServerConnection {
 		}
 	}
 	
-	public Shops getNearbyShops(double lat, double lng, int radius) {
+	public Shops getNearbyShops(double lat, double lng) {
 		String targetURL = "https://maps.googleapis.com/maps/api/place/search/json?";
-		targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=false&key=AIzaSyBM0u_qmH0ap1ttgBMqF256OyWyUVfmPRQ";
-		//app one:
-		//targetURL += "location=" + lat + "," + lng + "&radius=5000&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
-		return gson.fromJson(getShops(targetURL), Shops.class);
+		targetURL += "location=" + lat + "," + lng + "&rankby=distance&types=grocery_or_supermarket&sensor=true&key=AIzaSyBM0u_qmH0ap1ttgBMqF256OyWyUVfmPRQ";
+		//bad app one:
+		//targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
+		String s = getShops(targetURL);
+		System.out.println(s);
+		return gson.fromJson(s, Shops.class);
+	}
+	
+	public Shops getBestShops(double lat, double lng, int radius) {
+		String targetURL = "https://maps.googleapis.com/maps/api/place/search/json?";
+		targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=true&key=AIzaSyBM0u_qmH0ap1ttgBMqF256OyWyUVfmPRQ";
+		//bad app one:
+		//targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
+		String s = getShops(targetURL);
+		System.out.println(s);
+		return gson.fromJson(s, Shops.class);
 	}
 	
 	private String get(String targetURL) {
@@ -380,7 +392,7 @@ public class ServerConnection {
 		System.out.println("Get Command:");
 		URL url;
 		HttpURLConnection connection = null; 
-		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
+		if (auth_token != null && !mapCall) targetURL += "?auth_token=" + auth_token;
 		try {
 			System.out.println(targetURL);
 			//Create connection

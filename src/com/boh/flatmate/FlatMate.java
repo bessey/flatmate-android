@@ -4,12 +4,15 @@ import java.io.File;
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
+import com.boh.flatmate.connection.ShopItem;
+import com.boh.flatmate.connection.Shops;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -175,5 +178,10 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 	public static class mapExchanger {
 		public static MapView mMapView;
+	}
+	
+	public static class ShopsExchanger{
+		public static Shops nearShops;
+		public static Shops bestShops;
 	}
 }

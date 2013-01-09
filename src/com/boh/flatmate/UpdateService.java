@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
+import com.boh.flatmate.MapFragment.getNearShops;
 
 import android.app.NotificationManager;
 import android.app.Service;
