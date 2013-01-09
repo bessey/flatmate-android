@@ -56,15 +56,14 @@ public class ShopItem {
 	}
 	
 	public void setBoughtToday(double boughtPrice){
-		int id = FlatDataExchanger.flatData.getCurrentUserId();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-		Date date = new Date();
-		String dateString = dateFormat.format(date);
+		int userId = FlatDataExchanger.flatData.getCurrentUserId();
 		
-		user_bought_id = ""+id;
-		price = ""+boughtPrice;
-		updated_at = ""+dateString;
-		new serverUpdateItem().execute(this);
+		ShopItem updateItem = new ShopItem();
+		updateItem = this;
+		updateItem.setUserBoughtId(userId);
+		updateItem.setPrice(""+boughtPrice);
+		
+		new serverUpdateItem().execute(updateItem);
 	}
 
 	public int getFlatId() {
@@ -159,12 +158,11 @@ public class ShopItem {
 	private class serverAddItem extends AsyncTask<ShopItem,Void,Void> {
 		protected Void doInBackground(ShopItem... item) {
 			ConnectionExchanger.connection.addItem(item[0]);
+			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
 			return null;
 		}
 
-		protected void onPostExecute(String result) {
-			FlatMate.ConnectionExchanger.connection.getMyFlat();
-			// TODO: do something with this; atm nothing updates
+		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 		}
 	}
@@ -172,12 +170,13 @@ public class ShopItem {
 	private class serverUpdateItem extends AsyncTask<ShopItem,Void,Void> {
 		protected Void doInBackground(ShopItem... item) {
 			ConnectionExchanger.connection.updateItem(item[0]);
+			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
 			return null;
 		}
 
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
-			FlatMate.FlatDataExchanger.flatData.updateDebts();
+			FlatDataExchanger.flatData.updateDebts();
 		}
 	}
 }

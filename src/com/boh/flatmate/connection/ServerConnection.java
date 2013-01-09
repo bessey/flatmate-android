@@ -28,9 +28,8 @@ public class ServerConnection {
 
 	//register a user and create a User object with all the details
 	//note: must have an email and password or this won't work
-	public  void registerUser(User newUser, String password) {
+	public  String registerUser(User newUser, String password) {
 		String userInfo = null;
-		@SuppressWarnings("unused")
 		String jsonResult;
 
 
@@ -40,7 +39,7 @@ public class ServerConnection {
 
 		jsonResult = post(server + "/users.json", userInfo);
 		
-
+		return jsonResult;
 
 		//Check JSON string:
 		// System.out.println(jsonResult);

@@ -39,7 +39,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashActivity extends Activity {
@@ -495,7 +494,7 @@ public class SplashActivity extends Activity {
 
 		View flatLogo = findViewById(R.id.splashLogo);
 
-		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 100 );
+		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, 22 );
 		anim2.setDuration(300);
 		anim2.setFillAfter( false );
 		anim2.setAnimationListener(new AnimationListener() {
@@ -552,7 +551,9 @@ public class SplashActivity extends Activity {
 			newUser.setPassword(registrationPassword);
 
 			View buttons = findViewById(R.id.backNextButtons);
-			buttons.setVisibility(View.INVISIBLE);
+			buttons.setVisibility(View.GONE);
+			View spinner = findViewById(R.id.registerSpinner);
+			spinner.setVisibility(View.VISIBLE);
 
 			new registerUser().execute(newUser);
 		}
@@ -578,12 +579,20 @@ public class SplashActivity extends Activity {
 
 	}
 
-	public void registrationComplete(){
-		View loginBox = findViewById(R.id.loginBox);
-		View registerBox = findViewById(R.id.registerBox);
-		loginBox.setVisibility(View.GONE);
-		registerBox.setVisibility(View.GONE);
-		new serverLogin().execute(registrationEmail,registrationPassword,deviceId);
+	public void registrationComplete(String result){
+		if(result == "failed" || result == "invalid" || result == "connection"){
+			View buttons = findViewById(R.id.backNextButtons);
+			buttons.setVisibility(View.VISIBLE);
+			View spinner = findViewById(R.id.registerSpinner);
+			spinner.setVisibility(View.GONE);
+			Toast.makeText(getApplicationContext(), "Registration could not be Completed", Toast.LENGTH_SHORT).show();
+		}else{
+			View loginBox = findViewById(R.id.loginBox);
+			View registerBox = findViewById(R.id.registerBox);
+			loginBox.setVisibility(View.GONE);
+			registerBox.setVisibility(View.GONE);
+			new serverLogin().execute(registrationEmail,registrationPassword,deviceId);
+		}
 	}
 
 	public void newFlatBack(){
@@ -626,7 +635,7 @@ public class SplashActivity extends Activity {
 
 		View flatLogo = findViewById(R.id.splashLogo);
 
-		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, -100 );
+		TranslateAnimation anim2 = new TranslateAnimation( 0, 0 , 0, -22 );
 		anim2.setDuration(300);
 		anim2.setFillAfter( false );
 		anim2.setAnimationListener(new AnimationListener() {
@@ -860,7 +869,7 @@ public class SplashActivity extends Activity {
 		}else if(screenPosition == 1){
 			backButtonPressed();
 		}else if(screenPosition == 2){
-			//flatSelectionBack();
+			super.onBackPressed();
 		}else if(screenPosition == 3){
 			newFlatBack();
 		}
@@ -972,16 +981,15 @@ public class SplashActivity extends Activity {
 
 	}
 
-	private class registerUser extends AsyncTask<User,Void,Void>{
+	private class registerUser extends AsyncTask<User,Void,String>{
 
 		@Override
-		protected Void doInBackground(User... users) {
-			connection.registerUser(users[0],registrationPassword);
-			return null;
+		protected String doInBackground(User... users) {
+			return connection.registerUser(users[0],registrationPassword);
 		}
 
-		protected void onPostExecute(Void result) {
-			registrationComplete();
+		protected void onPostExecute(String result) {
+			registrationComplete(result);
 			return;
 		}
 

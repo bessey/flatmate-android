@@ -53,27 +53,30 @@ public class ShoppingFragment extends Fragment {
 				if(addOpen == 0){
 					addOpen = 1;
 					addButton.setImageResource(R.drawable.cross);
-					addItemBox.setVisibility(View.VISIBLE);
 					int offset = addItemBox.getHeight();
-					TranslateAnimation anim = new TranslateAnimation( 0, 0 , -offset, 0 );
-					anim.setDuration(250);
-					c.findViewById(R.id.list2).startAnimation(anim);
-				}else{
-					addOpen = 0;
-					addButton.setImageResource(R.drawable.new_shopping);
-					int offset = addItemBox.getHeight();
-					TranslateAnimation anim = new TranslateAnimation( 0, 0 , 0, -offset );
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , 0, offset );
 					anim.setDuration(250);
 					anim.setAnimationListener(new AnimationListener() {
 						@Override
 						public void onAnimationEnd(Animation animation) {
-							c.findViewById(R.id.addItem).setVisibility(View.GONE);
+							TranslateAnimation anim = new TranslateAnimation( 0, 0, 0, 0);
+							anim.setDuration(1);
+							c.findViewById(R.id.list2).startAnimation(anim);
+							c.findViewById(R.id.addItem).setVisibility(View.VISIBLE);
 						}
 						@Override
 						public void onAnimationRepeat(Animation animation) { }
 						@Override
 						public void onAnimationStart(Animation animation) { }
 					});
+					c.findViewById(R.id.list2).startAnimation(anim);
+				}else{
+					addOpen = 0;
+					addButton.setImageResource(R.drawable.new_shopping);
+					int offset = addItemBox.getHeight();
+					addItemBox.setVisibility(View.GONE);
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , offset, 0 );
+					anim.setDuration(250);
 					c.findViewById(R.id.list2).startAnimation(anim);
 				}
 			}

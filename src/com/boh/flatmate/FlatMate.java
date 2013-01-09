@@ -30,9 +30,11 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
-	ViewPager mViewPager;
+	NonSwipeableViewPager mViewPager;
 	View mMapViewContainer;
 	MapView mMapView;
+	
+	Intent service;
 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
@@ -51,7 +53,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
-		Intent service = new Intent(FlatMate.this, UpdateService.class);
+		service = new Intent(FlatMate.this, UpdateService.class);
 		startService(service);
 
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -62,7 +64,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
@@ -81,7 +83,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				.setTabListener(this));
 		actionBar.addTab(
 				actionBar.newTab()
-				.setIcon(R.drawable.tasks_tab)
+				.setIcon(R.drawable.location_tab)
 				.setTabListener(this));
 		
 	}
@@ -109,6 +111,8 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			{
 				logFile.delete();
 			}
+			stopService(service);
+			finish();
 			return true;
 		case R.id.menu_settings:
 			return true;

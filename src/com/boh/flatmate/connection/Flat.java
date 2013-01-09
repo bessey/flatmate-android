@@ -19,6 +19,10 @@ public class Flat {
 	private User currentUser;
 	private ShopItem[] shop_items;
 	private Debt[] debts;
+	
+	public void updateData(Flat newFlat){
+		shop_items = newFlat.getShopItems();
+	}
 
 	public String getUserName(int id){
 		for (User u : users){

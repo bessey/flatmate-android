@@ -41,6 +41,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
 		else v = vi.inflate(R.layout.shopping_row, null);
+		v.setBackgroundResource(R.drawable.boxg);
 
 		String name = shoppingItem.getName();
 		if (name != null) {
@@ -117,8 +118,6 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 							toast.show();
 						}else{
 							double price = Double.valueOf(priceText.toString());
-							Time now = new Time();
-							now.setToNow();
 							FlatDataExchanger.flatData.getShopItem(position).setBoughtToday(price);
 							System.out.println("Item Bought for "+ price);
 						}

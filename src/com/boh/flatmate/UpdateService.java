@@ -25,8 +25,8 @@ public class UpdateService extends Service {
 	private LocationManager lm;
 	private LocationListener locationListener;
 
-	private static long minTimeMillis = 22;
-	private static long minDistanceMeters = 10;
+	private static long minTimeMillis = 600000;
+	private static long minDistanceMeters = 100;
 	private static float minAccuracyMeters = 50;
 
 	private int lastStatus = 0;
