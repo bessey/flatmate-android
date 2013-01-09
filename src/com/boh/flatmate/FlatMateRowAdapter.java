@@ -65,10 +65,15 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		}
 		if(flatMate.getId() == FlatDataExchanger.flatData.getCurrentUserId() || displayDebts == 1){
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
-			phoneButton.setVisibility(View.INVISIBLE);
+			phoneButton.setVisibility(View.GONE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);
-			messageButton.setVisibility(View.INVISIBLE);
+			messageButton.setVisibility(View.GONE);
+			TextView debtsText = (TextView)v.findViewById(R.id.userDebtsBox);
+			debtsText.setVisibility(View.VISIBLE);
+			debtsText.setText(FlatDataExchanger.flatData.getDebt(flatMate.getId()));
 		}else{
+			TextView debtsText = (TextView)v.findViewById(R.id.userDebtsBox);
+			debtsText.setVisibility(View.GONE);
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
 			phoneButton.setVisibility(View.VISIBLE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);
