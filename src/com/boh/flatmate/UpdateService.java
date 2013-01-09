@@ -25,9 +25,10 @@ public class UpdateService extends Service {
 	private LocationManager lm;
 	private LocationListener locationListener;
 
-	private static long minTimeMillis = 600000;
+	//private static long minTimeMillis = 600000; //10Minutes
+	private static long minTimeMillis = 1000; //10 Seconds
 	private static long minDistanceMeters = 100;
-	private static float minAccuracyMeters = 50;
+	private static float minAccuracyMeters = 1000;
 
 	private int lastStatus = 0;
 	private static boolean showingDebugToast = false;
@@ -40,10 +41,12 @@ public class UpdateService extends Service {
 
 		locationListener = new MyLocationListener();
 		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, minDistanceMeters, locationListener);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 
+		/*lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 
 				minTimeMillis, 
 				minDistanceMeters,
 				locationListener);
+				
+			*/
 	}
 
 	private void shutdownLoggerService() {
