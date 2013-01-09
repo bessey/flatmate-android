@@ -43,6 +43,12 @@ public class ShopItem {
 		return result;
 	}
 	
+	public String toHTTPStringBought() {
+		String result = "shop_item[user_bought_id]=" + user_bought_id;
+		if (price != null) result += "&shop_item[price]=" + price;
+		return result;
+	}
+	
 	public int isBought(){
 		if(user_bought_id != null){
 			return 1;
@@ -193,7 +199,6 @@ public class ShopItem {
 
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
-			FlatDataExchanger.flatData.updateDebts();
 		}
 	}
 }

@@ -252,7 +252,7 @@ public class ServerConnection {
 	
 	//update item with given item
 	public void updateItem(ShopItem item) {
-		String itemInfo = item.toHTTPString();
+		String itemInfo = item.toHTTPStringBought();
 		put(server + "/flats/" + item.getFlatId() + "/shop_items/" + item.getId(), itemInfo);
 	}
 	
@@ -279,11 +279,12 @@ public class ServerConnection {
 		try {
 			url = new URL(tu);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-			httpCon.setDoOutput(true);
+			//httpCon.setDoInput(true);
 			httpCon.setRequestMethod("PUT");
-			OutputStreamWriter out = new OutputStreamWriter(
+			DataOutputStream out = new DataOutputStream(
 			    httpCon.getOutputStream());
-			out.write(up);
+			out.writeBytes(up);
+			out.flush ();
 			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

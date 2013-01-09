@@ -6,14 +6,12 @@ import java.util.regex.Pattern;
 import com.boh.flatmate.R;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.connection.ShopItem;
-import com.boh.flatmate.connection.User;
 
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +29,11 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 	public ShoppingRowAdapter(Context c, int textViewResourceId, ShopItem[] data) {
 		super(c, textViewResourceId, data);
 		context = c;
+	}
+	
+	@Override
+	public int getCount(){
+		return FlatDataExchanger.flatData.getShopItemsLength();
 	}
 
 	@Override
@@ -50,6 +53,19 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 				tt.setText(name);
 			}
 		}
+		
+		int wantID = shoppingItem.getUserWantId();
+		String itemForText = "";
+		if(wantID == -1){
+			itemForText = "For the Flat";
+		}else{
+			itemForText = "For "+FlatDataExchanger.flatData.getUserName(wantID);
+		}
+		TextView wantsTextView = (TextView) v.findViewById(R.id.wantsTextView);
+		if (wantsTextView != null) {
+			wantsTextView.setText(itemForText);
+		}
+		
 		if(shoppingItem.isBought() == 1) {
 			TextView priceTextView = (TextView) v.findViewById(R.id.Price);
 			Double priceDouble = shoppingItem.getPrice();

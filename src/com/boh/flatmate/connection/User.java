@@ -120,7 +120,8 @@ public class User {
 		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();
 		float FlatMate_Long = FlatDataExchanger.flatData.getGeocode_long();
 		double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
-		if(distanceFromHome > 50){
+		
+		if(distanceFromHome > 0.1){
 			return 0;
 		}
 		return 1;

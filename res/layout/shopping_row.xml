@@ -41,6 +41,14 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/wantsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For ... "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
     </LinearLayout>
 
     <LinearLayout

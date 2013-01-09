@@ -21,21 +21,21 @@ public class Flat {
 	private User currentUser;
 	private ShopItem[] shop_items;
 	private Debt[] debts;
-	
+
 	public void updateData(Flat newFlat){
-		shop_items = newFlat.getShopItems();
+		this.shop_items = newFlat.getShopItems();
 	}
 
 	public String getUserName(int id){
 		for (User u : users){
 			if(u.getId() == id){
-				return u.getFirst_name();
+				return u.getFirst_name() +" "+ u.getLast_name().charAt(0);
 			}
 		}
 		// If the name isn't in the list, it must be you
 		return "You";
 	}
-	
+
 	public int getUserColourID(int id) {
 		for (User u : users){
 			if(u.getId() == id){
@@ -45,7 +45,7 @@ public class Flat {
 		// If the name isn't in the list, it must be you
 		return currentUser.getColour_Id();
 	}
-	
+
 	public void updateDebts() {
 		debts = new Debt[users.length];
 		for (int i = 0; i < users.length; i++) {
@@ -80,11 +80,11 @@ public class Flat {
 			}
 		}
 	}
-	
+
 	public Debt[] getDebts() {
 		return debts;
 	}
-	
+
 	public String getDebt(int id) {
 		double debt = 0.0;
 		for (Debt d : debts) {
@@ -102,7 +102,7 @@ public class Flat {
 
 	public void setCurrentUser(User u){
 		currentUser = u;
-		
+
 		// Remove us from the users array
 		ArrayList<User> usersWithoutMe = new ArrayList<User>();
 		for(int i = 0; i < users.length; i++){
@@ -193,9 +193,13 @@ public class Flat {
 	public void setUsers(User[] users) {
 		this.users = users;
 	}
-	
+
 	public ShopItem getShopItem(int position) {
-		return shop_items[position];
+			return shop_items[position];
+	}
+	
+	public int getShopItemsLength(){
+		return shop_items.length;
 	}
 
 	public ShopItem[] getShopItems() {
