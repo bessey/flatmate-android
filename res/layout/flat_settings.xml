@@ -79,7 +79,7 @@
 	                android:textSize="@dimen/Large" />
 	
 	            <ListView
-	                android:id="@+id/uList"
+	                android:id="@+id/unList"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_marginBottom="@dimen/Medium" >
