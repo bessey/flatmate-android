@@ -358,9 +358,25 @@ public class ServerConnection {
 			}
 		}
 	}
+	
+	public Shops getNearbyShops(double lat, double lng, int radius) {
+		String targetURL = "https://maps.googleapis.com/maps/api/place/search/json?";
+		targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=false&key=AIzaSyBM0u_qmH0ap1ttgBMqF256OyWyUVfmPRQ";
+		//app one:
+		//targetURL += "location=" + lat + "," + lng + "&radius=5000&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
+		return gson.fromJson(getShops(targetURL), Shops.class);
+	}
+	
+	private String get(String targetURL) {
+		return getter(targetURL, false);
+	}
+	
+	private String getShops(String targetURL) {
+		return getter(targetURL, true);
+	}
 
 	//get from server
-	private  String get(String targetURL) {
+	private String getter(String targetURL, boolean mapCall) {
 		System.out.println("Get Command:");
 		URL url;
 		HttpURLConnection connection = null; 
