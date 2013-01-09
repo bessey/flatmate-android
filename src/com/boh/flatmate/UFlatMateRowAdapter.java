@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,31 @@ public class UFlatMateRowAdapter extends ArrayAdapter<User> {
 				tt.setText(name);
 			}
 		}
+		
+		Button approve = (Button) v.findViewById(R.id.approveButton);
+		Button ignore = (Button) v.findViewById(R.id.ignoreButton);
+		final int flatmateId = flatMate.getId();
+		
+		approve.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				approveFlatmatePressed(flatmateId);
+			}
+		});
+		ignore.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				ignoreFlatmatePressed(flatmateId);
+			}
+		});
 
 		return v;
 	}
+	
+	public void approveFlatmatePressed(int id){
+		FlatMate.ConnectionExchanger.connection.approveMember(id);
+	}
+	
+	public void ignoreFlatmatePressed(int id){
+		FlatMate.ConnectionExchanger.connection.ignoreMember(id);
+	}
+	
 }
