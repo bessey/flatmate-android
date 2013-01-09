@@ -44,11 +44,12 @@ public class FlatFragment extends Fragment {
 			ft.replace(R.id.list, flatList,"flat_fragment");
 			ft.commit();
 			if(settingsOpen == 1){
+				android.support.v4.app.FragmentTransaction ft2 = getFragmentManager().beginTransaction();
 				Fragment settings = new FlatSettingsFragment();
 				//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
-				ft.replace(R.id.list, settings,"Set_fragment");
-				ft.addToBackStack(null);
-				ft.commit();
+				ft2.replace(R.id.list, settings,"Set_fragment");
+				ft2.addToBackStack(null);
+				ft2.commit();
 				((ImageView) c.findViewById(R.id.settingsButton)).setImageResource(R.drawable.flatmates_tab);
 				c.findViewById(R.id.map_button).setVisibility(View.GONE);
 			}
@@ -98,7 +99,7 @@ public class FlatFragment extends Fragment {
 			}
 		});
 
-		TextView flatName = (TextView) c.findViewById(R.id.flatName);
+		TextView flatName = (TextView) c.findViewById(R.id.flatNameTop);
 		flatName.setText(FlatDataExchanger.flatData.getNickname());
 
 		TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
