@@ -421,10 +421,10 @@ public class ServerConnection {
 	}
 
 	public void ignoreMember(int id) {
-		
+		post(server + "/flats/m/"+id+"/review", "user[approve]=false" );		
 	}
 
 	public void approveMember(int id) {
-		
+		post(server + "/flats/m/"+id+"/review", "user[approve]=true" );
 	}
 }
