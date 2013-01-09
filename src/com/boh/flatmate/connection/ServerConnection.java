@@ -419,4 +419,12 @@ public class ServerConnection {
 		String flatInfo = flat.toHTTPString();
 		put(server + "/flats/m", flatInfo);
 	}
+
+	public void ignoreMember(int id) {
+		
+	}
+
+	public void approveMember(int id) {
+		
+	}
 }
