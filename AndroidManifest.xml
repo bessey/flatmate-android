@@ -30,8 +30,7 @@
 	<uses-feature
 	  android:glEsVersion="0x00020000"
 	  android:required="true"/>
-    
-    
+	    
     <!--  Matt's GCM additions -->
     <permission android:name="com.boh.flatmate.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.boh.flatmate.permission.C2D_MESSAGE" /> 
@@ -70,7 +69,8 @@
             android:name=".SplashActivity"
             android:label="FlatMate"
             android:screenOrientation="portrait" 
-            android:theme="@style/Theme.Transparent" >
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
