@@ -38,27 +38,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="right|center_vertical"
         android:orientation="horizontal" >
-
+
         <EditText
             android:id="@+id/priceInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="£ price"
             android:inputType="numberDecimal"
-            android:width="100dp" >
+            android:width="80dp" >
+
         </EditText>
 
         <ImageButton
             android:id="@+id/saveButton"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="1dip"
             android:layout_marginRight="10dip"

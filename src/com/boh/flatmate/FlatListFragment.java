@@ -31,6 +31,10 @@ public class FlatListFragment extends ListFragment {
 				
 		return v1;
 	}
+	
+	public void setDebtsVisible(int set){
+		mAdapter.setDisplayDebts(set);
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {

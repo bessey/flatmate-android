@@ -1,8 +1,11 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -35,6 +38,12 @@ public class ShoppingFragment extends Fragment {
 		c = container;
 		return v1;
 	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		new refreshItems().execute();
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -53,27 +62,30 @@ public class ShoppingFragment extends Fragment {
 				if(addOpen == 0){
 					addOpen = 1;
 					addButton.setImageResource(R.drawable.cross);
-					addItemBox.setVisibility(View.VISIBLE);
 					int offset = addItemBox.getHeight();
-					TranslateAnimation anim = new TranslateAnimation( 0, 0 , -offset, 0 );
-					anim.setDuration(250);
-					c.findViewById(R.id.list2).startAnimation(anim);
-				}else{
-					addOpen = 0;
-					addButton.setImageResource(R.drawable.new_shopping);
-					int offset = addItemBox.getHeight();
-					TranslateAnimation anim = new TranslateAnimation( 0, 0 , 0, -offset );
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , 0, offset );
 					anim.setDuration(250);
 					anim.setAnimationListener(new AnimationListener() {
 						@Override
 						public void onAnimationEnd(Animation animation) {
-							c.findViewById(R.id.addItem).setVisibility(View.GONE);
+							TranslateAnimation anim = new TranslateAnimation( 0, 0, 0, 0);
+							anim.setDuration(1);
+							c.findViewById(R.id.list2).startAnimation(anim);
+							c.findViewById(R.id.addItem).setVisibility(View.VISIBLE);
 						}
 						@Override
 						public void onAnimationRepeat(Animation animation) { }
 						@Override
 						public void onAnimationStart(Animation animation) { }
 					});
+					c.findViewById(R.id.list2).startAnimation(anim);
+				}else{
+					addOpen = 0;
+					addButton.setImageResource(R.drawable.new_shopping);
+					int offset = addItemBox.getHeight();
+					addItemBox.setVisibility(View.GONE);
+					TranslateAnimation anim = new TranslateAnimation( 0, 0 , offset, 0 );
+					anim.setDuration(250);
 					c.findViewById(R.id.list2).startAnimation(anim);
 				}
 			}
@@ -95,6 +107,17 @@ public class ShoppingFragment extends Fragment {
 				}
 			}
 		});
+	}
+	
+	private class refreshItems extends AsyncTask<Void,Void,Void> {
+		protected Void doInBackground(Void... item) {
+			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+		}
 	}
 
 }

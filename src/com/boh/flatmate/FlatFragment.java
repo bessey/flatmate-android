@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FlatFragment extends Fragment {
@@ -18,7 +19,7 @@ public class FlatFragment extends Fragment {
 	private ViewGroup c;
 	FlatListFragment flatList;
 
-	private int mapViewOpen = 0;
+	private int debtsOpen = 0;
 	private int settingsOpen = 0;
 
 	@Override
@@ -38,43 +39,38 @@ public class FlatFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-		flatList = new FlatListFragment();
-		//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
-		ft.replace(R.id.list, flatList,"flat_fragment");
-		//ft.addToBackStack(null);
-		ft.commit();
+			flatList = new FlatListFragment();
+			//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
+			ft.replace(R.id.list, flatList,"flat_fragment");
+			ft.commit();
+			if(settingsOpen == 1){
+				Fragment settings = new FlatSettingsFragment();
+				//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
+				ft.replace(R.id.list, settings,"Set_fragment");
+				ft.addToBackStack(null);
+				ft.commit();
+				((ImageView) c.findViewById(R.id.settingsButton)).setImageResource(R.drawable.flatmates_tab);
+				c.findViewById(R.id.map_button).setVisibility(View.GONE);
+			}
 		final Button button = (Button) c.findViewById(R.id.map_button);
 		button.setText("View Debts");
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if(mapViewOpen == 0){
-					android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-					//Fragment map = new MapFragment();
-					//ft.replace(R.id.list, map, "Map_fragment");
-					ft.addToBackStack(null);
-					ft.commit();
-					button.setText("View Flat List");
-					View topBar = (View) c.findViewById(R.id.topLayout);
-					topBar.setVisibility(View.GONE);
-					mapViewOpen = 1;
+				if(debtsOpen == 0){
+					button.setText("View Contact Buttons");
+					debtsOpen = 1;
+					flatList.setDebtsVisible(1);
 				}else{
-					mapViewOpen = 0;
-					getFragmentManager().popBackStack();
-					button.setText("View Map");
-					View topBar = (View) c.findViewById(R.id.topLayout);
-					topBar.setVisibility(View.VISIBLE);
+					debtsOpen = 0;
+					button.setText("View Debts");
+					flatList.setDebtsVisible(0);
 				}
 			}
 		});
 		
 		getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
 			public void onBackStackChanged(){
-				if(mapViewOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
-					mapViewOpen = 0;
-					button.setText("View Map");
-					View topBar = (View) c.findViewById(R.id.topLayout);
-					topBar.setVisibility(View.VISIBLE);
-				}else if(settingsOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
+				if(settingsOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
 					settingsOpen = 0;
 					button.setVisibility(View.VISIBLE);
 				}
@@ -86,6 +82,7 @@ public class FlatFragment extends Fragment {
 			public void onClick(View v) {
 				if(settingsOpen == 0){
 					settingsOpen = 1;
+					settings.setImageResource(R.drawable.flatmates_tab);
 					android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
 					Fragment set = new FlatSettingsFragment();
 					ft.replace(R.id.list, set, "Set_fragment");
@@ -94,6 +91,7 @@ public class FlatFragment extends Fragment {
 					button.setVisibility(View.GONE);
 				}else{
 					settingsOpen = 0;
+					settings.setImageResource(R.drawable.settings);
 					getFragmentManager().popBackStack();
 					button.setVisibility(View.VISIBLE);
 				}

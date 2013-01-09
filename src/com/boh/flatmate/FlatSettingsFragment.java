@@ -19,7 +19,7 @@ public class FlatSettingsFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v1 = inflater.inflate(R.layout.emptylayout, container, false);
+		View v1 = inflater.inflate(R.layout.flat_settings, container, false);
 		c = container;
 		return v1;
 	}

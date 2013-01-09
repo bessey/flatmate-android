@@ -17,6 +17,7 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 
 	private Context context;
 	private User[] FlatData;
+	private int displayDebts = 0;
 
 	public FlatMateRowAdapter(Context c, int textViewResourceId, User[] data) {
 		super(c, textViewResourceId, data);
@@ -41,31 +42,44 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 			v.setBackgroundResource(R.drawable.box3);
 		} else if (flatMate.getColour_Id() == 3) {
 			v.setBackgroundResource(R.drawable.box4);
-		} else {
+		} else if (flatMate.getColour_Id() == 4) {
 			v.setBackgroundResource(R.drawable.box5);
+		} else if (flatMate.getColour_Id() == 5) {
+			v.setBackgroundResource(R.drawable.box6);
+		} else if (flatMate.getColour_Id() == 6) {
+			v.setBackgroundResource(R.drawable.box7);
+		} else if (flatMate.getColour_Id() == 7) {
+			v.setBackgroundResource(R.drawable.box8);
+		} else {
+			v.setBackgroundResource(R.drawable.box8);
 		}
-		String name = flatMate.getFirst_name() +" "+ flatMate.getLast_name();
+		String name = flatMate.getFirst_name() +" "+ flatMate.getLast_name().toUpperCase().charAt(0);
 		if (name != null) {
 			TextView tt = (TextView) v.findViewById(R.id.name);
 			if (tt != null) {
 				tt.setText(name);
 			}
 		}
-		if(flatMate.getId() == FlatDataExchanger.flatData.getCurrentUserId()){
+		if(flatMate.getId() == FlatDataExchanger.flatData.getCurrentUserId() || displayDebts == 1){
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
 			phoneButton.setVisibility(View.INVISIBLE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);
 			messageButton.setVisibility(View.INVISIBLE);
 		}else{
 			ImageButton phoneButton = (ImageButton)v.findViewById(R.id.callButton);
-			phoneButton.setOnClickListener(flatMate.phoneListener);
+			phoneButton.setVisibility(View.VISIBLE);
 			ImageButton messageButton = (ImageButton)v.findViewById(R.id.messageButton);
+			messageButton.setVisibility(View.VISIBLE);
+			phoneButton.setOnClickListener(flatMate.phoneListener);
 			messageButton.setOnClickListener(flatMate.messageListener);
 		}
 		
 		if(flatMate.isHome() == 0){
 			ImageView image = (ImageView) v.findViewById(R.id.icon);
 			image.setImageResource(R.drawable.home_x);
+		}else{
+			ImageView image = (ImageView) v.findViewById(R.id.icon);
+			image.setImageResource(R.drawable.home);
 		}
 		
 		double distance = flatMate.distanceFromHome();
@@ -74,6 +88,11 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		disFHText.setText(round(distance,2)+"mi from flat");
 		
 		return v;
+	}
+	
+	public void setDisplayDebts(int set){
+		displayDebts = set;
+		this.notifyDataSetChanged();
 	}
 
 	public double round(double value, int places) {
