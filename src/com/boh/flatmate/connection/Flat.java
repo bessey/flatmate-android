@@ -77,6 +77,21 @@ public class Flat {
 	public Debt[] getDebts() {
 		return debts;
 	}
+	
+	public String getDebt(int id) {
+		double debt = 0.0;
+		for (Debt d : debts) {
+			if (d.getId() == id) {
+				debt = d.getDebt();
+				break;
+			}
+		}
+		String debtS = "£" + String.format("%.2f",debt);
+		if (debt < 0.0) {
+			return "Owes you: " + debtS;
+		}
+		else return "You owe: " + debtS;
+	}
 
 	public void setCurrentUser(User u){
 		currentUser = u;
