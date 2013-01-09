@@ -1,8 +1,11 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -34,6 +37,12 @@ public class ShoppingFragment extends Fragment {
 		View v1 = inflater.inflate(R.layout.shopping_page, container, false);
 		c = container;
 		return v1;
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		new refreshItems().execute();
 	}
 
 	@Override
@@ -98,6 +107,17 @@ public class ShoppingFragment extends Fragment {
 				}
 			}
 		});
+	}
+	
+	private class refreshItems extends AsyncTask<Void,Void,Void> {
+		protected Void doInBackground(Void... item) {
+			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+		}
 	}
 
 }
