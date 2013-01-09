@@ -54,7 +54,12 @@ public class FlatFragment extends Fragment {
 				c.findViewById(R.id.map_button).setVisibility(View.GONE);
 			}
 		final Button button = (Button) c.findViewById(R.id.map_button);
-		button.setText("View Debts");
+		FlatDataExchanger.flatData.updateDebts();
+		if(debtsOpen == 1){
+			debtsOpen = 0;
+			button.setText("View Debts");
+		}else{
+		}
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if(debtsOpen == 0){
