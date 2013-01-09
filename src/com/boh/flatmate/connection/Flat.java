@@ -6,6 +6,7 @@ import com.boh.flatmate.FlatMate.contextExchanger;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -107,10 +108,10 @@ public class Flat {
 	}
 
 	public String toHTTPString() {
-		String result = "flat[nickname]=" + nickname;
+		String result = "flat[nickname]=" + TextUtils.htmlEncode(nickname);
 		if (geocode_lat != null) result += "&flat[geocode_lat]=" + geocode_lat;
 		if (geocode_long != null) result += "&flat[geocode_long]=" + geocode_long;
-		if (postcode != null) result += "&flat[price]=" + postcode;
+		if (postcode != null) result += "&flat[postcode]=" + TextUtils.htmlEncode(postcode);
 		return result;
 	}
 

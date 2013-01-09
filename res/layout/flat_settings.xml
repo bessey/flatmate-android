@@ -41,6 +41,7 @@
 	                android:id="@+id/flatNickname"
 	                android:layout_width="233dp"
 	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="@dimen/Medium"
 	                android:ems="10"
 	                android:inputType="textPersonName" />
 	
@@ -55,6 +56,7 @@
 	                android:id="@+id/flatPostcode"
 	                android:layout_width="145dp"
 	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="@dimen/Medium"
 	                android:ems="10" >
 	
 	                <requestFocus />
@@ -70,25 +72,20 @@
 	            <ListView
 	                android:id="@+id/listView1"
 	                android:layout_width="match_parent"
-	                android:layout_height="268dp" >
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="@dimen/Medium" >
+
 	            </ListView>
 	
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center" >
-	
-	                <Button
-	                    android:id="@+id/cancelButton"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_gravity="center"
-	                    android:text="Cancel" />
                     <Button
 	                    android:id="@+id/saveButton"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
-	                    android:text="Save" />
+	                    android:text="Save Changes" />
 	
 	            </LinearLayout>
 	

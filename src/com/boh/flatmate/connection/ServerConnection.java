@@ -285,8 +285,6 @@ public class ServerConnection {
 			    httpCon.getOutputStream());
 			out.write(up);
 			out.close();
-			
-			int responseCode = httpCon.getResponseCode();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -415,5 +413,10 @@ public class ServerConnection {
 			e.printStackTrace();
 		}
 		System.out.println();
+	}
+
+	public void updateMyFlat(Flat flat) {
+		String flatInfo = flat.toHTTPString();
+		put(server + "/flats/m", flatInfo);
 	}
 }
