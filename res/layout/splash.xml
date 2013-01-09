@@ -14,7 +14,11 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/contentDescriptionImage"
         android:src="@drawable/splash_logo" />
-
+
+
+
+
+
     <LinearLayout
         android:id="@+id/loginBox"
         android:layout_width="match_parent"
@@ -43,7 +47,8 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
             <EditText
                 android:id="@+id/emailTbox"
                 android:layout_width="fill_parent"
@@ -75,7 +80,8 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
             <EditText
                 android:id="@+id/passwordBox"
                 android:layout_width="fill_parent"
@@ -107,7 +113,8 @@
                 android:text="@string/login"
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium" />
-
+
+
             <Button
                 android:id="@+id/registerButton"
                 style="@color/lightText"
@@ -125,7 +132,11 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
-
+
+
+
+
+
     <LinearLayout
         android:id="@+id/registerBox"
         android:layout_width="match_parent"
@@ -155,7 +166,8 @@
                 android:paddingRight="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
+
             <EditText
                 android:id="@+id/passwordBox2"
                 android:layout_width="fill_parent"
@@ -185,7 +197,9 @@
                 android:text="@string/first_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
+
+
             <EditText
                 android:id="@+id/firstBox"
                 android:layout_width="fill_parent"
@@ -214,7 +228,8 @@
                 android:text="@string/last_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
+
             <EditText
                 android:id="@+id/lastBox"
                 android:layout_width="fill_parent"
@@ -243,7 +258,8 @@
                 android:text="@string/phone"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/lightText" />
-
+
+
             <EditText
                 android:id="@+id/phoneTextBox"
                 android:layout_width="fill_parent"
@@ -286,7 +302,14 @@
         </LinearLayout>
 
     </LinearLayout>
-
+
+
+
+
+
+
+
+
     <LinearLayout
         android:id="@+id/flatBox"
         android:layout_width="fill_parent"
@@ -311,7 +334,9 @@
             android:gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" >
-
+
+
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -323,7 +348,8 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
             <EditText
                 android:id="@+id/searchTextBox"
                 android:layout_width="wrap_content"
@@ -362,7 +388,10 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp" >
         </ListView>
-
+
+
+
+
         <LinearLayout
             android:id="@+id/addFlatSpinner"
             android:layout_width="match_parent"
@@ -376,12 +405,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
+
+
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" >
-
+
+
+
+
             <Button
                 android:id="@+id/newFlat"
                 android:layout_width="wrap_content"
@@ -392,7 +429,15 @@
         </LinearLayout>
 
     </LinearLayout>
-    
+    
+
+
+
+
+
+
+
+
     <LinearLayout
         android:id="@+id/addFlatBox"
         android:layout_width="fill_parent"
@@ -410,7 +455,8 @@
             android:text="Create New Flat"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/lightText" />
-
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -418,7 +464,8 @@
             android:gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" >
-
+
+
             <TextView
                 android:id="@+id/TextView01"
                 android:layout_width="wrap_content"
@@ -430,7 +477,10 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
+
+
             <EditText
                 android:id="@+id/flatNameInput"
                 android:layout_width="fill_parent"
@@ -450,7 +500,10 @@
             android:gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" >
-
+
+
+
+
             <TextView
                 android:id="@+id/adress"
                 android:layout_width="wrap_content"
@@ -462,7 +515,9 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
+
             <EditText
                 android:id="@+id/address1Text"
                 android:layout_width="fill_parent"
@@ -494,7 +549,9 @@
                 android:textColor="@color/lightText"
                 android:textSize="@dimen/Medium"
                 android:width="100dp" />
-
+
+
+
             <EditText
                 android:id="@+id/postCodeTextBox"
                 android:layout_width="fill_parent"
@@ -537,7 +594,8 @@
             android:layout_height="70dp"
             android:gravity="center_horizontal"
             android:paddingTop="30dp" >
-
+
+
             <ProgressBar
                 android:id="@+id/createSpinner"
                 android:layout_width="wrap_content"

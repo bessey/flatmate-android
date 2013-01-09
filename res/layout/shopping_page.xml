@@ -57,7 +57,8 @@
                 android:src="@drawable/new_shopping" />
         </LinearLayout>
     </LinearLayout>
-
+
+
     <LinearLayout
         android:id="@+id/addItem"
         android:layout_width="fill_parent"
