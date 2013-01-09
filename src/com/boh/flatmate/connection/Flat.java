@@ -7,14 +7,15 @@ import com.boh.flatmate.FlatMate.contextExchanger;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 public class Flat {
+	private String nickname;	//for displaying purposes, so don't just display postcode
 	private String geocode_lat;
 	private String geocode_long;
 	private String id;
-	private String nickname;	//for displaying purposes, so don't just display postcode
 	private String postcode;
 	private User[] users;
 	private User currentUser;
@@ -152,6 +153,21 @@ public class Flat {
 	}
 	public User[] getUsers() {
 		return users;
+	}
+	public User[] getApprovedUsers() {
+		ArrayList<User> l = new ArrayList<User>();
+		for(User u : users){
+			Log.v("FLAT",u.getFlatApproved());
+			if(u.getFlatApproved().equals("true")) l.add(u);
+		}
+		return (User[]) l.toArray(new User[l.size()]);
+	}
+	public User[] getUnapprovedUsers() {
+		ArrayList<User> l = new ArrayList<User>();
+		for(User u : users){
+			if(u.getFlatApproved().equals("false")) l.add(u);
+		}
+		return (User[]) l.toArray(new User[l.size()]);
 	}
 	public void setUsers(User[] users) {
 		this.users = users;

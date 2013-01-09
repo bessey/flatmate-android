@@ -5,6 +5,7 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.connection.User;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		User flatMate = FlatData[position];
+		Log.v("USER","Position " + position + " out of " + (FlatData.length-1));
+		Log.v("USER","Name " + flatMate.getFirst_name());
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.flat_row, null);

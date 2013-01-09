@@ -61,33 +61,30 @@
 	
 	                <requestFocus />
 	            </EditText>
+
+	            <Button
+	                android:id="@+id/saveButton"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center"
+	                android:layout_marginBottom="@dimen/Medium"
+	                android:text="Save Changes" />
 	
 	            <TextView
 	                android:id="@+id/textView4"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:text="Unapproved Members"
-	                android:textAppearance="?android:attr/textAppearanceMedium" />
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:textSize="@dimen/Large" />
 	
 	            <ListView
-	                android:id="@+id/listView1"
+	                android:id="@+id/uList"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_marginBottom="@dimen/Medium" >
 
 	            </ListView>
-	
-	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center" >
-                    <Button
-	                    android:id="@+id/saveButton"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:text="Save Changes" />
-	
-	            </LinearLayout>
 	
 	        </LinearLayout>
         </ScrollView>

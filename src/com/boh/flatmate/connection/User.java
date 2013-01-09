@@ -14,6 +14,7 @@ public class User {
 	private String password;
 	private String first_name;
 	private String flat_id;
+	private String flat_approved;
 	private String geocode_lat;
 	private String geocode_long;
 	private String id;
@@ -176,5 +177,11 @@ public class User {
 	}
 	public void setColour_Id(int colour_id) {
 		this.colour_id = Integer.toString(colour_id);
+	}
+	public String getFlatApproved() {
+		return flat_approved;
+	}
+	public void setFlatApproved(String flat_approved) {
+		this.flat_approved = flat_approved;
 	}
 }

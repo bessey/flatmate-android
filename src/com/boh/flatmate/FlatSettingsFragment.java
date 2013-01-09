@@ -1,5 +1,7 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class FlatSettingsFragment extends Fragment {
 
 	private ViewGroup c;
 	private View v1;
-	FlatListFragment flatList;
+	private FlatListFragment flatList;
+	private UFlatMateRowAdapter mAdapter;
+	private ListView mListView;	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -37,6 +42,9 @@ public class FlatSettingsFragment extends Fragment {
 				saveButtonPressed();
 			}
 		});
+
+		mAdapter = new UFlatMateRowAdapter(getActivity(), R.id.unList, FlatDataExchanger.flatData.getUnapprovedUsers());		
+		mListView = (ListView) v1.findViewById(R.id.unList);
 		
 		return v1;
 	}
@@ -44,6 +52,7 @@ public class FlatSettingsFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mListView.setAdapter(mAdapter);
 	}
 	
 	public void saveButtonPressed(){
