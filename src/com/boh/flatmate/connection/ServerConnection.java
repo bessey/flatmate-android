@@ -301,6 +301,8 @@ public class ServerConnection {
 	//note: true is put, false is post
 	private  String putOrPost(String targetURL, String urlParameters, boolean put) {
 		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
+		System.out.println("POST Command : ");
+		System.out.println(targetURL);
 		System.out.println(urlParameters);
 		URL url;
 		HttpURLConnection connection = null;  
@@ -401,7 +403,7 @@ public class ServerConnection {
 		try {
 			url = new URL(targetURL);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-			httpCon.setDoOutput(true);
+			//httpCon.setDoOutput(true);
 			httpCon.setRequestProperty(
 					"Content-Type", "application/x-www-form-urlencoded" );
 			httpCon.setRequestMethod("DELETE");

@@ -1,11 +1,6 @@
 package com.boh.flatmate;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
@@ -49,7 +44,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
-		int flatId = FlatDataExchanger.flatData.getId();
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
@@ -113,8 +107,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			}
 			stopService(service);
 			finish();
-			return true;
-		case R.id.menu_settings:
 			return true;
 		default:
 			return true;

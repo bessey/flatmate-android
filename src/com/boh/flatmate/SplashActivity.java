@@ -89,15 +89,20 @@ public class SplashActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
+		
+		Thread splashWait = new Thread(){
+			@Override
+			public void run(){
+				try{
+					sleep(100);
+				}catch(InterruptedException e){
+				}finally{
+					myHandler.post(Login);
+				}
+			}
+		};
 
-		int loggedin = userLogin();
-
-		if(loggedin == 1){
-			if(deviceId != null) connection.maintainGcmRegistration(deviceId);
-			checkFlatOnLogIn();
-		}else{
-			newLogin();
-		}
+		splashWait.start();
 
 	}
 
@@ -120,11 +125,22 @@ public class SplashActivity extends Activity {
 		}
 	}
 
-	final Runnable newLogin = new Runnable() {
+	final Runnable Login = new Runnable() {
 		public void run() {
-			newLogin();
+			loginChecks();
 		}
 	};
+	
+	private void loginChecks(){
+		int loggedin = userLogin();
+
+		if(loggedin == 1){
+			if(deviceId != null) connection.maintainGcmRegistration(deviceId);
+			checkFlatOnLogIn();
+		}else{
+			newLogin();
+		}
+	}
 
 	private int userLogin(){
 		String auth = ServerConnection.loadAuth(FILENAME);

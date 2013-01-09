@@ -59,6 +59,7 @@ public class FlatFragment extends Fragment {
 			debtsOpen = 0;
 			button.setText("View Debts");
 		}else{
+			button.setText("View Debts");
 		}
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

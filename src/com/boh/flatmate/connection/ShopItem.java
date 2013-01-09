@@ -51,6 +51,10 @@ public class ShopItem {
 		}
 	}
 	
+	public void deleteItem(){
+		new serverDeleteItem().execute(this);
+	}
+	
 	public void addItem(){
 		new serverAddItem().execute(this);
 	}
@@ -154,6 +158,18 @@ public class ShopItem {
 
 	public void setUpdatedAt(String updated_at) {
 		this.updated_at = updated_at;
+	}
+	
+	private class serverDeleteItem extends AsyncTask<ShopItem,Void,Void> {
+		protected Void doInBackground(ShopItem... item) {
+			ConnectionExchanger.connection.deleteItem(item[0].getFlatId()+"",item[0].getId()+"");
+			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+		}
 	}
 	
 	private class serverAddItem extends AsyncTask<ShopItem,Void,Void> {

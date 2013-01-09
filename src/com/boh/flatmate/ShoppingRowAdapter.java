@@ -32,12 +32,12 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 		super(c, textViewResourceId, data);
 		context = c;
 	}
-	
+
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ShopItem shoppingItem = FlatDataExchanger.flatData.getShopItem(position);
-		
+
 		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
 		else v = vi.inflate(R.layout.shopping_row, null);
@@ -56,10 +56,10 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			String priceString = String.format("%.2f",priceDouble);
 			priceTextView.setText("£"+priceString);
 			TextView flatMateTextView = (TextView) v.findViewById(R.id.boughtName);
-			
+
 			int buyerID = shoppingItem.getUserBoughtId();
 			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(buyerID));
-			
+
 			int colourID = FlatDataExchanger.flatData.getUserColourID(buyerID);
 			if(colourID == 0) {
 				v.setBackgroundResource(R.drawable.box1);
@@ -69,14 +69,22 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 				v.setBackgroundResource(R.drawable.box3);
 			} else if (colourID == 3) {
 				v.setBackgroundResource(R.drawable.box4);
-			} else {
+			} else if (colourID == 4) {
 				v.setBackgroundResource(R.drawable.box5);
+			} else if (colourID == 5) {
+				v.setBackgroundResource(R.drawable.box6);
+			} else if (colourID == 6) {
+				v.setBackgroundResource(R.drawable.box7);
+			} else if (colourID == 7) {
+				v.setBackgroundResource(R.drawable.box8);
+			}else {
+				v.setBackgroundResource(R.drawable.box8);
 			}
-			
+
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);
 			dateTextView.setText(shoppingItem.getUpdatedAtPretty());
 		} else {
-			ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
+			final ImageButton setPriceButton = (ImageButton)v.findViewById(R.id.saveButton);
 			final EditText priceInput = (EditText)v.findViewById(R.id.priceInput);
 			if(priceInput != null){
 				priceInput.setFilters(new InputFilter[] {new InputFilter(){
@@ -109,6 +117,8 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 				});
 			}
 			if(setPriceButton != null){
+				setPriceButton.setImageResource(R.drawable.tick);
+				setPriceButton.setActivated(true);
 				setPriceButton.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View view) {
@@ -118,6 +128,8 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 							toast.show();
 						}else{
 							double price = Double.valueOf(priceText.toString());
+							setPriceButton.setImageResource(R.drawable.navigation_refresh);
+							setPriceButton.setActivated(false);
 							FlatDataExchanger.flatData.getShopItem(position).setBoughtToday(price);
 							System.out.println("Item Bought for "+ price);
 						}
@@ -125,6 +137,17 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 				});
 			}
 		}
+		final ImageButton deleteButton = (ImageButton)v.findViewById(R.id.removeButton);
+		deleteButton.setImageResource(R.drawable.cross);
+		deleteButton.setActivated(true);
+		deleteButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				FlatDataExchanger.flatData.getShopItem(position).deleteItem();
+				deleteButton.setImageResource(R.drawable.navigation_refresh);
+				deleteButton.setActivated(false);
+			}
+		});
 		return v;
 	}
 }

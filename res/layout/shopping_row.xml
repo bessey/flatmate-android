@@ -5,17 +5,19 @@
     android:clickable="false"
     android:gravity="center_vertical"
     android:padding="1dip" >
-
-    <ImageView
-        android:id="@+id/icon"
+
+    <ImageButton
+        android:id="@+id/removeButton"
         android:layout_width="25dip"
         android:layout_height="fill_parent"
         android:layout_marginBottom="1dip"
         android:layout_marginLeft="10dip"
         android:layout_marginTop="1dip"
         android:contentDescription="@string/imgContext"
-        android:src="@drawable/tick"
-        android:visibility="invisible" />
+        android:background="@color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cross"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/divider1"
