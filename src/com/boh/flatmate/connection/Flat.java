@@ -69,6 +69,12 @@ public class Flat {
 							break;
 						}
 					}
+				} else if (uw == -1) {
+					for (Debt d : debts) {
+						if (d.getId() != ub) {
+							d.add(si.getPrice()/debts.length+1);
+						}
+					}
 				}
 			}
 		}
