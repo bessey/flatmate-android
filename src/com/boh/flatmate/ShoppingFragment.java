@@ -24,7 +24,7 @@ public class ShoppingFragment extends Fragment {
 
 	private ViewGroup c;
 	ShoppingListFragment shoppingList;
-	private int addOpen = 0;
+	private int addOpen = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -41,6 +41,7 @@ public class ShoppingFragment extends Fragment {
 	
 	@Override
 	public void onResume(){
+		GCMIntentService.resetCount();
 		super.onResume();
 		new refreshItems().execute();
 	}

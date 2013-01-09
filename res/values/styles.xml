@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
@@ -8,7 +8,8 @@
 
     <style name="flatMateTheme.ActionBarStyle" parent="android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/topbar</item>
-    </style>
+        <item name="android:textColor">#FFFFFF</item>
+        </style>
     
     <style name="Theme.Transparent" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowIsTranslucent">true</item>

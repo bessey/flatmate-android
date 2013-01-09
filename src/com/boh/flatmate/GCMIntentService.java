@@ -1,6 +1,8 @@
 package com.boh.flatmate;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentService {
+	private static int itemCount = 0;
 	
 	/*
 	 * Called after a registration intent is received, passes the registration ID assigned by 
@@ -31,20 +34,32 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	 * the message has a payload, its contents are available as extras in the intent.
 	 */
 	protected void onMessage(Context context, Intent intent){
+		NotificationManager mNotificationManager =
+			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+		int SHOP_ITEM = 1;
+		itemCount++;
 		Bundle payload = intent.getExtras();
 		Log.v("GCM","Recieved a message!" + payload.toString());
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(this)
-		        .setSmallIcon(R.drawable.add)
-		        .setContentTitle("New shop item added")
-		        .setContentText(payload.getString("item"));
-
-		NotificationManager mNotificationManager =
-		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		// mId allows you to update the notification later on.
-		mNotificationManager.notify(0, mBuilder.build());
-		
-		// TODO update the shop items list in the app
+	    Intent notificationIntent = new Intent(this, FlatMate.class);
+	    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+		        .setSmallIcon(R.drawable.notification_icon)
+		        .setContentTitle("FlatMate")
+		        .setPriority(Notification.PRIORITY_HIGH)
+        		.setContentIntent(contentIntent)
+        		.setAutoCancel(true)
+        		.setOnlyAlertOnce(true);
+		if(itemCount > 1){
+			mBuilder.setContentText("There are " + itemCount + " new items in the shopping list.");
+		} else {
+			mBuilder.setContentText(payload.getString("item") + " has been added to the shopping list.");			
+		}
+		mNotificationManager.notify(SHOP_ITEM, mBuilder.build());	
+	}
+	
+	public static void resetCount(){
+		itemCount = 0;
 	}
 	
 	/*
