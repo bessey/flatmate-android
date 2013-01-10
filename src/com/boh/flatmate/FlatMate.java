@@ -107,7 +107,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			{
 				logFile.delete();
 			}
-			stopService(service);
+			if(service != null) stopService(service);
 			finish();
 			return true;
 		default:
