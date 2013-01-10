@@ -151,8 +151,9 @@ public class ServerConnection {
 	//edit user given by user
 	public  void updateUser(User user) {
 		String userInfo = user.toHTTPString();
-		//System.out.println(userInfo);
+		Log.v("USER","Updating user ID:" + user.getId() + " " + userInfo);
 		put(server + "/users/" + user.getId(), userInfo);
+		Log.v("USER","Update complete");
 	}
 	
 	//edit user given by user

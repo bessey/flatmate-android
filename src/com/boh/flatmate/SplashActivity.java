@@ -573,11 +573,13 @@ public class SplashActivity extends Activity {
 			View spinner = findViewById(R.id.registerSpinner);
 			spinner.setVisibility(View.VISIBLE);
 
+			Log.v("REG","Registering user in background");
 			new registerUser().execute(newUser);
 		}
 	}
 	
 	public void updateComplete(){
+		Log.v("REG","Update complete");
 		startApp();
 		finish();
 	}
@@ -593,6 +595,7 @@ public class SplashActivity extends Activity {
 		newUser.setFlat_id(registrationFlatID);
 		newUser.setId(registrationID);
 
+		Log.v("REG","Updating user's flat to new flat: " + registrationFlatID);
 		new updateUser().execute(newUser);
 
 	}
@@ -749,6 +752,7 @@ public class SplashActivity extends Activity {
 		View spinner = findViewById(R.id.addFlatSpinner);
 		spinner.setVisibility(View.VISIBLE);
 
+		Log.v("REG","Updating user's flat to existing flat: " + registrationFlatID);
 		new updateUser().execute(newUser);
 
 
