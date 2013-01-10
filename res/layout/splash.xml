@@ -1,14 +1,25 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_gravity="center"
     android:background="@drawable/splash"
-    android:gravity="center"
+     >
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical" >
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_vertical|center"
     android:orientation="vertical"
     tools:context=".SplashActivity" >
 
-    <ImageView
+       <ImageView
         android:id="@+id/splashLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -577,7 +588,7 @@
         <LinearLayout
             android:id="@+id/createButtons"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"            
             android:gravity="center_horizontal"
             android:paddingTop="30dp" >
 
@@ -603,28 +614,22 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_horizontal"
-            android:paddingTop="30dp" >
+            android:paddingTop="30dp"
+            android:visibility="gone"  >
 
 
             <ProgressBar
                 android:id="@+id/createSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                />
 
         </LinearLayout>
+    </LinearLayout>
+        
+    
+</LinearLayout>
 
+    </ScrollView>
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>

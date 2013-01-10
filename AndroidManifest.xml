@@ -70,7 +70,7 @@
             android:label="FlatMate"
             android:screenOrientation="portrait" 
             android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
+			>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
