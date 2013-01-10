@@ -35,7 +35,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.flat_mate);
 
 		contextExchanger.context = this;
 		
@@ -45,6 +44,10 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
+		
+		if(FlatDataExchanger.flatData.getCurrentUser().getFlatApproved().equals("true")){
+			setContentView(R.layout.flat_mate);
+			
 		FlatDataExchanger.flatData.orderShopItems();
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
@@ -81,6 +84,10 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 				actionBar.newTab()
 				.setIcon(R.drawable.location_tab)
 				.setTabListener(this));
+		}else{   //USER NOT APPROVED
+			setContentView(R.layout.flat_mate_not_approved);
+			
+		}
 		
 	}
 	

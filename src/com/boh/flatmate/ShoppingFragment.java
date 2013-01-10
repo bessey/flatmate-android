@@ -28,7 +28,7 @@ public class ShoppingFragment extends Fragment {
 
 	private ViewGroup c;
 	ShoppingListFragment shoppingList;
-	private int addOpen = 1;
+	private int addOpen = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 

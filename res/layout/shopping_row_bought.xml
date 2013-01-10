@@ -5,7 +5,7 @@
     android:clickable="false"
     android:gravity="center_vertical"
     android:padding="1dip" >
-
+
     <ImageButton
         android:id="@+id/removeButton"
         android:layout_width="25dip"
@@ -13,10 +13,10 @@
         android:layout_marginBottom="1dip"
         android:layout_marginLeft="10dip"
         android:layout_marginTop="1dip"
-        android:contentDescription="@string/imgContext"
         android:background="@color/transparent"
+        android:contentDescription="@string/imgContext"
         android:scaleType="fitCenter"
-        android:src="@drawable/cross"
+        android:src="@drawable/content_discard"
         android:visibility="visible" />
 
     <ImageView

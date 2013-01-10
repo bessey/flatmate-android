@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="match_parent" >
 
-        <ScrollView
-            android:id="@+id/scrollView1"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent" >
-	
-	        <LinearLayout
-	            android:layout_width="fill_parent"
-	            android:layout_height="match_parent"
-	            android:orientation="vertical"
-	            android:padding="@dimen/Medium" >
-	
-	            <TextView
-	                android:id="@+id/textView1"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Flat Settings"
-	                android:textAppearance="?android:attr/textAppearanceLarge"
-	                android:paddingBottom="20px" />
-	
-	            <Space
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content" />
-	
-	            <Space
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content" />
-	
-	            <TextView
-	                android:id="@+id/textView2"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Nickname"
-	                android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	            <EditText
-	                android:id="@+id/flatNickname"
-	                android:layout_width="233dp"
-	                android:layout_height="wrap_content"
-	                android:layout_marginBottom="@dimen/Medium"
-	                android:ems="10"
-	                android:inputType="textPersonName" />
-	
-	            <TextView
-	                android:id="@+id/textView3"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Postcode"
-	                android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	            <EditText
-	                android:id="@+id/flatPostcode"
-	                android:layout_width="145dp"
-	                android:layout_height="wrap_content"
-	                android:layout_marginBottom="@dimen/Medium"
-	                android:ems="10" >
-	
-	                <requestFocus />
-	            </EditText>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/Medium" >
 
-	            <Button
-	                android:id="@+id/saveButton"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center"
-	                android:layout_marginBottom="@dimen/Medium"
-	                android:text="Save Changes" />
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Unapproved Members"
-	                android:textAppearance="?android:attr/textAppearanceMedium"
-	                android:textSize="@dimen/Large" />
-	
-	            <ListView
-	                android:id="@+id/unList"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginBottom="@dimen/Medium" >
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20px"
+                android:text="Flat Settings"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	            </ListView>
-	
-	        </LinearLayout>
-        </ScrollView>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        
-    </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nickname"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/flatNickname"
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/Medium"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Postcode"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/flatPostcode"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/Medium"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/Medium"
+                android:text="Save Changes" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unapproved Members"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/Large" />
+
+            <LinearLayout
+                android:id="@+id/unList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/Medium"
+                android:orientation="vertical" >
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

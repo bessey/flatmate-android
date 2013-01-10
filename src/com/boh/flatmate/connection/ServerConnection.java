@@ -272,11 +272,11 @@ public class ServerConnection {
 	
 	//put to server
 	private void put(String tu, String up) {
-		//System.out.println("Put Command:");
+		System.out.println("Put Command:");
 		if (auth_token != null) tu += "?auth_token=" + auth_token;
 		URL url;
-		//System.out.println(tu);
-		//System.out.println(up);
+		System.out.println(tu);
+		System.out.println(up);
 		try {
 			url = new URL(tu);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();

@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
+import android.widget.Toast;
 
 import com.boh.flatmate.FlatMate;
 import com.boh.flatmate.ShoppingFragment;
@@ -184,6 +185,7 @@ public class ShopItem {
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			Toast.makeText(contextExchanger.context, "Shopping Item Deleted", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -197,6 +199,7 @@ public class ShopItem {
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			Toast.makeText(contextExchanger.context, "Shopping Item Added", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -210,6 +213,7 @@ public class ShopItem {
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			Toast.makeText(contextExchanger.context, "Shopping Item Updated", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

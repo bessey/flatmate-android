@@ -2,7 +2,6 @@ package com.boh.flatmate.connection;
 
 import java.util.ArrayList;
 
-import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 
 import android.content.Intent;
@@ -192,7 +191,7 @@ public class Flat {
 	public User[] getApprovedUsers() {
 		ArrayList<User> l = new ArrayList<User>();
 		for(User u : users){
-			Log.v("FLAT",u.getFlatApproved());
+			//Log.v("FLAT",u.getFlatApproved());
 			if(u.getFlatApproved().equals("true")) l.add(u);
 		}
 		return (User[]) l.toArray(new User[l.size()]);

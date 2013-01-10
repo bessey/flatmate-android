@@ -40,10 +40,18 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ShopItem shoppingItem = FlatDataExchanger.flatData.getShopItem(position);
-
-		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		if(shoppingItem.isBought() == 1) v = vi.inflate(R.layout.shopping_row_bought, null);
-		else v = vi.inflate(R.layout.shopping_row, null);
+		
+		if(shoppingItem.isBought() == 1) {
+			if(v == null || v.getTag() == "notBought"){
+				LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				v = vi.inflate(R.layout.shopping_row_bought, null);
+				v.setTag("bought");
+			}
+		} else if (v == null || v.getTag() == "bought") {
+			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			v = vi.inflate(R.layout.shopping_row, null);
+			v.setTag("notBought");
+		}
 		v.setBackgroundResource(R.drawable.boxg);
 
 		String name = shoppingItem.getName();
@@ -154,7 +162,7 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			}
 		}
 		final ImageButton deleteButton = (ImageButton)v.findViewById(R.id.removeButton);
-		deleteButton.setImageResource(R.drawable.cross);
+		deleteButton.setImageResource(R.drawable.content_discard);
 		deleteButton.setActivated(true);
 		deleteButton.setOnClickListener(new OnClickListener(){
 			@Override

@@ -64,7 +64,7 @@ public class MapFragment extends Fragment {
 		}else{
 			mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
 		}
-		mapController.setZoom(14); // Zoom 1 is world view
+		mapController.setZoom(16); // Zoom 1 is world view
 
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
 		Drawable drawableHome = this.getResources().getDrawable(R.drawable.flat_marker);
@@ -104,7 +104,7 @@ public class MapFragment extends Fragment {
 		OverlayItem overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
 		homeOverlay.addOverlay(overlayitem);
 
-		for (User u : FlatDataExchanger.flatData.getUsers()) {
+		for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
 			if(u.getGeocode_lat() != 0.0f && u.getGeocode_long() != 0.0f){
 				point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
 				overlayitem = new OverlayItem(point, "User", "User x is here!");

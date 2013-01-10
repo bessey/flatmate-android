@@ -143,13 +143,13 @@ public class User {
 		Location userLocation = new Location("reverseGeocoded");
 		flatLocation.setLatitude(userCurrent.getLatitudeE6() / 1e6);
 		flatLocation.setLongitude(userCurrent.getLongitudeE6() / 1e6);
-		System.out.println("home -"+FlatMate_Lat+", "+FlatMate_Long);
-		System.out.println("user -"+this.getGeocode_lat()+", "+this.getGeocode_long());
+		//System.out.println("home -"+FlatMate_Lat+", "+FlatMate_Long);
+		//System.out.println("user -"+this.getGeocode_lat()+", "+this.getGeocode_long());
 		int distanceFromHome = (int)flatLocation.distanceTo(userLocation);
-		System.out.println(this.first_name + "-"+ distanceFromHome);
+		//System.out.println(this.first_name + "-"+ distanceFromHome);
 		float[] results = new float[3];
 		Location.distanceBetween(FlatMate_Lat, FlatMate_Long, this.getGeocode_lat(), this.getGeocode_long(), results);
-		System.out.println(results[0]);
+		//System.out.println(results[0]);
 		//double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
 		return results[0];
 	}

@@ -1,0 +1,42 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/splash"
+     >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|center"
+        android:orientation="vertical"
+        tools:context=".SplashActivity" >
+
+        <ImageView
+            android:id="@+id/splashLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/contentDescriptionImage"
+            android:src="@drawable/splashicon" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:text="Waiting to be approved to Flat"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/lightText" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please ask an approved flat mate to approve you"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/lightText" />
+
+    </LinearLayout>
+    </LinearLayout>
+

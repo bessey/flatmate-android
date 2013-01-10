@@ -45,7 +45,7 @@ import android.widget.Toast;
 
 public class SplashActivity extends Activity {
 
-	private boolean AUTOMATIC_LOGIN = true;
+	private boolean AUTOMATIC_LOGIN = false;
 
 	int screenPosition = 0;
 

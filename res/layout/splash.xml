@@ -305,20 +305,20 @@
                 android:textColor="@color/lightText" />
 
         </LinearLayout>
-        
+        
         <LinearLayout
             android:id="@+id/registerSpinner"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_horizontal"
             android:paddingTop="30dp"
-            android:visibility="visible" >
-
+            android:visibility="gone" >
+
             <ProgressBar
                 android:id="@+id/Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </LinearLayout>
 
