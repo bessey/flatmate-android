@@ -2,11 +2,10 @@ package com.boh.flatmate;
 
 import java.util.List;
 
+import com.boh.flatmate.maps.SimpleItemizedOverlay;
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,6 @@ import com.boh.flatmate.FlatMate.ShopsExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.FlatMate.mapExchanger;
 import com.boh.flatmate.connection.Results;
-import com.boh.flatmate.connection.ShopItem;
 import com.boh.flatmate.connection.User;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
@@ -33,6 +31,9 @@ public class MapFragment extends Fragment {
 	protected ViewGroup mapContainer;
 	private Context context;
 	private MapController mapController;
+	
+	SimpleItemizedOverlay itemizedOverlay;
+	SimpleItemizedOverlay itemizedOverlay2;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -67,23 +68,23 @@ public class MapFragment extends Fragment {
 
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
 		Drawable drawableHome = this.getResources().getDrawable(R.drawable.flat_marker);
-		FlatMateMapOverlay homeOverlay = new FlatMateMapOverlay(drawableHome, context);
+		SimpleItemizedOverlay homeOverlay = new SimpleItemizedOverlay(drawableHome, mapExchanger.mMapView);
 		Drawable drawableUser1 = this.getResources().getDrawable(R.drawable.user_marker1);
-		FlatMateMapOverlay userOverlay1 = new FlatMateMapOverlay(drawableUser1, context);
+		SimpleItemizedOverlay userOverlay1 = new SimpleItemizedOverlay(drawableUser1, mapExchanger.mMapView);
 		Drawable drawableUser2 = this.getResources().getDrawable(R.drawable.user_marker2);
-		FlatMateMapOverlay userOverlay2 = new FlatMateMapOverlay(drawableUser2, context);
+		SimpleItemizedOverlay userOverlay2 = new SimpleItemizedOverlay(drawableUser2, mapExchanger.mMapView);
 		Drawable drawableUser3 = this.getResources().getDrawable(R.drawable.user_marker3);
-		FlatMateMapOverlay userOverlay3 = new FlatMateMapOverlay(drawableUser3, context);
+		SimpleItemizedOverlay userOverlay3 = new SimpleItemizedOverlay(drawableUser3, mapExchanger.mMapView);
 		Drawable drawableUser4 = this.getResources().getDrawable(R.drawable.user_marker4);
-		FlatMateMapOverlay userOverlay4 = new FlatMateMapOverlay(drawableUser4, context);
+		SimpleItemizedOverlay userOverlay4 = new SimpleItemizedOverlay(drawableUser4, mapExchanger.mMapView);
 		Drawable drawableUser5 = this.getResources().getDrawable(R.drawable.user_marker5);
-		FlatMateMapOverlay userOverlay5 = new FlatMateMapOverlay(drawableUser5, context);
+		SimpleItemizedOverlay userOverlay5 = new SimpleItemizedOverlay(drawableUser5, mapExchanger.mMapView);
 		Drawable drawableUser6 = this.getResources().getDrawable(R.drawable.user_marker6);
-		FlatMateMapOverlay userOverlay6 = new FlatMateMapOverlay(drawableUser6, context);
+		SimpleItemizedOverlay userOverlay6 = new SimpleItemizedOverlay(drawableUser6, mapExchanger.mMapView);
 		Drawable drawableUser7 = this.getResources().getDrawable(R.drawable.user_marker7);
-		FlatMateMapOverlay userOverlay7 = new FlatMateMapOverlay(drawableUser7, context);
+		SimpleItemizedOverlay userOverlay7 = new SimpleItemizedOverlay(drawableUser7, mapExchanger.mMapView);
 		Drawable drawableUser8 = this.getResources().getDrawable(R.drawable.user_marker8);
-		FlatMateMapOverlay userOverlay8 = new FlatMateMapOverlay(drawableUser8, context);
+		SimpleItemizedOverlay userOverlay8 = new SimpleItemizedOverlay(drawableUser8, mapExchanger.mMapView);
 
 		MyLocationOverlay mylocationOverlay = new MyLocationOverlay(contextExchanger.context, mapExchanger.mMapView);
 		mylocationOverlay.enableMyLocation();
@@ -150,11 +151,11 @@ public class MapFragment extends Fragment {
 	public void addShopsOverlays(){
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
 		Drawable drawableShopOpen = this.getResources().getDrawable(R.drawable.shop_marker_open);
-		FlatMateMapOverlay shopOverlayOpen = new FlatMateMapOverlay(drawableShopOpen, context);
+		SimpleItemizedOverlay shopOverlayOpen = new SimpleItemizedOverlay(drawableShopOpen, mapExchanger.mMapView);
 		Drawable drawableShopClosed = this.getResources().getDrawable(R.drawable.shop_marker_closed);
-		FlatMateMapOverlay shopOverlayClosed = new FlatMateMapOverlay(drawableShopClosed, context);
+		SimpleItemizedOverlay shopOverlayClosed = new SimpleItemizedOverlay(drawableShopClosed, mapExchanger.mMapView);
 		Drawable drawableShop = this.getResources().getDrawable(R.drawable.shop_marker);
-		FlatMateMapOverlay shopOverlay = new FlatMateMapOverlay(drawableShop, context);
+		SimpleItemizedOverlay shopOverlay = new SimpleItemizedOverlay(drawableShop, mapExchanger.mMapView);
 
 		OverlayItem overlayitem;
 		GeoPoint point;
@@ -166,7 +167,7 @@ public class MapFragment extends Fragment {
 		for (Results u : ShopsExchanger.bestShops.getResults()) {
 			locationArray[i] = loc = ShopsExchanger.bestShops.getLocation(i);
 			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			overlayitem = new OverlayItem(point, "User", "User x is here!");
+			overlayitem = new OverlayItem(point, "Tesco's", "This shop is Closed");
 			if(ShopsExchanger.bestShops.isOpen(i) == 1) {
 				shopOverlayOpen.addOverlay(overlayitem);
 			} else if(ShopsExchanger.bestShops.isOpen(i) == 0) {
@@ -185,7 +186,7 @@ public class MapFragment extends Fragment {
 			boolean skip = false;
 			loc = ShopsExchanger.nearShops.getLocation(i);
 			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			overlayitem = new OverlayItem(point, "User", "User x is here!");
+			overlayitem = new OverlayItem(point, "Sainsburys", "This shop is Open");
 			for (com.boh.flatmate.connection.Location l : locationArray){
 				if(l.isEquals(loc)){
 					skip = true;

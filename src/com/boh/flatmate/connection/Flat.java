@@ -2,6 +2,7 @@ package com.boh.flatmate.connection;
 
 import java.util.ArrayList;
 
+import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 
 import android.content.Intent;
@@ -24,6 +25,7 @@ public class Flat {
 
 	public void updateData(Flat newFlat){
 		this.shop_items = newFlat.getShopItems();
+		this.orderShopItems();
 	}
 
 	public String getUserName(int id){
@@ -83,6 +85,16 @@ public class Flat {
 
 	public Debt[] getDebts() {
 		return debts;
+	}
+	
+	public int shopItemsToBuy(){
+		int total = 0;
+		for (ShopItem si : shop_items) {
+			if(si.isBought() == 0){
+				total++;
+			}
+		}
+		return total;
 	}
 
 	public String getDebt(int id) {
@@ -204,6 +216,24 @@ public class Flat {
 
 	public ShopItem[] getShopItems() {
 		return shop_items;
+	}
+	
+	public void orderShopItems(){
+		ShopItem[] temp = new ShopItem[shop_items.length];
+		int i = 0;
+		for(ShopItem s : shop_items){
+			if(s.isBought() == 0){
+				temp[i] = s;
+				i++;
+			}
+		}
+		for(ShopItem s : shop_items){
+			if(s.isBought() == 1){
+				temp[i] = s;
+				i++;
+			}
+		}
+		shop_items = temp;
 	}
 
 	public OnClickListener messageListener = new OnClickListener(){ // the book's action

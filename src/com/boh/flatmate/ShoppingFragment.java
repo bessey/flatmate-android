@@ -5,6 +5,7 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.ShopItem;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,9 @@ import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShoppingFragment extends Fragment {
@@ -54,6 +58,8 @@ public class ShoppingFragment extends Fragment {
 		ft.add(R.id.list2, shoppingList,"shopping_fragment");
 		//ft.addToBackStack(null);
 		ft.commit();
+		TextView toBuy = (TextView)c.findViewById(R.id.itemsToBuy);
+		toBuy.setText(FlatDataExchanger.flatData.shopItemsToBuy() + " items to buy");
 		ImageButton addButton = (ImageButton)c.findViewById(R.id.addButton);
 		addButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -102,12 +108,22 @@ public class ShoppingFragment extends Fragment {
 					Toast toast = Toast.makeText(contextExchanger.context, "Please enter valid item!", Toast.LENGTH_SHORT);
 					toast.show();
 				} else {
-					ShopItem item = new ShopItem(inputText.toString());
+					int forFlat = 0;
+					RadioGroup radioButtons = (RadioGroup)c.findViewById(R.id.radioGroup1);
+					RadioButton forMeRadioButton = (RadioButton)radioButtons.findViewById(R.id.radio0);
+					if(forMeRadioButton.isChecked()) forFlat = 0;
+					else forFlat = 1;
+					ShopItem item = new ShopItem(inputText.toString(),forFlat);
 					item.addItem();
 					textInput.setText("");
 				}
 			}
 		});
+	}
+	
+	public static void updateToBuy(){
+		TextView toBuy = (TextView)((Activity) contextExchanger.context).findViewById(R.id.itemsToBuy);
+		toBuy.setText(FlatDataExchanger.flatData.shopItemsToBuy() + " items to buy");
 	}
 	
 	private class refreshItems extends AsyncTask<Void,Void,Void> {
@@ -118,6 +134,7 @@ public class ShoppingFragment extends Fragment {
 
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+			updateToBuy();
 		}
 	}
 

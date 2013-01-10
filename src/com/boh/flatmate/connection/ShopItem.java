@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.text.format.DateUtils;
 
 import com.boh.flatmate.FlatMate;
+import com.boh.flatmate.ShoppingFragment;
 import com.boh.flatmate.ShoppingListFragment;
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
@@ -30,6 +31,13 @@ public class ShopItem {
 	
 	public ShopItem(String itemName) {
 		setUserWantId(FlatDataExchanger.flatData.getCurrentUserId());
+		setFlatId(FlatDataExchanger.flatData.getId());
+		name = itemName;
+	}
+	
+	public ShopItem(String itemName, int forFlat) {
+		if(forFlat == 0) setUserWantId(FlatDataExchanger.flatData.getCurrentUserId());
+		else setUserWantId(-1);
 		setFlatId(FlatDataExchanger.flatData.getId());
 		name = itemName;
 	}
@@ -175,6 +183,7 @@ public class ShopItem {
 
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+			ShoppingFragment.updateToBuy();
 		}
 	}
 	
@@ -187,6 +196,7 @@ public class ShopItem {
 
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+			ShoppingFragment.updateToBuy();
 		}
 	}
 	
@@ -199,6 +209,7 @@ public class ShopItem {
 
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
+			ShoppingFragment.updateToBuy();
 		}
 	}
 }

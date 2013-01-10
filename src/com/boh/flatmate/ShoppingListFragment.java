@@ -36,5 +36,4 @@ public class ShoppingListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		mListView.setAdapter(mAdapter);
 	}
-
 }

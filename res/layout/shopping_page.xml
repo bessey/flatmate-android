@@ -31,7 +31,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/itemsToBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2 items to buy"
@@ -57,37 +57,74 @@
                 android:src="@drawable/new_shopping" />
         </LinearLayout>
     </LinearLayout>
-
-
+
     <LinearLayout
         android:id="@+id/addItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:orientation="vertical"
         android:visibility="gone" >
 
-        <EditText
-            android:id="@+id/addShoppingItem"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/addShoppingItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="11"
+                android:hint="Item Name"
+                android:inputType="textCapSentences" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/AddListItem"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="1dip"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="1dip"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:contentDescription="@string/imgContext"
+                android:scaleType="centerInside"
+                android:src="@drawable/add" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="11"
-            android:hint="Item Name"
-            android:inputType="text" >
-        </EditText>
+            android:orientation="horizontal"
+            android:paddingLeft="40dp" >
 
-        <ImageButton
-            android:id="@+id/AddListItem"
-            android:layout_width="30dp"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="1dip"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dip"
-            android:layout_marginTop="1dip"
-            android:background="@color/transparent"
-            android:contentDescription="@string/imgContext"
-            android:scaleType="centerInside"
-            android:src="@drawable/add" />
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:text="For Me"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="For Flat"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RadioGroup>
+
     </LinearLayout>
     
     <FrameLayout
@@ -95,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false" >
+
     </FrameLayout>
 
 </LinearLayout>
