@@ -287,6 +287,7 @@ public class ServerConnection {
 			out.writeBytes(up);
 			out.flush ();
 			out.close();
+			int responseCode = httpCon.getResponseCode();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
