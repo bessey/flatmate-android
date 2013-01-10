@@ -453,11 +453,11 @@ public class ServerConnection {
 		put(server + "/flats/m", flatInfo);
 	}
 
-	public void ignoreMember(int id) {
-		post(server + "/flats/m/users/"+id+"/review", "user[approve]=false" );		
+	public String ignoreMember(int id) {
+		return post(server + "/flats/m/users/"+id+"/review", "user[approve]=false" );		
 	}
 
-	public void approveMember(int id) {
-		post(server + "/flats/m/users/"+id+"/review", "user[approve]=true" );
+	public String approveMember(int id) {
+		return post(server + "/flats/m/users/"+id+"/review", "user[approve]=true" );
 	}
 }

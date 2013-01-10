@@ -213,6 +213,7 @@ public class ShopItem {
 		protected void onPostExecute(Void result) {
 			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			FlatDataExchanger.flatData.updateDebts();
 			Toast.makeText(contextExchanger.context, "Shopping Item Updated", Toast.LENGTH_SHORT).show();
 		}
 	}

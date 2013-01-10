@@ -134,29 +134,33 @@ public class FlatSettingsFragment extends Fragment {
 		}
 	}
 	
-	public class approveFlatmatePressed extends AsyncTask<Integer,Void,Void> {
-		protected Void doInBackground(Integer... id) {
-			FlatMate.ConnectionExchanger.connection.approveMember(id[0]);
+	public class approveFlatmatePressed extends AsyncTask<Integer,Void,String> {
+		protected String doInBackground(Integer... id) {
+			String result = FlatMate.ConnectionExchanger.connection.approveMember(id[0]);
 			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
-			return null;
+			return result;
 		}
 
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(String result) {
 			UpdateList();
-			Toast.makeText(contextExchanger.context, "User Approved", Toast.LENGTH_SHORT).show();
+			if(result == "failed" || result == "invalid" || result == "connection"){
+				Toast.makeText(contextExchanger.context, "An error occured, could not approve user", Toast.LENGTH_SHORT).show();
+			}else Toast.makeText(contextExchanger.context, "User Approved", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	public class ignoreFlatmatePressed extends AsyncTask<Integer,Void,Void> {
-		protected Void doInBackground(Integer... id) {
-			FlatMate.ConnectionExchanger.connection.ignoreMember(id[0]);
+	public class ignoreFlatmatePressed extends AsyncTask<Integer,Void,String> {
+		protected String doInBackground(Integer... id) {
+			String result = FlatMate.ConnectionExchanger.connection.ignoreMember(id[0]);
 			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
-			return null;
+			return result;
 		}
 
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(String result) {
 			UpdateList();
-			Toast.makeText(contextExchanger.context, "User Approval Rejected", Toast.LENGTH_SHORT).show();
+			if(result == "failed" || result == "invalid" || result == "connection"){
+				Toast.makeText(contextExchanger.context, "An error occured, could not ignore user", Toast.LENGTH_SHORT).show();
+			}else Toast.makeText(contextExchanger.context, "User Ignored", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
