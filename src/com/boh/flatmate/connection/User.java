@@ -1,6 +1,7 @@
 package com.boh.flatmate.connection;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.util.FloatMath;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View.OnClickListener;
 
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
+import com.google.android.maps.GeoPoint;
 
 public class User {
 	private String email;
@@ -117,11 +119,13 @@ public class User {
 
 
 	public int isHome(){
-		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();
-		float FlatMate_Long = FlatDataExchanger.flatData.getGeocode_long();
-		double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
+		double distanceFromHome = distanceFromHome();
 		
-		if(distanceFromHome > 0.1){
+		if(this.getGeocode_lat() == 0.0f || this.getGeocode_long() == 0.0f){
+			return -1;
+		}
+		
+		if(distanceFromHome > 250){
 			return 0;
 		}
 		return 1;
@@ -130,8 +134,24 @@ public class User {
 	public double distanceFromHome(){
 		float FlatMate_Lat = FlatDataExchanger.flatData.getGeocode_lat();
 		float FlatMate_Long = FlatDataExchanger.flatData.getGeocode_long();
-		double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
-		return distanceFromHome*0.00062137;
+		GeoPoint newCurrent = new GeoPoint((int)(FlatMate_Lat* 1E6), (int)(FlatMate_Long* 1E6));
+		Location flatLocation = new Location("reverseGeocoded");
+		flatLocation.setLatitude(newCurrent.getLatitudeE6() / 1e6);
+		flatLocation.setLongitude(newCurrent.getLongitudeE6() / 1e6);
+		
+		GeoPoint userCurrent = new GeoPoint((int)(this.getGeocode_lat()* 1E6), (int)(this.getGeocode_long()* 1E6));
+		Location userLocation = new Location("reverseGeocoded");
+		flatLocation.setLatitude(userCurrent.getLatitudeE6() / 1e6);
+		flatLocation.setLongitude(userCurrent.getLongitudeE6() / 1e6);
+		System.out.println("home -"+FlatMate_Lat+", "+FlatMate_Long);
+		System.out.println("user -"+this.getGeocode_lat()+", "+this.getGeocode_long());
+		int distanceFromHome = (int)flatLocation.distanceTo(userLocation);
+		System.out.println(this.first_name + "-"+ distanceFromHome);
+		float[] results = new float[3];
+		Location.distanceBetween(FlatMate_Lat, FlatMate_Long, this.getGeocode_lat(), this.getGeocode_long(), results);
+		System.out.println(results[0]);
+		//double distanceFromHome = gps2m(this.getGeocode_lat(),this.getGeocode_long(),FlatMate_Lat,FlatMate_Long);
+		return results[0];
 	}
 
 	public OnClickListener phoneListener = new OnClickListener(){ // the book's action

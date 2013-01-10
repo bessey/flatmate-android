@@ -1,13 +1,13 @@
 package com.boh.flatmate.connection;
 
 public class Geometry {
-	private Location location;
+	private ShopLocation location;
 
-	public Location getLocation() {
+	public ShopLocation getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(ShopLocation location) {
 		this.location = location;
 	}
 }

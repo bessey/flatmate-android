@@ -139,7 +139,7 @@ public class ServerConnection {
 
 	//get list of all users
 	public  User[] getUserList() {
-		System.out.println(server+"/users");
+		//System.out.println(server+"/users");
 		return gson.fromJson(get(server + "/users"), User[].class);
 	}
 
@@ -272,11 +272,11 @@ public class ServerConnection {
 	
 	//put to server
 	private void put(String tu, String up) {
-		System.out.println("Put Command:");
+		//System.out.println("Put Command:");
 		if (auth_token != null) tu += "?auth_token=" + auth_token;
 		URL url;
-		System.out.println(tu);
-		System.out.println(up);
+		//System.out.println(tu);
+		//System.out.println(up);
 		try {
 			url = new URL(tu);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -292,7 +292,7 @@ public class ServerConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println();
+		//System.out.println();
 	}
 	
 	//post to server
@@ -304,9 +304,9 @@ public class ServerConnection {
 	//note: true is put, false is post
 	private  String putOrPost(String targetURL, String urlParameters, boolean put) {
 		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
-		System.out.println("POST Command : ");
-		System.out.println(targetURL);
-		System.out.println(urlParameters);
+		//System.out.println("POST Command : ");
+		//System.out.println(targetURL);
+		//System.out.println(urlParameters);
 		URL url;
 		HttpURLConnection connection = null;  
 		try {
@@ -368,7 +368,7 @@ public class ServerConnection {
 		//bad app one:
 		//targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
 		String s = getShops(targetURL);
-		System.out.println(s);
+		//System.out.println(s);
 		return gson.fromJson(s, Shops.class);
 	}
 	
@@ -378,7 +378,7 @@ public class ServerConnection {
 		//bad app one:
 		//targetURL += "location=" + lat + "," + lng + "&radius=" + radius + "&types=grocery_or_supermarket&sensor=true&key=AIzaSyA-ThCoeDe81plZDgBoj3KJPdCPLSfR0PU";
 		String s = getShops(targetURL);
-		System.out.println(s);
+		//System.out.println(s);
 		return gson.fromJson(s, Shops.class);
 	}
 	
@@ -392,12 +392,12 @@ public class ServerConnection {
 
 	//get from server
 	private String getter(String targetURL, boolean mapCall) {
-		System.out.println("Get Command:");
+		//System.out.println("Get Command:");
 		URL url;
 		HttpURLConnection connection = null; 
 		if (auth_token != null && !mapCall) targetURL += "?auth_token=" + auth_token;
 		try {
-			System.out.println(targetURL);
+			//System.out.println(targetURL);
 			//Create connection
 			url = new URL(targetURL);
 			connection = (HttpURLConnection)url.openConnection();
@@ -413,7 +413,7 @@ public class ServerConnection {
 				response.append('\r');
 			}
 			rd.close();
-			System.out.println();
+			//System.out.println();
 			return response.toString();
 		} catch (Exception e) {
 			System.err.println("Problem with GET request " + e);
@@ -427,10 +427,10 @@ public class ServerConnection {
 
 	//delete from server
 	private  void delete(String targetURL) {
-		System.out.println("Delete Command:");
+		//System.out.println("Delete Command:");
 		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
 		URL url;
-		System.out.println(targetURL);
+		//System.out.println(targetURL);
 		try {
 			url = new URL(targetURL);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -445,7 +445,7 @@ public class ServerConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println();
+		//System.out.println();
 	}
 
 	public void updateMyFlat(Flat flat) {

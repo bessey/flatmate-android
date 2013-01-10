@@ -1,6 +1,6 @@
 package com.boh.flatmate.connection;
 
-public class Location {
+public class ShopLocation {
 	private double lat;
 	private double lng;
 	
@@ -20,7 +20,7 @@ public class Location {
 		this.lng = lng;
 	}
 	
-	public boolean isEquals(Location loc){
+	public boolean isEquals(ShopLocation loc){
 		if(lat == loc.getLat() && lng == loc.getLng()){
 			return true;
 		}else return false;

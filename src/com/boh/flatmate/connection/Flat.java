@@ -136,7 +136,9 @@ public class Flat {
 	public int getNoAtFlat(){
 		int count = 0;
 		for (User u : users){
-			count += u.isHome();
+			if(u.isHome() == 1){
+				count++;
+			}
 		}
 		return count;
 	}

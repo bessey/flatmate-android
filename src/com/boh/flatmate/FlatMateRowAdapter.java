@@ -25,18 +25,18 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 		FlatData = data;
 		context = c;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		User flatMate = FlatData[position];
-		Log.v("USER","Position " + position + " out of " + (FlatData.length-1));
-		Log.v("USER","Name " + flatMate.getFirst_name());
+		//Log.v("USER","Position " + position + " out of " + (FlatData.length-1));
+		//Log.v("USER","Name " + flatMate.getFirst_name());
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.flat_row, null);
 		}
-		
+
 		if(flatMate.getColour_Id() == 0) {
 			v.setBackgroundResource(R.drawable.box1);
 		} else if(flatMate.getColour_Id() == 1) {
@@ -81,34 +81,41 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 			phoneButton.setOnClickListener(flatMate.phoneListener);
 			messageButton.setOnClickListener(flatMate.messageListener);
 		}
-		
-		if(flatMate.isHome() == 0){
+
+		if(flatMate.isHome() != 1){
 			ImageView image = (ImageView) v.findViewById(R.id.icon);
 			image.setImageResource(R.drawable.home_x);
 		}else{
 			ImageView image = (ImageView) v.findViewById(R.id.icon);
 			image.setImageResource(R.drawable.home);
 		}
-		
+
 		double distance = flatMate.distanceFromHome();
-		
+
 		TextView disFHText = (TextView) v.findViewById(R.id.distanceText);
-		disFHText.setText(round(distance,2)+"mi from flat");
-		
+		if(flatMate.isHome() != -1){
+			if(distance < 500){
+				disFHText.setText(round(distance,2)+"m from flat");
+			}else{
+				disFHText.setText(round((distance/1000),2)+"Km from flat");
+			}
+		}else{
+			disFHText.setText("Unknown Location");
+		}
 		return v;
 	}
-	
+
 	public void setDisplayDebts(int set){
 		displayDebts = set;
 		this.notifyDataSetChanged();
 	}
 
 	public double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+		if (places < 0) throw new IllegalArgumentException();
 
-	    long factor = (long) Math.pow(10, places);
-	    value = value * factor;
-	    long tmp = Math.round(value);
-	    return (double) tmp / factor;
+		long factor = (long) Math.pow(10, places);
+		value = value * factor;
+		long tmp = Math.round(value);
+		return (double) tmp / factor;
 	}
 }

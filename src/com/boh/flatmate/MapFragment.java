@@ -159,10 +159,10 @@ public class MapFragment extends Fragment {
 
 		OverlayItem overlayitem;
 		GeoPoint point;
-		com.boh.flatmate.connection.Location loc;
+		com.boh.flatmate.connection.ShopLocation loc;
 		int i = 0;
 
-		com.boh.flatmate.connection.Location[] locationArray = new com.boh.flatmate.connection.Location[5]; 
+		com.boh.flatmate.connection.ShopLocation[] locationArray = new com.boh.flatmate.connection.ShopLocation[5]; 
 
 		for (Results u : ShopsExchanger.bestShops.getResults()) {
 			locationArray[i] = loc = ShopsExchanger.bestShops.getLocation(i);
@@ -187,7 +187,7 @@ public class MapFragment extends Fragment {
 			loc = ShopsExchanger.nearShops.getLocation(i);
 			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
 			overlayitem = new OverlayItem(point, "Sainsburys", "This shop is Open");
-			for (com.boh.flatmate.connection.Location l : locationArray){
+			for (com.boh.flatmate.connection.ShopLocation l : locationArray){
 				if(l.isEquals(loc)){
 					skip = true;
 					break;

@@ -12,7 +12,7 @@ public class Shops {
 		this.results = results;
 	}
 	
-	public Location getLocation(int i) {
+	public ShopLocation getLocation(int i) {
 		if (results[i].getGeometry().getLocation() != null) {
 			return results[i].getGeometry().getLocation();
 		} else return null;

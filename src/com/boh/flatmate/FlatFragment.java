@@ -108,8 +108,13 @@ public class FlatFragment extends Fragment {
 		TextView flatName = (TextView) c.findViewById(R.id.flatNameTop);
 		flatName.setText(FlatDataExchanger.flatData.getNickname());
 
-		TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
-		atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
+		if(FlatDataExchanger.flatData.getGeocode_lat() == 0.0f || FlatDataExchanger.flatData.getGeocode_long() == 0.0f){
+			TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
+			atFlat.setText("Unknow Flat Location");
+		}else{
+			TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
+			atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
+		}
 
 		ImageButton messageButton = (ImageButton)c.findViewById(R.id.messageButton);
 		messageButton.setOnClickListener(FlatDataExchanger.flatData.messageListener);

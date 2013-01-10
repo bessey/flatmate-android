@@ -49,8 +49,8 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
-		//service = new Intent(FlatMate.this, UpdateService.class);
-		//startService(service);
+		service = new Intent(FlatMate.this, UpdateService.class);
+		startService(service);
 
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
