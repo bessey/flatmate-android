@@ -54,14 +54,6 @@ public class Flat {
 		}
 		int cuid = currentUser.getId();
 		for (ShopItem si : shop_items) {
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
-			System.out.println("*************************************************************");
 			int ub = si.getUserBoughtId();
 			int uw = si.getUserWantId();
 			if (ub != -1) {
@@ -81,22 +73,16 @@ public class Flat {
 					}
 				} else if (uw == -1) {
 					if (ub != cuid) {
-						System.out.println(ub + ":" + cuid);
 						for (Debt d : debts) {
 							if (d.getId() == ub) {
 								d.add(si.getPrice()/debts.length+1);
 							}
 						}
 					} else {
-						System.out.println(ub + ":" + cuid);
-						System.out.println("BOGIES");
 						for (Debt d : debts) {
 							d.sub(si.getPrice()/debts.length+1);
 						}
 					}
-				} else {
-					System.out.println(ub + "::" + cuid);
-				}
 			}
 		}
 	}
