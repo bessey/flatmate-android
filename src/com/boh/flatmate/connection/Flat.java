@@ -52,19 +52,27 @@ public class Flat {
 		for (int i = 0; i < users.length; i++) {
 			debts[i] = new Debt(users[i].getId(), 0.0);
 		}
-		int uid = currentUser.getId();
+		int cuid = currentUser.getId();
 		for (ShopItem si : shop_items) {
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
+			System.out.println("*************************************************************");
 			int ub = si.getUserBoughtId();
 			int uw = si.getUserWantId();
 			if (ub != -1) {
-				if (uw == uid && ub != uid) {
+				if (uw == cuid && ub != cuid) {
 					for (Debt d : debts) {
 						if (d.getId() == ub) {
 							d.add(si.getPrice());
 							break;
 						}
 					}
-				} else if (ub == uid && uw != uid) {
+				} else if (ub == cuid && uw != cuid && uw != -1) {
 					for (Debt d : debts) {
 						if (d.getId() == uw) {
 							d.sub(si.getPrice());
@@ -72,11 +80,22 @@ public class Flat {
 						}
 					}
 				} else if (uw == -1) {
-					for (Debt d : debts) {
-						if (d.getId() != ub) {
-							d.add(si.getPrice()/debts.length+1);
+					if (ub != cuid) {
+						System.out.println(ub + ":" + cuid);
+						for (Debt d : debts) {
+							if (d.getId() == ub) {
+								d.add(si.getPrice()/debts.length+1);
+							}
+						}
+					} else {
+						System.out.println(ub + ":" + cuid);
+						System.out.println("BOGIES");
+						for (Debt d : debts) {
+							d.sub(si.getPrice()/debts.length+1);
 						}
 					}
+				} else {
+					System.out.println(ub + "::" + cuid);
 				}
 			}
 		}
@@ -85,7 +104,7 @@ public class Flat {
 	public Debt[] getDebts() {
 		return debts;
 	}
-	
+
 	public int shopItemsToBuy(){
 		int total = 0;
 		for (ShopItem si : shop_items) {
@@ -104,11 +123,14 @@ public class Flat {
 				break;
 			}
 		}
-		String debtS = "£" + String.format("%.2f",debt);
 		if (debt < 0.0) {
+			String debtS = "£" + String.format("%.2f",-debt);
 			return "Owes you: " + debtS;
 		}
-		else return "You owe: " + debtS;
+		else {
+			String debtS = "£" + String.format("%.2f",debt);
+			return "You owe: " + debtS;
+		}
 	}
 
 	public void setCurrentUser(User u){
@@ -208,9 +230,9 @@ public class Flat {
 	}
 
 	public ShopItem getShopItem(int position) {
-			return shop_items[position];
+		return shop_items[position];
 	}
-	
+
 	public int getShopItemsLength(){
 		return shop_items.length;
 	}
@@ -218,7 +240,7 @@ public class Flat {
 	public ShopItem[] getShopItems() {
 		return shop_items;
 	}
-	
+
 	public void orderShopItems(){
 		ShopItem[] temp = new ShopItem[shop_items.length];
 		int i = 0;
