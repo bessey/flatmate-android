@@ -81,6 +81,20 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 			} catch (Exception e){
 				Log.e("ERR",e.toString());
 			}
+			
+
+		    Intent notificationIntent = new Intent(this, FlatMate.class);
+		    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+			        .setSmallIcon(R.drawable.notification_icon)
+			        .setContentTitle("FlatMate")
+			        .setPriority(Notification.PRIORITY_MAX)
+	        		.setContentIntent(contentIntent)
+	        		.setAutoCancel(true)
+	        		.setOnlyAlertOnce(true);
+			mBuilder.setContentText("You have been approved! Please restart FlatMate if it is open.");
+			mNotificationManager.notify(10, mBuilder.build());				
+			
 		}
 	}
 	
