@@ -110,7 +110,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 						.setTabListener(this),false);
 			}
 		}else{
-			setContentView(R.layout.flat_mate);
+			setContentView(R.layout.flat_mate_not_approved);
 		}
 
 	}
