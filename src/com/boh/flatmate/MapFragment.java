@@ -187,6 +187,10 @@ public class MapFragment extends Fragment {
 			}
 		}
 		String[] results = result.split(",");
+		if (result.length() < 2) {
+			showShopsB = true;
+			showFlatmatesB = true;
+		}
 		showShopsB = Boolean.parseBoolean(results[0]);
 		showFlatmatesB = Boolean.parseBoolean(results[1]);
 	}
