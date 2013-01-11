@@ -107,7 +107,7 @@ public class MapFragment extends Fragment {
 		GeoPoint point = new GeoPoint((int)(flatLat*1E6),(int)(flatLong*1E6));
 		String flat = FlatDataExchanger.flatData.getNickname();
 		int num = FlatDataExchanger.flatData.getNoAtFlat();
-		OverlayItem overlayitem = new OverlayItem(point, flat, num + "Flatmates are in!");
+		OverlayItem overlayitem = new OverlayItem(point, flat, num + " flatmates are in!");
 		homeOverlay.addOverlay(overlayitem);
 
 		for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
