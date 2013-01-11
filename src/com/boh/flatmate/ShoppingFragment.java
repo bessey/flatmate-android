@@ -134,7 +134,10 @@ public class ShoppingFragment extends Fragment {
 	
 	public static void updateToBuy(){
 		TextView toBuy = (TextView)((Activity) contextExchanger.context).findViewById(R.id.itemsToBuy);
+		try{
 		toBuy.setText(FlatDataExchanger.flatData.shopItemsToBuy() + " items to buy");
+		}catch(Exception e){
+		}
 	}
 	
 	public class refreshItems extends AsyncTask<Void,Void,Void> {
