@@ -28,7 +28,7 @@ public class Shops {
 	
 	public String getName(int i) {
 		if (results[i].getName() != null) {
-			return results[i].getName().getName();
+			return results[i].getName();
 		} else {
 			return "";
 		}

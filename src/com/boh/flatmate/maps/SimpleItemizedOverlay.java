@@ -37,7 +37,6 @@ public class SimpleItemizedOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	@Override
 	protected boolean onBalloonTap(int index, OverlayItem item) {
-		//remove Ballon code ??
 		return true;
 	}
 	

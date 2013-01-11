@@ -34,6 +34,7 @@ public class MapFragment extends Fragment {
 	
 	SimpleItemizedOverlay itemizedOverlay;
 	SimpleItemizedOverlay itemizedOverlay2;
+	MyLocationOverlay mylocationOverlay;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -86,8 +87,11 @@ public class MapFragment extends Fragment {
 		Drawable drawableUser8 = this.getResources().getDrawable(R.drawable.user_marker8);
 		SimpleItemizedOverlay userOverlay8 = new SimpleItemizedOverlay(drawableUser8, mapExchanger.mMapView);
 
-		MyLocationOverlay mylocationOverlay = new MyLocationOverlay(contextExchanger.context, mapExchanger.mMapView);
-		mylocationOverlay.enableMyLocation();
+		if(mylocationOverlay == null){
+			mylocationOverlay = new MyLocationOverlay(contextExchanger.context, mapExchanger.mMapView);
+			mylocationOverlay.enableMyLocation();
+			mapOverlays.add(mylocationOverlay);
+		}
 
 		double lat = FlatDataExchanger.flatData.getCurrentUser().getGeocode_lat();
 		double lng = FlatDataExchanger.flatData.getCurrentUser().getGeocode_long();
@@ -135,7 +139,6 @@ public class MapFragment extends Fragment {
 		overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
 		itemizedoverlay.addOverlay(overlayitem);*/
 
-		mapOverlays.add(homeOverlay);
 		if(userOverlay1.size() > 0) mapOverlays.add(userOverlay1);
 		if(userOverlay2.size() > 0)mapOverlays.add(userOverlay2);
 		if(userOverlay3.size() > 0)mapOverlays.add(userOverlay3);
@@ -144,8 +147,7 @@ public class MapFragment extends Fragment {
 		if(userOverlay6.size() > 0)mapOverlays.add(userOverlay6);
 		if(userOverlay7.size() > 0)mapOverlays.add(userOverlay7);
 		if(userOverlay8.size() > 0)mapOverlays.add(userOverlay8);
-
-		mapOverlays.add(mylocationOverlay);
+		mapOverlays.add(homeOverlay);
 	}
 
 	public void addShopsOverlays(){
