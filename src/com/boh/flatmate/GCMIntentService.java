@@ -43,26 +43,35 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 		itemCount++;
 		Bundle payload = intent.getExtras();
 		Log.v("GCM","Recieved a message!" + payload.toString());
-	    Intent notificationIntent = new Intent(this, FlatMate.class);
-	    notificationIntent.putExtra("page", "shopping");
-	    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-		        .setSmallIcon(R.drawable.notification_icon)
-		        .setContentTitle("FlatMate")
-		        .setPriority(Notification.PRIORITY_HIGH)
-        		.setContentIntent(contentIntent)
-        		.setAutoCancel(true)
-        		.setOnlyAlertOnce(true);
-		if(itemCount > 1){
-			mBuilder.setContentText("There are " + itemCount + " new items in the shopping list.");
-		} else {
-			mBuilder.setContentText(payload.getString("item") + " has been added to the shopping list.");			
-		}
-		
-		// Prevent notification from showing if we are in
-		User me = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
-		if(me.isHome() != 1){
-			mNotificationManager.notify(SHOP_ITEM, mBuilder.build());
+		String msgType = payload.getString("msg_type");
+		if(msgType.equals("new_shop_item")){
+			
+		    Intent notificationIntent = new Intent(this, FlatMate.class);
+		    notificationIntent.putExtra("page", "shopping");
+		    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+			        .setSmallIcon(R.drawable.notification_icon)
+			        .setContentTitle("FlatMate")
+			        .setPriority(Notification.PRIORITY_HIGH)
+	        		.setContentIntent(contentIntent)
+	        		.setAutoCancel(true)
+	        		.setOnlyAlertOnce(true);
+			if(itemCount > 1){
+				mBuilder.setContentText("There are " + itemCount + " new items in the shopping list.");
+			} else {
+				mBuilder.setContentText(payload.getString("item") + " has been added to the shopping list.");			
+			}
+			
+			// Prevent notification from showing if we are in
+			User me = FlatMate.ConnectionExchanger.connection.getMe();
+			if(me.isHome() != 1){
+				mNotificationManager.notify(SHOP_ITEM, mBuilder.build());
+			}
+		} else if(msgType.equals("approved")){
+			// ID of the user that has been approved (might not be you, check this!)
+			int approvedId = payload.getInt("approved_id");
+			// Name of the person that approved you
+			String approvedFirstName = payload.getString("approved_first_name");
 		}
 	}
 	
