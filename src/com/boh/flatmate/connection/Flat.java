@@ -83,6 +83,7 @@ public class Flat {
 							d.sub(si.getPrice()/debts.length+1);
 						}
 					}
+				}
 			}
 		}
 	}
