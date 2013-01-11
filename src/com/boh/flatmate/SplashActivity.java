@@ -1050,16 +1050,6 @@ public class SplashActivity extends Activity {
 			toast.show();
 		}
 	}
-	
-	static public void userApproved(String approvedId, String approverName){
-		Log.v("APPRV",approverName + " has approved " + approvedId);
-		User me = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
-		if(me.getId() == Integer.parseInt(approvedId)){
-			Log.v("APPRV","AND THATS ME!");
-		} else {
-			Log.v("APPRV","But that's not me...");
-		}
-	}
 
 	private void startApp() {
 		Intent intent = new Intent(SplashActivity.this, FlatMate.class);

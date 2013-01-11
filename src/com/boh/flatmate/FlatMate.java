@@ -4,24 +4,29 @@ import java.io.File;
 import com.boh.flatmate.R;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
+import com.boh.flatmate.connection.ShopItem;
 import com.boh.flatmate.connection.Shops;
+import com.boh.flatmate.connection.User;
 import com.google.android.maps.MapView;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 public class FlatMate extends FragmentActivity implements ActionBar.TabListener {
 
@@ -113,6 +118,17 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 
 	}
 
+	@Override
+	protected void onRestart() {
+
+	    // TODO Auto-generated method stub
+	    super.onRestart();
+	    Intent i = new Intent(FlatMate.this, FlatMate.class);  //your class
+	    startActivity(i);
+	    finish();
+
+	}
+
 	@Override 
 	public void onResume(){
 		super.onResume();
@@ -194,6 +210,26 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		@Override
 		public CharSequence getPageTitle(int position) {
 			return "";
+		}
+	}
+	
+	private class serverUpdateItem extends AsyncTask<Void,Void,Void> {
+		protected Void doInBackground(Void... item) {
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			onRestart();
+		}
+	}
+	
+	static public void userApproved(String approvedId, String approverName){
+		Log.v("APPRV",approverName + " has approved " + approvedId);
+		User me = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
+		if(me.getId() == Integer.parseInt(approvedId)){
+			//new FlatMate.contextExchanger.context.serverUpdateItem().execute();
+		} else {
+			Log.v("APPRV","But that's not me...");			
 		}
 	}
 

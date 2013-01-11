@@ -77,7 +77,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 			// Name of the person that approved you
 			String approverFirstName = payload.getString("approved_first_name");
 			try {
-				SplashActivity.userApproved(approvedId, approverFirstName);
+				FlatMate.userApproved(approvedId, approverFirstName);
 			} catch (Exception e){
 				Log.e("ERR",e.toString());
 			}
