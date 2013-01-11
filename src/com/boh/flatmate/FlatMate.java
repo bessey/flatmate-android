@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 public class FlatMate extends FragmentActivity implements ActionBar.TabListener {
 
@@ -35,6 +36,8 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
+		
+		//final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		contextExchanger.context = this;
 		
@@ -52,7 +55,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		
 		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 		
-		service = new Intent(FlatMate.this, UpdateService.class);
+		if(service == null) service = new Intent(FlatMate.this, UpdateService.class);
 		startService(service);
 
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -88,7 +91,16 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			setContentView(R.layout.flat_mate_not_approved);
 			
 		}
+		//if ( customTitleSupported ) {
+        //    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
+        //    }
 		
+	}
+	
+	@Override 
+	public void onResume(){
+		super.onResume();
+		contextExchanger.context = this;
 	}
 	
 	@Override

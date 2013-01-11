@@ -183,8 +183,9 @@ public class ShopItem {
 		}
 
 		protected void onPostExecute(Void result) {
-			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			FlatDataExchanger.flatData.updateDebts();
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			Toast.makeText(contextExchanger.context, "Shopping Item Deleted", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -197,8 +198,9 @@ public class ShopItem {
 		}
 
 		protected void onPostExecute(Void result) {
-			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
+			FlatDataExchanger.flatData.updateDebts();
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			Toast.makeText(contextExchanger.context, "Shopping Item Added", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -211,9 +213,9 @@ public class ShopItem {
 		}
 
 		protected void onPostExecute(Void result) {
-			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			ShoppingFragment.updateToBuy();
 			FlatDataExchanger.flatData.updateDebts();
+			ShoppingListFragment.mAdapter.notifyDataSetChanged();
 			Toast.makeText(contextExchanger.context, "Shopping Item Updated", Toast.LENGTH_SHORT).show();
 		}
 	}

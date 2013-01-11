@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.connection.Flat;
 import com.boh.flatmate.connection.ServerConnection;
 import com.boh.flatmate.connection.User;
@@ -30,6 +31,9 @@ import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Profile;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -84,8 +88,30 @@ public class SplashActivity extends Activity {
 		} else {
 			Log.v("GCM", "Already registered");
 		}
-
-
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_logout:
+			File logFile = new File(ConnectionExchanger.connection.FileName);
+			if (logFile.exists())
+			{
+				logFile.delete();
+			}
+			finish();
+			return true;
+		default:
+			return true;
+		}
 	}
 
 	@Override
@@ -140,7 +166,7 @@ public class SplashActivity extends Activity {
 			if(deviceId != null) connection.maintainGcmRegistration(deviceId);
 			checkFlatOnLogIn();
 		}else{
-			newLogin();
+			if(screenPosition == 0) newLogin();
 		}
 	}
 
@@ -599,6 +625,14 @@ public class SplashActivity extends Activity {
 		new updateUser().execute(newUser);
 
 	}
+	
+	public void newFlatFailed(){
+		View createButtons = findViewById(R.id.createButtons);
+		createButtons.setVisibility(View.VISIBLE);
+		View createSpinner = findViewById(R.id.createSpinnerBox);
+		createSpinner.setVisibility(View.GONE);
+		Toast.makeText(getApplicationContext(), "Error, new flat could not be created", Toast.LENGTH_SHORT).show();
+	}
 
 	public void registrationComplete(String result){
 		if(result == "failed" || result == "invalid" || result == "connection"){
@@ -982,7 +1016,12 @@ public class SplashActivity extends Activity {
 		}
 
 		protected void onPostExecute(Flat newFlat) {
-			registrationNewFlatComplete(newFlat);
+			if(newFlat.getNickname().equals("Error")){
+				newFlatFailed();
+			}else{
+				updateComplete();
+				//registrationNewFlatComplete(newFlat);
+			}
 			return;
 		}
 

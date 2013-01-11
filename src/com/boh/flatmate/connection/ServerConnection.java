@@ -178,7 +178,13 @@ public class ServerConnection {
 	//create a new flat
 	public Flat addFlat(Flat flat) {
 		String flatInfo = flat.toHTTPString();
-		return gson.fromJson(post(server + "/flats", flatInfo), Flat.class);
+		try{
+			return gson.fromJson(post(server + "/flats", flatInfo), Flat.class);
+		}catch(Exception e){
+			Flat error = new Flat();
+			error.setNickname("Error");
+			return error;
+		}
 	}
 	
 	//search for flats
