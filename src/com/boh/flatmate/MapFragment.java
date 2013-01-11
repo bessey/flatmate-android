@@ -10,6 +10,7 @@ import java.util.List;
 import com.boh.flatmate.maps.SimpleItemizedOverlay;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -168,30 +169,9 @@ public class MapFragment extends Fragment {
 	}
 
 	private void pointerDisplayUpdate() {
-		File file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
-		FileInputStream fis = null;
-		String result = "";
-		try {
-			if (file.exists())
-			{
-				BufferedReader input;
-				input = new BufferedReader(new FileReader(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers"));
-				String line = null;
-				if (( line = input.readLine()) != null){
-					result = line;
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		String[] results = result.split(",");
-		if(results.length < 2){
-			showShopsB = true;
-			showFlatmatesB = false;
-		}else{
-			showShopsB = Boolean.parseBoolean(results[0]);
-			showFlatmatesB = Boolean.parseBoolean(results[1]);
-		}
+		SharedPreferences settings = contextExchanger.context.getSharedPreferences("Map", 0);
+		showShopsB = settings.getBoolean("showShops", true);
+		showFlatmatesB = settings.getBoolean("showFlatmates", true);
 	}
 
 	public void addShopsOverlays(){

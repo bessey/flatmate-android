@@ -15,6 +15,8 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.User;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -54,14 +56,13 @@ public class FlatSettingsFragment extends Fragment {
 		inflate = inflater;
 		c = container;
 		pointerDisplayUpdate();
+		User flatMate = FlatDataExchanger.flatData.getCurrentUser();
 
 		EditText flatNickname = (EditText) v1.findViewById(R.id.flatNickname);
 		flatNickname.setText(FlatMate.FlatDataExchanger.flatData.getNickname());
 
 		EditText flatPostcode = (EditText) v1.findViewById(R.id.flatPostcode);
 		flatPostcode.setText(FlatMate.FlatDataExchanger.flatData.getPostcode());
-		
-		User flatMate = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
 
 		Button saveButton = (Button) v1.findViewById(R.id.saveButton);
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -241,106 +242,10 @@ public class FlatSettingsFragment extends Fragment {
 		}
 
 		return v1;
-	}	
-	public void UpdateColors(){
-		
-		User flatMate = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
-		
-		final ImageButton button1 = (ImageButton) v1.findViewById(R.id.button1);
-		final ImageButton button2 = (ImageButton) v1.findViewById(R.id.button2);
-		final ImageButton button3 = (ImageButton) v1.findViewById(R.id.button3);
-		final ImageButton button4 = (ImageButton) v1.findViewById(R.id.button4);
-		final ImageButton button5 = (ImageButton) v1.findViewById(R.id.button5);
-		final ImageButton button6 = (ImageButton) v1.findViewById(R.id.button6);
-		final ImageButton button7 = (ImageButton) v1.findViewById(R.id.button7);
-		final ImageButton button8 = (ImageButton) v1.findViewById(R.id.button8);
-		
-		button1.setImageResource(R.drawable.empty);
-		button2.setImageResource(R.drawable.empty);
-		button3.setImageResource(R.drawable.empty);
-		button4.setImageResource(R.drawable.empty);
-		button5.setImageResource(R.drawable.empty);
-		button6.setImageResource(R.drawable.empty);
-		button7.setImageResource(R.drawable.empty);
-		button8.setImageResource(R.drawable.empty);
-		
-		button1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)0);
-				button1.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)1);
-				button2.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)2);
-				button3.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button4.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)3);
-				button4.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button5.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)4);
-				button5.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button6.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)5);
-				button6.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button7.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)6);
-				button7.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		button8.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				new updateColor().execute((Integer)7);
-				button8.setImageResource(R.drawable.emptyrefresh);
-			}
-		});
-		
-		if(flatMate.getColour_Id() == 0) {
-			button1.setImageResource(R.drawable.emptytick);
-		} else if(flatMate.getColour_Id() == 1) {
-			button2.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 2) {
-			button3.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 3) {
-			button4.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 4) {
-			button5.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 5) {
-			button6.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 6) {
-			button7.setImageResource(R.drawable.emptytick);
-		} else if (flatMate.getColour_Id() == 7) {
-			button8.setImageResource(R.drawable.emptytick);
-		} else {
-			button8.setImageResource(R.drawable.emptytick);
-		}
 	}
-	
+
+
+
 	public void UpdateList(){
 		User[] users = FlatDataExchanger.flatData.getUnapprovedUsers();
 		LinearLayout list = (LinearLayout)v1.findViewById(R.id.unList);
@@ -379,20 +284,7 @@ public class FlatSettingsFragment extends Fragment {
 			list.addView(vi);
 		}
 	}
-	
-	public class updateColor extends AsyncTask<Integer,Void,Void> {
-		protected Void doInBackground(Integer... id) {
-			User me = FlatDataExchanger.flatData.getCurrentUser();
-			me.setColour_Id(id[0]);
-			FlatMate.ConnectionExchanger.connection.updateUser(me);
-			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
-			return null;
-		}
 
-		protected void onPostExecute(Void result) {
-			UpdateColors();
-		}
-	}
 	public class approveFlatmatePressed extends AsyncTask<Integer,Void,String> {
 		protected String doInBackground(Integer... id) {
 			String result = FlatMate.ConnectionExchanger.connection.approveMember(id[0]);
@@ -423,14 +315,6 @@ public class FlatSettingsFragment extends Fragment {
 		}
 	}
 
-	/*public void approveFlatmatePressed(int id){
-		FlatMate.ConnectionExchanger.connection.approveMember(id);
-	}
-
-	public void ignoreFlatmatePressed(int id){
-		FlatMate.ConnectionExchanger.connection.ignoreMember(id);
-	}*/
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -447,53 +331,16 @@ public class FlatSettingsFragment extends Fragment {
 	}
 
 	public void pointerDisplayUpdate() {
-		File file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
-		FileInputStream fis = null;
-		String result = "";
-		try {
-			if (file.exists())
-			{
-				BufferedReader input;
-				input = new BufferedReader(new FileReader(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers"));
-				String line = null;
-				if (( line = input.readLine()) != null){
-					result = line;
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		String[] results = result.split(",");
-		if(results.length < 2){
-			showShopsB = true;
-			showFlatmatesB = false;
-		}else{
-			showShopsB = Boolean.parseBoolean(results[0]);
-			showFlatmatesB = Boolean.parseBoolean(results[1]);
-		}
+		SharedPreferences settings = contextExchanger.context.getSharedPreferences("Map", 0);
+		showShopsB = settings.getBoolean("showShops", true);
+		showFlatmatesB = settings.getBoolean("showFlatmates", true);
 	}
 
 	public void showButtonsPressed() {
-		//TODO !boolean for show shops on map
-		File file;
-		String content = showShopsB + "," + showFlatmatesB;
-		boolean read = true;
-		try {
-			file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
-			if (file.exists())
-			{
-				file.delete();
-			}
-			file.createNewFile();
-			//fos = new FileOutputStream(file);
-			// if file doesnt exists, then create it
-			// get the content in bytes
-			BufferedWriter buf = new BufferedWriter(new FileWriter(file, false)); 
-			buf.append(content);
-			buf.newLine();
-			buf.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SharedPreferences settings = contextExchanger.context.getSharedPreferences("Map", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean("showShops", showShopsB);
+		editor.putBoolean("showFlatmates", showFlatmatesB);
+		editor.commit();
 	}
 }
