@@ -44,6 +44,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 		Bundle payload = intent.getExtras();
 		Log.v("GCM","Recieved a message!" + payload.toString());
 	    Intent notificationIntent = new Intent(this, FlatMate.class);
+	    notificationIntent.putExtra("page", "shopping");
 	    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.notification_icon)

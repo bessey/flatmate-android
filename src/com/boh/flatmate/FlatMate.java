@@ -30,79 +30,99 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	NonSwipeableViewPager mViewPager;
 	View mMapViewContainer;
 	MapView mMapView;
-	
+
 	Intent service;
 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
 		super.onCreate(savedInstanceState);
-		
+
+		String value = "";
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			value = extras.getString("new_variable_name");
+		}
+
 		//final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		contextExchanger.context = this;
-		
+
 		ConnectionExchanger.connection = new ServerConnection();
 
 		FlatDataExchanger.flatData = new Flat();
-		
+
 		FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 		FlatDataExchanger.flatData.setCurrentUser(ConnectionExchanger.connection.getMe());
-		
+
 		if(FlatDataExchanger.flatData.getCurrentUser().getFlatApproved().equals("true")){
 			setContentView(R.layout.flat_mate);
-			
-		FlatDataExchanger.flatData.orderShopItems();
-		
-		mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
-		
-		if(service == null) service = new Intent(FlatMate.this, UpdateService.class);
-		startService(service);
 
-		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+			FlatDataExchanger.flatData.orderShopItems();
 
-		final ActionBar actionBar = getActionBar();
+			mapExchanger.mMapView = new MapView(this, getString(R.string.maps_api_key));
 
-		//actionBar.setHomeButtonEnabled(false);
+			if(service == null) service = new Intent(FlatMate.this, UpdateService.class);
+			startService(service);
 
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+			mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
-		mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
+			final ActionBar actionBar = getActionBar();
+
+			//actionBar.setHomeButtonEnabled(false);
+
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+			mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
+			mViewPager.setAdapter(mAppSectionsPagerAdapter);
+			mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+				@Override
+				public void onPageSelected(int position) {
+					actionBar.setSelectedNavigationItem(position);
+				}
+			});
+			if(value.equals("shopping")){
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.shopping_tab)
+						.setTabListener(this));
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.flatmates_tab)
+						.setTabListener(this),0);
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.location_tab)
+						.setTabListener(this),1);
+			}else{
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.flatmates_tab)
+						.setTabListener(this));
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.shopping_tab)
+						.setTabListener(this));
+				actionBar.addTab(
+						actionBar.newTab()
+						.setIcon(R.drawable.location_tab)
+						.setTabListener(this));
 			}
-		});
-
-		actionBar.addTab(
-				actionBar.newTab()
-				.setIcon(R.drawable.flatmates_tab)
-				.setTabListener(this));
-		actionBar.addTab(
-				actionBar.newTab()
-				.setIcon(R.drawable.shopping_tab)
-				.setTabListener(this));
-		actionBar.addTab(
-				actionBar.newTab()
-				.setIcon(R.drawable.location_tab)
-				.setTabListener(this));
 		}else{   //USER NOT APPROVED
 			setContentView(R.layout.flat_mate_not_approved);
-			
+
 		}
 		//if ( customTitleSupported ) {
-        //    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
-        //    }
-		
+		//    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
+		//    }
+
 	}
-	
+
 	@Override 
 	public void onResume(){
 		super.onResume();
 		contextExchanger.context = this;
 	}
-	
+
 	@Override
 	public void onStart(){
 		super.onStart();
@@ -181,7 +201,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			return "";
 		}
 	}
-	
+
 	public static class ConnectionExchanger{
 		public static ServerConnection connection;
 	}
@@ -197,7 +217,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	public static class mapExchanger {
 		public static MapView mMapView;
 	}
-	
+
 	public static class ShopsExchanger{
 		public static Shops nearShops;
 		public static Shops bestShops;

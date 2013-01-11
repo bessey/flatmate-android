@@ -244,7 +244,104 @@ public class FlatSettingsFragment extends Fragment {
 		return v1;
 	}
 
-
+	public void UpdateColors(){
+		
+		User flatMate = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
+		
+		final ImageButton button1 = (ImageButton) v1.findViewById(R.id.button1);
+		final ImageButton button2 = (ImageButton) v1.findViewById(R.id.button2);
+		final ImageButton button3 = (ImageButton) v1.findViewById(R.id.button3);
+		final ImageButton button4 = (ImageButton) v1.findViewById(R.id.button4);
+		final ImageButton button5 = (ImageButton) v1.findViewById(R.id.button5);
+		final ImageButton button6 = (ImageButton) v1.findViewById(R.id.button6);
+		final ImageButton button7 = (ImageButton) v1.findViewById(R.id.button7);
+		final ImageButton button8 = (ImageButton) v1.findViewById(R.id.button8);
+		
+		button1.setImageResource(R.drawable.empty);
+		button2.setImageResource(R.drawable.empty);
+		button3.setImageResource(R.drawable.empty);
+		button4.setImageResource(R.drawable.empty);
+		button5.setImageResource(R.drawable.empty);
+		button6.setImageResource(R.drawable.empty);
+		button7.setImageResource(R.drawable.empty);
+		button8.setImageResource(R.drawable.empty);
+		
+		button1.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)0);
+				button1.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)1);
+				button2.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)2);
+				button3.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)3);
+				button4.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button5.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)4);
+				button5.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button6.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)5);
+				button6.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button7.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)6);
+				button7.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		button8.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new updateColor().execute((Integer)7);
+				button8.setImageResource(R.drawable.emptyrefresh);
+			}
+		});
+		
+		if(flatMate.getColour_Id() == 0) {
+			button1.setImageResource(R.drawable.emptytick);
+		} else if(flatMate.getColour_Id() == 1) {
+			button2.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 2) {
+			button3.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 3) {
+			button4.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 4) {
+			button5.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 5) {
+			button6.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 6) {
+			button7.setImageResource(R.drawable.emptytick);
+		} else if (flatMate.getColour_Id() == 7) {
+			button8.setImageResource(R.drawable.emptytick);
+		} else {
+			button8.setImageResource(R.drawable.emptytick);
+		}
+	}
 
 	public void UpdateList(){
 		User[] users = FlatDataExchanger.flatData.getUnapprovedUsers();
@@ -282,6 +379,20 @@ public class FlatSettingsFragment extends Fragment {
 				}
 			});
 			list.addView(vi);
+		}
+	}
+	
+	public class updateColor extends AsyncTask<Integer,Void,Void> {
+		protected Void doInBackground(Integer... id) {
+			User me = FlatDataExchanger.flatData.getCurrentUser();
+			me.setColour_Id(id[0]);
+			FlatMate.ConnectionExchanger.connection.updateUser(me);
+			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			UpdateColors();
 		}
 	}
 
