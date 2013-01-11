@@ -25,4 +25,12 @@ public class Shops {
 			return 1;
 		} else return 0;
 	}
+	
+	public String getName(int i) {
+		if (results[i].getName() != null) {
+			return results[i].getName().getName();
+		} else {
+			return "";
+		}
+	}
 }
