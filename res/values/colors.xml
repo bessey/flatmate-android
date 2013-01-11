@@ -5,4 +5,12 @@
     <color name="green">#800000ff</color>
     <color name="transparent">#00000000</color>
     <color name="lightText">#d3edf9</color>
+    <color name="user_1">#f35a5a</color>
+    <color name="user_2">#5aa2f3</color>
+    <color name="user_3">#5af261</color>
+    <color name="user_4">#f29e5a</color>
+    <color name="user_5">#b35af2</color>
+    <color name="user_6">#e5f445</color>
+    <color name="user_7">#f54dd3</color>
+    <color name="user_8">#62d5f2</color>
 </resources>

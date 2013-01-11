@@ -57,6 +57,10 @@ public class FlatSettingsFragment extends Fragment {
 		//mListView = (ListView) v1.findViewById(R.id.unList);
 		
 		User[] users = FlatDataExchanger.flatData.getUnapprovedUsers();
+		if(users.length > 0){
+			TextView t = (TextView) v1.findViewById(R.id.noPendingMembers);
+			t.setVisibility(View.GONE);
+		}
 		LinearLayout list = (LinearLayout)v1.findViewById(R.id.unList);
 		for (int i=0; i<users.length; i++) {
 		  User user = users[i];
