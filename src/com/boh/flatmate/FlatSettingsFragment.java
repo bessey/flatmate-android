@@ -3,7 +3,6 @@ package com.boh.flatmate;
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
-import com.boh.flatmate.connection.ShopItem;
 import com.boh.flatmate.connection.User;
 
 import android.os.AsyncTask;
@@ -141,7 +140,7 @@ public class FlatSettingsFragment extends Fragment {
 	public class approveFlatmatePressed extends AsyncTask<Integer,Void,String> {
 		protected String doInBackground(Integer... id) {
 			String result = FlatMate.ConnectionExchanger.connection.approveMember(id[0]);
-			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
+			FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 			return result;
 		}
 
@@ -156,7 +155,7 @@ public class FlatSettingsFragment extends Fragment {
 	public class ignoreFlatmatePressed extends AsyncTask<Integer,Void,String> {
 		protected String doInBackground(Integer... id) {
 			String result = FlatMate.ConnectionExchanger.connection.ignoreMember(id[0]);
-			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
+			FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
 			return result;
 		}
 
