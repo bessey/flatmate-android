@@ -25,6 +25,10 @@ public class Flat {
 		this.shop_items = newFlat.getShopItems();
 		this.orderShopItems();
 	}
+	
+	public void updateFlatData(Flat myFlat) {
+		this.setUsers(myFlat.getUsers());
+	}
 
 	public String getUserName(int id){
 		for (User u : users){

@@ -8,7 +8,7 @@
 
     <style name="flatMateTheme.ActionBarStyle" parent="android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/topbar</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">

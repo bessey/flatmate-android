@@ -140,7 +140,7 @@ public class FlatSettingsFragment extends Fragment {
 	public class approveFlatmatePressed extends AsyncTask<Integer,Void,String> {
 		protected String doInBackground(Integer... id) {
 			String result = FlatMate.ConnectionExchanger.connection.approveMember(id[0]);
-			FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
+			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
 			return result;
 		}
 
@@ -155,7 +155,7 @@ public class FlatSettingsFragment extends Fragment {
 	public class ignoreFlatmatePressed extends AsyncTask<Integer,Void,String> {
 		protected String doInBackground(Integer... id) {
 			String result = FlatMate.ConnectionExchanger.connection.ignoreMember(id[0]);
-			FlatDataExchanger.flatData = ConnectionExchanger.connection.getMyFlat();
+			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
 			return result;
 		}
 
