@@ -3,7 +3,7 @@ package com.boh.flatmate.connection;
 public class Results {
 	private Geometry geometry;
 	private OpeningHours opening_hours;
-	private Name name;
+	private String name;
 	
 	public Geometry getGeometry() {
 		return geometry;
@@ -21,11 +21,11 @@ public class Results {
 		opening_hours = oh;
 	}
 
-	public Name getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(Name name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 }
