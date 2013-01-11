@@ -1,5 +1,8 @@
 package com.boh.flatmate;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import com.boh.flatmate.maps.SimpleItemizedOverlay;
@@ -31,10 +34,12 @@ public class MapFragment extends Fragment {
 	protected ViewGroup mapContainer;
 	private Context context;
 	private MapController mapController;
-	
+
 	SimpleItemizedOverlay itemizedOverlay;
 	SimpleItemizedOverlay itemizedOverlay2;
 	MyLocationOverlay mylocationOverlay;
+	private boolean showShopsB = true;
+	private boolean showFlatmatesB = true;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -44,6 +49,7 @@ public class MapFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		pointerDisplayUpdate();
 		setUpMap();
 
 		final ViewGroup parent = (ViewGroup) mapExchanger.mMapView.getParent();
@@ -110,30 +116,32 @@ public class MapFragment extends Fragment {
 		OverlayItem overlayitem = new OverlayItem(point, flat, num + " flatmates are in!");
 		homeOverlay.addOverlay(overlayitem);
 
-		for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
-			if(u.getGeocode_lat() != 0.0f && u.getGeocode_long() != 0.0f){
-				point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
-				String user = "";
-				user = u.getShortenedName();
-				overlayitem = new OverlayItem(point, user, "");
-				if(u.getColour_Id() == 0) {
-					userOverlay1.addOverlay(overlayitem);
-				} else if(u.getColour_Id() == 1) {
-					userOverlay2.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 2) {
-					userOverlay3.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 3) {
-					userOverlay4.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 4) {
-					userOverlay5.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 5) {
-					userOverlay6.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 6) {
-					userOverlay7.addOverlay(overlayitem);
-				} else if (u.getColour_Id() == 7) {
-					userOverlay8.addOverlay(overlayitem);
-				} else {
-					userOverlay8.addOverlay(overlayitem);
+		if (showFlatmatesB == true) {
+			for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
+				if(u.getGeocode_lat() != 0.0f && u.getGeocode_long() != 0.0f){
+					point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
+					String user = "";
+					user = u.getShortenedName();
+					overlayitem = new OverlayItem(point, user, "");
+					if(u.getColour_Id() == 0) {
+						userOverlay1.addOverlay(overlayitem);
+					} else if(u.getColour_Id() == 1) {
+						userOverlay2.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 2) {
+						userOverlay3.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 3) {
+						userOverlay4.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 4) {
+						userOverlay5.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 5) {
+						userOverlay6.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 6) {
+						userOverlay7.addOverlay(overlayitem);
+					} else if (u.getColour_Id() == 7) {
+						userOverlay8.addOverlay(overlayitem);
+					} else {
+						userOverlay8.addOverlay(overlayitem);
+					}
 				}
 			}
 		}
@@ -154,78 +162,108 @@ public class MapFragment extends Fragment {
 		mapOverlays.add(homeOverlay);
 	}
 
-	public void addShopsOverlays(){
-		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
-		Drawable drawableShopOpen = this.getResources().getDrawable(R.drawable.shop_marker_open);
-		SimpleItemizedOverlay shopOverlayOpen = new SimpleItemizedOverlay(drawableShopOpen, mapExchanger.mMapView);
-		Drawable drawableShopClosed = this.getResources().getDrawable(R.drawable.shop_marker_closed);
-		SimpleItemizedOverlay shopOverlayClosed = new SimpleItemizedOverlay(drawableShopClosed, mapExchanger.mMapView);
-		Drawable drawableShop = this.getResources().getDrawable(R.drawable.shop_marker);
-		SimpleItemizedOverlay shopOverlay = new SimpleItemizedOverlay(drawableShop, mapExchanger.mMapView);
-
-		OverlayItem overlayitem;
-		GeoPoint point;
-		com.boh.flatmate.connection.ShopLocation loc;
-		int i = 0;
-
-		com.boh.flatmate.connection.ShopLocation[] locationArray = new com.boh.flatmate.connection.ShopLocation[5]; 
-
-		for (Results u : ShopsExchanger.bestShops.getResults()) {
-			locationArray[i] = loc = ShopsExchanger.bestShops.getLocation(i);
-			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			String open = "Opening Hours Unknown";
-			if (ShopsExchanger.bestShops.isOpen(i) == 1) open = "Open";
-			else if (ShopsExchanger.bestShops.isOpen(i) == 0) open = "Closed";
-			String shop = ShopsExchanger.bestShops.getName(i);
-			overlayitem = new OverlayItem(point, shop, open);
-			if(ShopsExchanger.bestShops.isOpen(i) == 1) {
-				shopOverlayOpen.addOverlay(overlayitem);
-			} else if(ShopsExchanger.bestShops.isOpen(i) == 0) {
-				shopOverlayClosed.addOverlay(overlayitem);
-			} else {
-				shopOverlay.addOverlay(overlayitem);
-			}
-			if(i >= 4) break;
-			i++;
-		}
-
-		int j = 0;
-		i = 0;
-
-		for (Results u : ShopsExchanger.nearShops.getResults()) {
-			boolean skip = false;
-			loc = ShopsExchanger.nearShops.getLocation(i);
-			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			String open = "Opening Hours Unknown";
-			if (ShopsExchanger.nearShops.isOpen(i) == 1) open = "Open";
-			else if (ShopsExchanger.nearShops.isOpen(i) == 0) open = "Closed";
-			String shop = ShopsExchanger.nearShops.getName(i);
-			overlayitem = new OverlayItem(point, shop, open);
-			for (com.boh.flatmate.connection.ShopLocation l : locationArray){
-				if(l.isEquals(loc)){
-					skip = true;
-					break;
+	private void pointerDisplayUpdate() {
+		File file = new File("displayPointers");
+		FileInputStream fis = null;
+		String result = "";
+		try {
+			fis = new FileInputStream(file);
+			// if file doesnt exists, then stop
+			if (file.exists()) {
+				int i;
+				while ((i = fis.read()) != -1) {
+					result += Integer.toString(i);
 				}
 			}
-			if(!skip){
-				if(ShopsExchanger.nearShops.isOpen(i) == 1) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fis != null)
+					fis.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		String[] results = result.split(",");
+		showShopsB = Boolean.parseBoolean(results[0]);
+		showFlatmatesB = Boolean.parseBoolean(results[1]);
+	}
+
+	public void addShopsOverlays(){
+		if (showShopsB == true) {
+			List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
+			Drawable drawableShopOpen = this.getResources().getDrawable(R.drawable.shop_marker_open);
+			SimpleItemizedOverlay shopOverlayOpen = new SimpleItemizedOverlay(drawableShopOpen, mapExchanger.mMapView);
+			Drawable drawableShopClosed = this.getResources().getDrawable(R.drawable.shop_marker_closed);
+			SimpleItemizedOverlay shopOverlayClosed = new SimpleItemizedOverlay(drawableShopClosed, mapExchanger.mMapView);
+			Drawable drawableShop = this.getResources().getDrawable(R.drawable.shop_marker);
+			SimpleItemizedOverlay shopOverlay = new SimpleItemizedOverlay(drawableShop, mapExchanger.mMapView);
+
+			OverlayItem overlayitem;
+			GeoPoint point;
+			com.boh.flatmate.connection.ShopLocation loc;
+			int i = 0;
+
+			com.boh.flatmate.connection.ShopLocation[] locationArray = new com.boh.flatmate.connection.ShopLocation[5]; 
+
+			for (Results u : ShopsExchanger.bestShops.getResults()) {
+				locationArray[i] = loc = ShopsExchanger.bestShops.getLocation(i);
+				point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
+				String open = "Opening Hours Unknown";
+				if (ShopsExchanger.bestShops.isOpen(i) == 1) open = "Open";
+				else if (ShopsExchanger.bestShops.isOpen(i) == 0) open = "Closed";
+				String shop = ShopsExchanger.bestShops.getName(i);
+				overlayitem = new OverlayItem(point, shop, open);
+				if(ShopsExchanger.bestShops.isOpen(i) == 1) {
 					shopOverlayOpen.addOverlay(overlayitem);
-					j++;
-				} else if(ShopsExchanger.nearShops.isOpen(i) == 0) {
+				} else if(ShopsExchanger.bestShops.isOpen(i) == 0) {
 					shopOverlayClosed.addOverlay(overlayitem);
-					j++;
 				} else {
 					shopOverlay.addOverlay(overlayitem);
-					j++;
 				}
-				if(j >= 4) break;
+				if(i >= 4) break;
 				i++;
 			}
-		}
 
-		if(shopOverlayClosed.size() > 0)mapOverlays.add(shopOverlayClosed);
-		if(shopOverlay.size() > 0)mapOverlays.add(shopOverlay);
-		if(shopOverlayOpen.size() > 0) mapOverlays.add(shopOverlayOpen);
+			int j = 0;
+			i = 0;
+
+			for (Results u : ShopsExchanger.nearShops.getResults()) {
+				boolean skip = false;
+				loc = ShopsExchanger.nearShops.getLocation(i);
+				point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
+				String open = "Opening Hours Unknown";
+				if (ShopsExchanger.nearShops.isOpen(i) == 1) open = "Open";
+				else if (ShopsExchanger.nearShops.isOpen(i) == 0) open = "Closed";
+				String shop = ShopsExchanger.nearShops.getName(i);
+				overlayitem = new OverlayItem(point, shop, open);
+				for (com.boh.flatmate.connection.ShopLocation l : locationArray){
+					if(l.isEquals(loc)){
+						skip = true;
+						break;
+					}
+				}
+				if(!skip){
+					if(ShopsExchanger.nearShops.isOpen(i) == 1) {
+						shopOverlayOpen.addOverlay(overlayitem);
+						j++;
+					} else if(ShopsExchanger.nearShops.isOpen(i) == 0) {
+						shopOverlayClosed.addOverlay(overlayitem);
+						j++;
+					} else {
+						shopOverlay.addOverlay(overlayitem);
+						j++;
+					}
+					if(j >= 4) break;
+					i++;
+				}
+			}
+
+			if(shopOverlayClosed.size() > 0)mapOverlays.add(shopOverlayClosed);
+			if(shopOverlay.size() > 0)mapOverlays.add(shopOverlay);
+			if(shopOverlayOpen.size() > 0) mapOverlays.add(shopOverlayOpen);
+		}
 	}
 
 	public Context getContext() {
