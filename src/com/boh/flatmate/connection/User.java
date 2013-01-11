@@ -42,6 +42,19 @@ public class User {
 		if (registration_id != null) result += "&gcm[registration_id]=" + registration_id;
 		return result;
 	}
+	
+	public String toHTTPStringNoId() {
+		String result = "";
+		result = "user[email]=" + email;
+		if (flat_id != null) result += "&user[flat_id]=" + flat_id;
+		if (geocode_lat != null) result += "&user[geocode_lat]=" + geocode_lat;
+		if (geocode_long != null) result += "&user[geocode_long]=" + geocode_long;
+		if (first_name != null) result += "&user[first_name]=" + first_name;
+		if (last_name != null) result += "&user[last_name]=" + last_name;
+		if (phone_number != null) result += "&user[phone_number]=" + phone_number;
+		if (password != null) result += "&user[password]=" + password;
+		return result;
+	}
 
 	public String getEmail() {
 		return email;

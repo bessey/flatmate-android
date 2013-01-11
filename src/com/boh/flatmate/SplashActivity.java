@@ -165,8 +165,12 @@ public class SplashActivity extends Activity {
 		int loggedin = userLogin();
 
 		if(loggedin == 1){
+			try{
 			if(deviceId != null) connection.maintainGcmRegistration(deviceId);
 			checkFlatOnLogIn();
+			}catch(Exception e){
+				newLogin();
+			}
 		}else{
 			if(screenPosition == 0) newLogin();
 		}

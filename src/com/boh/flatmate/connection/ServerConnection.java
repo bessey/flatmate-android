@@ -29,12 +29,13 @@ public class ServerConnection {
 	//register a user and create a User object with all the details
 	//note: must have an email and password or this won't work
 	public  String registerUser(User newUser, String password) {
+		auth_token = null;
 		String userInfo = null;
 		String jsonResult;
 
 
 		//setup http string for registering user, in same order as API
-		userInfo = newUser.toHTTPString();
+		userInfo = newUser.toHTTPStringNoId();
 		//userInfo += "&user[password]=" + password;
 
 		jsonResult = post(server + "/users.json", userInfo);
@@ -310,9 +311,9 @@ public class ServerConnection {
 	//note: true is put, false is post
 	private  String putOrPost(String targetURL, String urlParameters, boolean put) {
 		if (auth_token != null) targetURL += "?auth_token=" + auth_token;
-		//System.out.println("POST Command : ");
-		//System.out.println(targetURL);
-		//System.out.println(urlParameters);
+		System.out.println("POST Command : ");
+		System.out.println(targetURL);
+		System.out.println(urlParameters);
 		URL url;
 		HttpURLConnection connection = null;  
 		try {
