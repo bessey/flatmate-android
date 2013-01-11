@@ -1,22 +1,16 @@
 package com.boh.flatmate;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.User;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +38,7 @@ public class FlatSettingsFragment extends Fragment {
 	private LayoutInflater inflate;
 	private boolean showShopsB = true;
 	private boolean showFlatmatesB = true;
+	private boolean shareLocationB = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -71,7 +66,7 @@ public class FlatSettingsFragment extends Fragment {
 				saveButtonPressed();
 			}
 		});
-		
+
 		final ImageButton button1 = (ImageButton) v1.findViewById(R.id.button1);
 		final ImageButton button2 = (ImageButton) v1.findViewById(R.id.button2);
 		final ImageButton button3 = (ImageButton) v1.findViewById(R.id.button3);
@@ -80,63 +75,63 @@ public class FlatSettingsFragment extends Fragment {
 		final ImageButton button6 = (ImageButton) v1.findViewById(R.id.button6);
 		final ImageButton button7 = (ImageButton) v1.findViewById(R.id.button7);
 		final ImageButton button8 = (ImageButton) v1.findViewById(R.id.button8);
-		
+
 		button1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)0);
 				button1.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)1);
 				button2.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)2);
 				button3.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)3);
 				button4.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)4);
 				button5.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)5);
 				button6.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)6);
 				button7.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)7);
 				button8.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		if(flatMate.getColour_Id() == 0) {
 			button1.setImageResource(R.drawable.emptytick);
 		} else if(flatMate.getColour_Id() == 1) {
@@ -156,31 +151,34 @@ public class FlatSettingsFragment extends Fragment {
 		} else {
 			button8.setImageResource(R.drawable.emptytick);
 		}
-		
+
+		ToggleButton toggleLocation = (ToggleButton) v1.findViewById(R.id.toggleLocation);
+		toggleLocation.setChecked(shareLocationB);
+
 		ToggleButton toggleShops = (ToggleButton) v1.findViewById(R.id.toggleShops);
 		toggleShops.setChecked(showShopsB);
 		toggleShops.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		        if (isChecked) {
-		        	showShopsB = true;
-		        } else {
-		        	showShopsB = false;
-		        }
-		        showButtonsPressed();
-		    }
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					showShopsB = true;
+				} else {
+					showShopsB = false;
+				}
+				showButtonsPressed();
+			}
 		});
-		
+
 		ToggleButton toggleFlatmates = (ToggleButton) v1.findViewById(R.id.toggleFlatMates);
 		toggleFlatmates.setChecked(showFlatmatesB);
 		toggleFlatmates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		        if (isChecked) {
-		        	showFlatmatesB = true;
-		        } else {
-		        	showFlatmatesB = false;
-		        }
-		        showButtonsPressed();
-		    }
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					showFlatmatesB = true;
+				} else {
+					showFlatmatesB = false;
+				}
+				showButtonsPressed();
+			}
 		});
 
 		/*Button showShops = (Button) v1.findViewById(R.id.showShopsButton);
@@ -246,9 +244,9 @@ public class FlatSettingsFragment extends Fragment {
 	}
 
 	public void UpdateColors(){
-		
+
 		User flatMate = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
-		
+
 		final ImageButton button1 = (ImageButton) v1.findViewById(R.id.button1);
 		final ImageButton button2 = (ImageButton) v1.findViewById(R.id.button2);
 		final ImageButton button3 = (ImageButton) v1.findViewById(R.id.button3);
@@ -257,7 +255,7 @@ public class FlatSettingsFragment extends Fragment {
 		final ImageButton button6 = (ImageButton) v1.findViewById(R.id.button6);
 		final ImageButton button7 = (ImageButton) v1.findViewById(R.id.button7);
 		final ImageButton button8 = (ImageButton) v1.findViewById(R.id.button8);
-		
+
 		button1.setImageResource(R.drawable.empty);
 		button2.setImageResource(R.drawable.empty);
 		button3.setImageResource(R.drawable.empty);
@@ -266,63 +264,63 @@ public class FlatSettingsFragment extends Fragment {
 		button6.setImageResource(R.drawable.empty);
 		button7.setImageResource(R.drawable.empty);
 		button8.setImageResource(R.drawable.empty);
-		
+
 		button1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)0);
 				button1.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)1);
 				button2.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)2);
 				button3.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)3);
 				button4.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)4);
 				button5.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)5);
 				button6.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)6);
 				button7.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		button8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new updateColor().execute((Integer)7);
 				button8.setImageResource(R.drawable.emptyrefresh);
 			}
 		});
-		
+
 		if(flatMate.getColour_Id() == 0) {
 			button1.setImageResource(R.drawable.emptytick);
 		} else if(flatMate.getColour_Id() == 1) {
@@ -382,7 +380,7 @@ public class FlatSettingsFragment extends Fragment {
 			list.addView(vi);
 		}
 	}
-	
+
 	public class updateColor extends AsyncTask<Integer,Void,Void> {
 		protected Void doInBackground(Integer... id) {
 			User me = FlatDataExchanger.flatData.getCurrentUser();
@@ -440,10 +438,11 @@ public class FlatSettingsFragment extends Fragment {
 		FlatMate.FlatDataExchanger.flatData.setPostcode(flatPostcodeBox.getText().toString());
 
 		FlatMate.ConnectionExchanger.connection.updateMyFlat(FlatMate.FlatDataExchanger.flatData);
+		new updateFlat().execute();
 	}
-	
-	public class updateFlat extends AsyncTask<Integer,Void,Void> {
-		protected Void doInBackground(Integer... id) {
+
+	public class updateFlat extends AsyncTask<Void,Void,Void> {
+		protected Void doInBackground(Void... id) {
 			FlatMate.ConnectionExchanger.connection.updateMyFlat(FlatMate.FlatDataExchanger.flatData);
 			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
 			return null;

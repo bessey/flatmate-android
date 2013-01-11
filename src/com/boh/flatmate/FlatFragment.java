@@ -1,8 +1,13 @@
 package com.boh.flatmate;
 
 import com.boh.flatmate.R;
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.FlatMate.FlatDataExchanger;
+import com.boh.flatmate.FlatMate.contextExchanger;
+import com.boh.flatmate.ShoppingFragment.refreshItems;
 
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;

@@ -31,7 +31,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	View mMapViewContainer;
 	MapView mMapView;
 
-	Intent service;
+	public static Intent service;
 
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.flatMateTheme);
