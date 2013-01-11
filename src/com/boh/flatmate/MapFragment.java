@@ -105,13 +105,17 @@ public class MapFragment extends Fragment {
 		float flatLat = FlatDataExchanger.flatData.getGeocode_lat();
 		float flatLong = FlatDataExchanger.flatData.getGeocode_long();
 		GeoPoint point = new GeoPoint((int)(flatLat*1E6),(int)(flatLong*1E6));
-		OverlayItem overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
+		String flat = FlatDataExchanger.flatData.getNickname();
+		int num = FlatDataExchanger.flatData.getNoAtFlat();
+		OverlayItem overlayitem = new OverlayItem(point, flat, num + "Flatmates are in!");
 		homeOverlay.addOverlay(overlayitem);
 
 		for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
 			if(u.getGeocode_lat() != 0.0f && u.getGeocode_long() != 0.0f){
 				point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
-				overlayitem = new OverlayItem(point, "User", "User x is here!");
+				String user = "";
+				user = u.getShortenedName();
+				overlayitem = new OverlayItem(point, user, "");
 				if(u.getColour_Id() == 0) {
 					userOverlay1.addOverlay(overlayitem);
 				} else if(u.getColour_Id() == 1) {

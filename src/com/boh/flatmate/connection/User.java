@@ -49,6 +49,9 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getShortenedName() {
+		return first_name + " " + last_name.charAt(0);
+	}
 	public String getFirst_name() {
 		return first_name;
 	}
