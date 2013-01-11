@@ -77,15 +77,6 @@ public class FlatFragment extends Fragment {
 		
 		
 		final ImageButton settings = (ImageButton) c.findViewById(R.id.settingsButton);
-		getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
-			public void onBackStackChanged(){
-				if(settingsOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
-					settingsOpen = 0;
-					settings.setImageResource(R.drawable.settings);
-					button.setVisibility(View.VISIBLE);
-				}
-			}
-		});
 
 		settings.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -102,6 +93,16 @@ public class FlatFragment extends Fragment {
 					settingsOpen = 0;
 					settings.setImageResource(R.drawable.settings);
 					getFragmentManager().popBackStack();
+					button.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+		
+		getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
+			public void onBackStackChanged(){
+				if(settingsOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
+					settingsOpen = 0;
+					settings.setImageResource(R.drawable.settings);
 					button.setVisibility(View.VISIBLE);
 				}
 			}

@@ -28,6 +28,7 @@ public class Flat {
 	
 	public void updateFlatData(Flat myFlat) {
 		this.setUsers(myFlat.getUsers());
+		this.setCurrentUser(this.getCurrentUser());
 	}
 
 	public String getUserName(int id){
