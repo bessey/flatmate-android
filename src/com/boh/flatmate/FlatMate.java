@@ -40,7 +40,7 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		String value = "";
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			value = extras.getString("new_variable_name");
+			value = extras.getString("page");
 		}
 
 		//final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -83,29 +83,29 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 			if(value.equals("shopping")){
 				actionBar.addTab(
 						actionBar.newTab()
-						.setIcon(R.drawable.shopping_tab)
-						.setTabListener(this));
+						.setIcon(R.drawable.flatmates_tab)
+						.setTabListener(this),false);
 				actionBar.addTab(
 						actionBar.newTab()
-						.setIcon(R.drawable.flatmates_tab)
-						.setTabListener(this),0);
+						.setIcon(R.drawable.shopping_tab)
+						.setTabListener(this),true);
 				actionBar.addTab(
 						actionBar.newTab()
 						.setIcon(R.drawable.location_tab)
-						.setTabListener(this),1);
+						.setTabListener(this),false);
 			}else{
 				actionBar.addTab(
 						actionBar.newTab()
 						.setIcon(R.drawable.flatmates_tab)
-						.setTabListener(this));
+						.setTabListener(this),true);
 				actionBar.addTab(
 						actionBar.newTab()
 						.setIcon(R.drawable.shopping_tab)
-						.setTabListener(this));
+						.setTabListener(this),false);
 				actionBar.addTab(
 						actionBar.newTab()
 						.setIcon(R.drawable.location_tab)
-						.setTabListener(this));
+						.setTabListener(this),false);
 			}
 		}else{   //USER NOT APPROVED
 			setContentView(R.layout.flat_mate_not_approved);
