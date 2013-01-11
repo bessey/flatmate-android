@@ -1057,7 +1057,7 @@ public class SplashActivity extends Activity {
 		if(me.getId() == Integer.parseInt(approvedId)){
 			Log.v("APPRV","AND THATS ME!");
 		} else {
-			Log.v("APPRV","But that's not me...");			
+			Log.v("APPRV","But that's not me...");
 		}
 	}
 

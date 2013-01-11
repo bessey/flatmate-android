@@ -165,6 +165,8 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 							setPriceButton.setActivated(false);
 							FlatDataExchanger.flatData.getShopItem(position).setBoughtToday(price);
 							System.out.println("Item Bought for "+ price);
+							priceInput.setText("");
+							
 						}
 					}
 				});
