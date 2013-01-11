@@ -51,13 +51,17 @@
                 android:layout_height="wrap_content"
                 android:text="Postcode"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
             <EditText
                 android:id="@+id/flatPostcode"
                 android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/Medium"
-                android:ems="10" >
+                android:ems="10"
+                android:clickable="false" 
+                android:cursorVisible="false" 
+                android:focusable="false" 
+                android:focusableInTouchMode="false" >
 
                 <requestFocus />
             </EditText>

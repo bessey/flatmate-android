@@ -49,7 +49,7 @@ import android.widget.Toast;
 
 public class SplashActivity extends Activity {
 
-	private boolean AUTOMATIC_LOGIN = false;
+	private boolean AUTOMATIC_LOGIN = true;
 
 	int screenPosition = 0;
 
@@ -89,14 +89,14 @@ public class SplashActivity extends Activity {
 			Log.v("GCM", "Already registered");
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -117,7 +117,7 @@ public class SplashActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		
+
 		Thread splashWait = new Thread(){
 			@Override
 			public void run(){
@@ -158,7 +158,7 @@ public class SplashActivity extends Activity {
 			loginChecks();
 		}
 	};
-	
+
 	private void loginChecks(){
 		int loggedin = userLogin();
 
@@ -603,13 +603,13 @@ public class SplashActivity extends Activity {
 			new registerUser().execute(newUser);
 		}
 	}
-	
+
 	public void updateComplete(){
 		Log.v("REG","Update complete");
 		startApp();
 		finish();
 	}
-	
+
 	public void registrationNewFlatComplete(Flat newFlat){
 		registrationFlatID = newFlat.getId()+"";
 
@@ -625,7 +625,7 @@ public class SplashActivity extends Activity {
 		new updateUser().execute(newUser);
 
 	}
-	
+
 	public void newFlatFailed(){
 		View createButtons = findViewById(R.id.createButtons);
 		createButtons.setVisibility(View.VISIBLE);
@@ -827,20 +827,83 @@ public class SplashActivity extends Activity {
 					(int) (location.getLongitude() * 1E6));
 		}catch(Exception e){
 		}
+		int noPostcode = 0;
+		if(p1 != null){
+			if(p1.getLatitudeE6() == 0.0f && p1.getLongitudeE6() == 0.0f){
+				coder = new Geocoder(this, Locale.UK);
+
+				strAddress = postCodeInput.getText().toString();
+
+				p1 = null;
+
+				try {
+					address = coder.getFromLocationName(strAddress,5);
+					if (address == null) {
+						return;
+					}
+					Address location = address.get(0);
+					location.getLatitude();
+					location.getLongitude();
+
+					p1 = new GeoPoint((int) (location.getLatitude() * 1E6),
+							(int) (location.getLongitude() * 1E6));
+				}catch(Exception e){
+				}
+				if(p1 != null){
+					if(p1.getLatitudeE6() == 0.0f && p1.getLongitudeE6() == 0.0f){
+						Toast.makeText(getApplicationContext(), "Could not find flat Location, please chech address", Toast.LENGTH_SHORT).show();
+						noPostcode = 1;
+					}
+				}else{
+					Toast.makeText(getApplicationContext(), "Could not find flat Location, please chech address", Toast.LENGTH_SHORT).show();
+					noPostcode = 1;
+				}
+				
+			}
+		}else{
+			coder = new Geocoder(this, Locale.UK);
+
+			strAddress = postCodeInput.getText().toString();
+
+			p1 = null;
+
+			try {
+				address = coder.getFromLocationName(strAddress,5);
+				if (address == null) {
+					return;
+				}
+				Address location = address.get(0);
+				location.getLatitude();
+				location.getLongitude();
+
+				p1 = new GeoPoint((int) (location.getLatitude() * 1E6),
+						(int) (location.getLongitude() * 1E6));
+			}catch(Exception e){
+			}
+			if(p1 != null){
+				if(p1.getLatitudeE6() == 0.0f && p1.getLongitudeE6() == 0.0f){
+					Toast.makeText(getApplicationContext(), "Could not find flat Location, please chech address", Toast.LENGTH_SHORT).show();
+					noPostcode = 1;
+				}
+			}else{
+				Toast.makeText(getApplicationContext(), "Could not find flat Location, please chech address", Toast.LENGTH_SHORT).show();
+				noPostcode = 1;
+			}
+		}
 		Flat newFlat = new Flat();
 		newFlat.setNickname(nameInput.getText().toString());
 		newFlat.setPostcode(postCodeInput.getText().toString());
-		if(p1 != null){
+		if(noPostcode == 0){
 			System.out.println(p1.getLatitudeE6());
 			System.out.println(p1.getLongitudeE6());
 			newFlat.setGeocode_lat(p1.getLatitudeE6());
 			newFlat.setGeocode_long(p1.getLongitudeE6());
+			View createButtons = findViewById(R.id.createButtons);
+			createButtons.setVisibility(View.GONE);
+			View createSpinner = findViewById(R.id.createSpinnerBox);
+			createSpinner.setVisibility(View.VISIBLE);
+			new registerNewFlat().execute(newFlat);
 		}
-		View createButtons = findViewById(R.id.createButtons);
-		createButtons.setVisibility(View.GONE);
-		View createSpinner = findViewById(R.id.createSpinnerBox);
-		createSpinner.setVisibility(View.VISIBLE);
-		new registerNewFlat().execute(newFlat);
 	}
 
 	private void searchButtonPressed(){
@@ -1026,7 +1089,7 @@ public class SplashActivity extends Activity {
 		}
 
 	}
-	
+
 	private class updateUser extends AsyncTask<User,Void,Void>{
 
 		@Override

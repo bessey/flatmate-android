@@ -29,7 +29,7 @@ public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
 	public BalloonOverlayView(Context context, int balloonBottomOffset) {
 
 		super(context);
-
+		balloonBottomOffset = 60;
 		setPadding(10, 0, 10, balloonBottomOffset);
 		
 		layout = new LimitLinearLayout(context);
@@ -80,6 +80,7 @@ public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
 	 * @param parent - The parent layout for this BalloonOverlayView.
 	 */
 	protected void setBalloonData(Item item, ViewGroup parent) {
+		
 		if (item.getTitle() != null) {
 			title.setVisibility(VISIBLE);
 			title.setText(item.getTitle());

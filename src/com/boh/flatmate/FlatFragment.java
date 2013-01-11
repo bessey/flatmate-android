@@ -110,7 +110,7 @@ public class FlatFragment extends Fragment {
 
 		if(FlatDataExchanger.flatData.getGeocode_lat() == 0.0f || FlatDataExchanger.flatData.getGeocode_long() == 0.0f){
 			TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
-			atFlat.setText("Unknow Flat Location");
+			atFlat.setText("Unknown Flat Location");
 		}else{
 			TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
 			atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
