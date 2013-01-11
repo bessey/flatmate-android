@@ -1,8 +1,13 @@
 package com.boh.flatmate;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boh.flatmate.FlatMate.ConnectionExchanger;
@@ -164,7 +169,7 @@ public class FlatSettingsFragment extends Fragment {
 		});
 		
 		ToggleButton toggleFlatmates = (ToggleButton) v1.findViewById(R.id.toggleFlatMates);
-		toggleFlatmates.setChecked(showShopsB);
+		toggleFlatmates.setChecked(showFlatmatesB);
 		toggleFlatmates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		        if (isChecked) {
@@ -442,32 +447,26 @@ public class FlatSettingsFragment extends Fragment {
 	}
 
 	public void pointerDisplayUpdate() {
-		File file = new File("displayPointers");
+		File file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
 		FileInputStream fis = null;
 		String result = "";
 		try {
-			fis = new FileInputStream(file);
-			// if file doesnt exists, then stop
-			if (file.exists()) {
-				int i;
-				while ((i = fis.read()) != -1) {
-					result += Integer.toString(i);
+			if (file.exists())
+			{
+				BufferedReader input;
+				input = new BufferedReader(new FileReader(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers"));
+				String line = null;
+				if (( line = input.readLine()) != null){
+					result = line;
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+		} 
 		String[] results = result.split(",");
 		if(results.length < 2){
 			showShopsB = true;
-			showFlatmatesB = true;
+			showFlatmatesB = false;
 		}else{
 			showShopsB = Boolean.parseBoolean(results[0]);
 			showFlatmatesB = Boolean.parseBoolean(results[1]);
@@ -476,32 +475,25 @@ public class FlatSettingsFragment extends Fragment {
 
 	public void showButtonsPressed() {
 		//TODO !boolean for show shops on map
-		FileOutputStream fos = null;
 		File file;
 		String content = showShopsB + "," + showFlatmatesB;
 		boolean read = true;
 		try {
-			file = new File("displayPointers");
-			fos = new FileOutputStream(file);
-			// if file doesnt exists, then create it
-			if (!file.exists()) {
-				file.createNewFile();
+			file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
+			if (file.exists())
+			{
+				file.delete();
 			}
+			file.createNewFile();
+			//fos = new FileOutputStream(file);
+			// if file doesnt exists, then create it
 			// get the content in bytes
-			byte[] contentInBytes = content.getBytes();
-			fos.write(contentInBytes);
-			fos.flush();
-			fos.close(); 
+			BufferedWriter buf = new BufferedWriter(new FileWriter(file, false)); 
+			buf.append(content);
+			buf.newLine();
+			buf.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (fos != null) {
-					fos.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

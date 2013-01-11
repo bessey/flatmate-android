@@ -1,7 +1,9 @@
 package com.boh.flatmate;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,7 +52,6 @@ public class MapFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		pointerDisplayUpdate();
-		mapContainer.removeAllViews();
 		setUpMap();
 
 		final ViewGroup parent = (ViewGroup) mapExchanger.mMapView.getParent();
@@ -75,6 +76,9 @@ public class MapFragment extends Fragment {
 		mapController.setZoom(16); // Zoom 1 is world view
 
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
+		if(mapOverlays.size() != 0){
+			mapExchanger.mMapView.removeAllViews();
+		}
 		Drawable drawableHome = this.getResources().getDrawable(R.drawable.flat_marker);
 		SimpleItemizedOverlay homeOverlay = new SimpleItemizedOverlay(drawableHome, mapExchanger.mMapView);
 		Drawable drawableUser1 = this.getResources().getDrawable(R.drawable.user_marker1);
@@ -164,35 +168,30 @@ public class MapFragment extends Fragment {
 	}
 
 	private void pointerDisplayUpdate() {
-		File file = new File("displayPointers");
+		File file = new File(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers");
 		FileInputStream fis = null;
 		String result = "";
 		try {
-			fis = new FileInputStream(file);
-			// if file doesnt exists, then stop
-			if (file.exists()) {
-				int i;
-				while ((i = fis.read()) != -1) {
-					result += Integer.toString(i);
+			if (file.exists())
+			{
+				BufferedReader input;
+				input = new BufferedReader(new FileReader(contextExchanger.context.getFilesDir().getPath().toString() + "displayPointers"));
+				String line = null;
+				if (( line = input.readLine()) != null){
+					result = line;
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+		} 
 		String[] results = result.split(",");
-		if (result.length() < 2) {
+		if(results.length < 2){
 			showShopsB = true;
-			showFlatmatesB = true;
+			showFlatmatesB = false;
+		}else{
+			showShopsB = Boolean.parseBoolean(results[0]);
+			showFlatmatesB = Boolean.parseBoolean(results[1]);
 		}
-		showShopsB = Boolean.parseBoolean(results[0]);
-		showFlatmatesB = Boolean.parseBoolean(results[1]);
 	}
 
 	public void addShopsOverlays(){

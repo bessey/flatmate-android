@@ -1,6 +1,5 @@
 package com.boh.flatmate;
 
-import com.boh.flatmate.FlatMate.ConnectionExchanger;
 import com.boh.flatmate.connection.User;
 
 import android.app.Notification;
