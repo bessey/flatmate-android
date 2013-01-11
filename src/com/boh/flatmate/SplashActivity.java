@@ -146,7 +146,9 @@ public class SplashActivity extends Activity {
 			registrationLastName = myUser.getLast_name();
 			registrationPhone = myUser.getPhone_number();
 			registrationID = myUser.getId();
-			showFindFlat();
+			if(screenPosition < 2){
+				showFindFlat();
+			}
 		}else{
 			startApp();
 			finish();
@@ -894,10 +896,10 @@ public class SplashActivity extends Activity {
 		newFlat.setNickname(nameInput.getText().toString());
 		newFlat.setPostcode(postCodeInput.getText().toString());
 		if(noPostcode == 0){
-			System.out.println(p1.getLatitudeE6());
-			System.out.println(p1.getLongitudeE6());
-			newFlat.setGeocode_lat(p1.getLatitudeE6());
-			newFlat.setGeocode_long(p1.getLongitudeE6());
+			System.out.println(p1.getLatitudeE6() / 1e6);
+			System.out.println(p1.getLongitudeE6()/ 1e6);
+			newFlat.setGeocode_lat((float)(p1.getLatitudeE6()/ 1e6));
+			newFlat.setGeocode_long((float)(p1.getLongitudeE6()/ 1e6));
 			View createButtons = findViewById(R.id.createButtons);
 			createButtons.setVisibility(View.GONE);
 			View createSpinner = findViewById(R.id.createSpinnerBox);
