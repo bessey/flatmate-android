@@ -39,28 +39,28 @@ public class FlatMateRowAdapter extends ArrayAdapter<User> {
 
 		if(flatMate.getColour_Id() == 0) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_0));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_1));
 		} else if(flatMate.getColour_Id() == 1) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_1));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_2));
 		} else if (flatMate.getColour_Id() == 2) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_2));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_3));
 		} else if (flatMate.getColour_Id() == 3) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_3));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_4));
 		} else if (flatMate.getColour_Id() == 4) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_4));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_5));
 		} else if (flatMate.getColour_Id() == 5) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_5));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_6));
 		} else if (flatMate.getColour_Id() == 6) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_6));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_7));
 		} else if (flatMate.getColour_Id() == 7) {
 			v.setBackgroundResource(0);
-			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_7));
+			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_8));
 		} else {
 			v.setBackgroundResource(R.drawable.box8);
 			v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_8));
