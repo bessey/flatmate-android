@@ -121,6 +121,7 @@ public class User {
 	public int isHome(){
 		double distanceFromHome = distanceFromHome();
 		
+		// FIXME: shouldn't this be and rather than or?
 		if(this.getGeocode_lat() == 0.0f || this.getGeocode_long() == 0.0f){
 			return -1;
 		}

@@ -1,5 +1,8 @@
 package com.boh.flatmate;
 
+import com.boh.flatmate.FlatMate.ConnectionExchanger;
+import com.boh.flatmate.connection.User;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -55,7 +58,12 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 		} else {
 			mBuilder.setContentText(payload.getString("item") + " has been added to the shopping list.");			
 		}
-		mNotificationManager.notify(SHOP_ITEM, mBuilder.build());	
+		
+		// Prevent notification from showing if we are in
+		User me = FlatMate.FlatDataExchanger.flatData.getCurrentUser();
+		if(me.isHome() != 1){
+			mNotificationManager.notify(SHOP_ITEM, mBuilder.build());
+		}
 	}
 	
 	public static void resetCount(){
