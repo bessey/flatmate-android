@@ -15,6 +15,7 @@ import com.boh.flatmate.FlatMate.FlatDataExchanger;
 import com.boh.flatmate.FlatMate.contextExchanger;
 import com.boh.flatmate.connection.User;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -439,6 +440,19 @@ public class FlatSettingsFragment extends Fragment {
 		FlatMate.FlatDataExchanger.flatData.setPostcode(flatPostcodeBox.getText().toString());
 
 		FlatMate.ConnectionExchanger.connection.updateMyFlat(FlatMate.FlatDataExchanger.flatData);
+	}
+	
+	public class updateFlat extends AsyncTask<Integer,Void,Void> {
+		protected Void doInBackground(Integer... id) {
+			FlatMate.ConnectionExchanger.connection.updateMyFlat(FlatMate.FlatDataExchanger.flatData);
+			FlatDataExchanger.flatData.updateFlatData(ConnectionExchanger.connection.getMyFlat());
+			return null;
+		}
+
+		protected void onPostExecute(Void result) {
+			TextView name = (TextView) ((Activity) contextExchanger.context).findViewById(R.id.flatNameTop);
+			name.setText(FlatDataExchanger.flatData.getNickname());
+		}
 	}
 
 	public void pointerDisplayUpdate() {

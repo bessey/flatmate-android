@@ -63,9 +63,9 @@
 
         <TextView
             android:id="@+id/Price"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="£99.99"
+            android:text="£999.99"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
@@ -83,12 +83,13 @@
                 android:maxLines="1"
                 android:text="James Grant"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
+
             <TextView
                 android:id="@+id/dateBought"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:text="05/11/2012"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

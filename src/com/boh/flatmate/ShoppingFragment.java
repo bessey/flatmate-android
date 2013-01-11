@@ -35,6 +35,17 @@ public class ShoppingFragment extends Fragment {
 	{
 		super.onCreate(savedInstanceState);
 	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+	super.setUserVisibleHint(isVisibleToUser);
+
+	if (isVisibleToUser == true) {
+		new refreshItems().execute();
+	}
+	else if (isVisibleToUser == false) {  }
+
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,7 +137,7 @@ public class ShoppingFragment extends Fragment {
 		toBuy.setText(FlatDataExchanger.flatData.shopItemsToBuy() + " items to buy");
 	}
 	
-	private class refreshItems extends AsyncTask<Void,Void,Void> {
+	public class refreshItems extends AsyncTask<Void,Void,Void> {
 		protected Void doInBackground(Void... item) {
 			FlatDataExchanger.flatData.updateData(ConnectionExchanger.connection.getMyFlat());
 			return null;

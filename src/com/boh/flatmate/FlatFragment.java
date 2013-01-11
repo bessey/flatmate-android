@@ -116,7 +116,8 @@ public class FlatFragment extends Fragment {
 			atFlat.setText("Unknown Flat Location");
 		}else{
 			TextView atFlat = (TextView) c.findViewById(R.id.atFlatText);
-			atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
+			if(FlatDataExchanger.flatData.getNoAtFlat() == 1) atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mate at home");
+			else atFlat.setText(FlatDataExchanger.flatData.getNoAtFlat()+" flat mates at home");
 		}
 
 		ImageButton messageButton = (ImageButton)c.findViewById(R.id.messageButton);
