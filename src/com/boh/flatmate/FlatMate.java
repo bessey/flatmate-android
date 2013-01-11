@@ -25,8 +25,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
 
 public class FlatMate extends FragmentActivity implements ActionBar.TabListener {
 
@@ -111,10 +109,9 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 						.setIcon(R.drawable.location_tab)
 						.setTabListener(this),false);
 			}
+		}else{
+			setContentView(R.layout.flat_mate);
 		}
-		//if ( customTitleSupported ) {
-		//    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
-		//    }
 
 	}
 
