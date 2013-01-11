@@ -85,24 +85,33 @@ public class ShoppingRowAdapter extends ArrayAdapter<ShopItem> {
 			flatMateTextView.setText(FlatDataExchanger.flatData.getUserName(buyerID));
 
 			int colourID = FlatDataExchanger.flatData.getUserColourID(buyerID);
-			if(colourID == 0) {
-				v.setBackgroundResource(R.drawable.box1);
+			if(colourID== 0) {
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_0));
 			} else if(colourID == 1) {
-				v.setBackgroundResource(R.drawable.box2);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_1));
 			} else if (colourID == 2) {
-				v.setBackgroundResource(R.drawable.box3);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_2));
 			} else if (colourID == 3) {
-				v.setBackgroundResource(R.drawable.box4);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_3));
 			} else if (colourID == 4) {
-				v.setBackgroundResource(R.drawable.box5);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_4));
 			} else if (colourID == 5) {
-				v.setBackgroundResource(R.drawable.box6);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_5));
 			} else if (colourID == 6) {
-				v.setBackgroundResource(R.drawable.box7);
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_6));
 			} else if (colourID == 7) {
+				v.setBackgroundResource(0);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_7));
+			} else {
 				v.setBackgroundResource(R.drawable.box8);
-			}else {
-				v.setBackgroundResource(R.drawable.box8);
+				v.setBackgroundColor(v.getContext().getResources().getColor(R.color.user_8));
 			}
 
 			TextView dateTextView = (TextView) v.findViewById(R.id.dateBought);

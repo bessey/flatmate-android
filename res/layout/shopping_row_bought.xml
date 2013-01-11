@@ -4,8 +4,11 @@
     android:layout_height="40dp"
     android:clickable="false"
     android:gravity="center_vertical"
-    android:padding="1dip" >
-
+    android:background="@drawable/box"
+    android:padding="3dip" >
+
+
+
     <ImageButton
         android:id="@+id/removeButton"
         android:layout_width="25dip"
@@ -22,7 +25,7 @@
     <ImageView
         android:id="@+id/divider1"
         android:layout_width="5dip"
-        android:layout_height="fill_parent"
+        android:layout_height="70dp"
         android:layout_marginBottom="1dip"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
@@ -41,7 +44,9 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
+
         <TextView
             android:id="@+id/wantsTextView"
             android:layout_width="wrap_content"
@@ -83,7 +88,8 @@
                 android:maxLines="1"
                 android:text="James Grant"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
+
             <TextView
                 android:id="@+id/dateBought"
                 android:layout_width="wrap_content"
