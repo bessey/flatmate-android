@@ -6,14 +6,14 @@
     <color name="green">#800000ff</color>
     <color name="transparent">#00000000</color>
     <color name="lightText">#d3edf9</color>
-    <color name="user_0">#cccccc</color>
-    <color name="user_1">#ffa9a2</color>
-    <color name="user_2">#a5e5ff</color>
-    <color name="user_3">#85ff86</color>
-    <color name="user_4">#ffd58f</color>
-    <color name="user_5">#ffda93</color>
-    <color name="user_6">#fbff80</color>
-    <color name="user_7">#ffbcff</color>
-    <color name="user_8">#c6f5ff</color>
+    <color name="user_8">#cccccc</color>
+    <color name="user_0">#ffa9a2</color>
+    <color name="user_1">#a5e5ff</color>
+    <color name="user_2">#85ff86</color>
+    <color name="user_3">#ffd58f</color>
+    <color name="user_4">#c696fd</color>
+    <color name="user_5">#fbff80</color>
+    <color name="user_6">#ffbcff</color>
+    <color name="user_7">#c6f5ff</color>
 
 </resources>
