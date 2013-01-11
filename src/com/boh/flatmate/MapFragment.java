@@ -169,7 +169,11 @@ public class MapFragment extends Fragment {
 		for (Results u : ShopsExchanger.bestShops.getResults()) {
 			locationArray[i] = loc = ShopsExchanger.bestShops.getLocation(i);
 			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			overlayitem = new OverlayItem(point, "Tesco's", "This shop is Closed");
+			String open = "Opening Hours Unknown";
+			if (ShopsExchanger.bestShops.isOpen(i) == 1) open = "Open";
+			else if (ShopsExchanger.bestShops.isOpen(i) == 0) open = "Closed";
+			String shop = ShopsExchanger.bestShops.getName(i);
+			overlayitem = new OverlayItem(point, shop, open);
 			if(ShopsExchanger.bestShops.isOpen(i) == 1) {
 				shopOverlayOpen.addOverlay(overlayitem);
 			} else if(ShopsExchanger.bestShops.isOpen(i) == 0) {
@@ -188,7 +192,11 @@ public class MapFragment extends Fragment {
 			boolean skip = false;
 			loc = ShopsExchanger.nearShops.getLocation(i);
 			point = new GeoPoint((int)(loc.getLat()*1E6),(int)(loc.getLng()*1E6));
-			overlayitem = new OverlayItem(point, "Sainsburys", "This shop is Open");
+			String open = "Opening Hours Unknown";
+			if (ShopsExchanger.nearShops.isOpen(i) == 1) open = "Open";
+			else if (ShopsExchanger.nearShops.isOpen(i) == 0) open = "Closed";
+			String shop = ShopsExchanger.nearShops.getName(i);
+			overlayitem = new OverlayItem(point, shop, open);
 			for (com.boh.flatmate.connection.ShopLocation l : locationArray){
 				if(l.isEquals(loc)){
 					skip = true;
