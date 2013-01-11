@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="400px" 
+  android:layout_height="fill_parent"
+  android:orientation="horizontal">
+
+<ImageView android:id="@+id/ImageView01" 
+            android:layout_width="57px" 
+            android:layout_height="wrap_content"
+            android:background="@drawable/splashicon">
+
+</ImageView>
+
+<TextView
+    android:id="@+id/myTitle"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:text="This is my new title"
+    android:textColor="@color/lightText" />
+
+</LinearLayout>

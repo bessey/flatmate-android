@@ -27,6 +27,7 @@ public class User {
 	public User() {
 		//does nothing
 	}
+	
 	public String toHTTPString() {
 		String result = "";
 		result = "user[email]=" + email;
