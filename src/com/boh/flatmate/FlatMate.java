@@ -42,7 +42,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 		if (extras != null) {
 			value = extras.getString("page");
 		}
-
 		//final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		contextExchanger.context = this;
@@ -107,9 +106,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 						.setIcon(R.drawable.location_tab)
 						.setTabListener(this),false);
 			}
-		}else{   //USER NOT APPROVED
-			setContentView(R.layout.flat_mate_not_approved);
-
 		}
 		//if ( customTitleSupported ) {
 		//    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
@@ -161,7 +157,6 @@ public class FlatMate extends FragmentActivity implements ActionBar.TabListener 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction){
 		mViewPager.setCurrentItem(tab.getPosition());
-
 	}
 
 	@Override

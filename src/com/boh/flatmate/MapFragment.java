@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class MapFragment extends Fragment {
 	MyLocationOverlay mylocationOverlay;
 	private boolean showShopsB = true;
 	private boolean showFlatmatesB = true;
+	private boolean showChanged = false;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -59,7 +61,7 @@ public class MapFragment extends Fragment {
 		if (parent != null) parent.removeView(mapExchanger.mMapView);
 
 		return mapExchanger.mMapView;
-	} 
+	}
 
 	private void setUpMap() {
 		mapExchanger.mMapView.preLoad();
@@ -69,37 +71,25 @@ public class MapFragment extends Fragment {
 		mapController = mapExchanger.mMapView.getController();
 		double latitude = FlatDataExchanger.flatData.getGeocode_lat();
 		double longitude = FlatDataExchanger.flatData.getGeocode_long();
-		if(latitude == 0 || longitude == 0){
+		if(latitude == 0 || longitude == 0) {
 			mapController.setCenter(new GeoPoint((int)(51.456333 * 1E6),(int)(-2.606084 * 1E6)));
-		}else{
+		} else {
 			mapController.setCenter(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)));
 		}
-		mapController.setZoom(16); // Zoom 1 is world view
+		mapController.setZoom(18); //Zoom 1 is world view
 
+		boolean resetCurrUser = false;
 		List<Overlay> mapOverlays = mapExchanger.mMapView.getOverlays();
-		if(mapOverlays.size() != 0){
-			mapExchanger.mMapView.removeAllViews();
+		if(mapOverlays.size() != 0 && showChanged){
+			showChanged = false;
+			mapOverlays.clear();
+			resetCurrUser = true;
 		}
 		Drawable drawableHome = this.getResources().getDrawable(R.drawable.flat_marker);
 		SimpleItemizedOverlay homeOverlay = new SimpleItemizedOverlay(drawableHome, mapExchanger.mMapView);
-		Drawable drawableUser1 = this.getResources().getDrawable(R.drawable.user_marker1);
-		SimpleItemizedOverlay userOverlay1 = new SimpleItemizedOverlay(drawableUser1, mapExchanger.mMapView);
-		Drawable drawableUser2 = this.getResources().getDrawable(R.drawable.user_marker2);
-		SimpleItemizedOverlay userOverlay2 = new SimpleItemizedOverlay(drawableUser2, mapExchanger.mMapView);
-		Drawable drawableUser3 = this.getResources().getDrawable(R.drawable.user_marker3);
-		SimpleItemizedOverlay userOverlay3 = new SimpleItemizedOverlay(drawableUser3, mapExchanger.mMapView);
-		Drawable drawableUser4 = this.getResources().getDrawable(R.drawable.user_marker4);
-		SimpleItemizedOverlay userOverlay4 = new SimpleItemizedOverlay(drawableUser4, mapExchanger.mMapView);
-		Drawable drawableUser5 = this.getResources().getDrawable(R.drawable.user_marker5);
-		SimpleItemizedOverlay userOverlay5 = new SimpleItemizedOverlay(drawableUser5, mapExchanger.mMapView);
-		Drawable drawableUser6 = this.getResources().getDrawable(R.drawable.user_marker6);
-		SimpleItemizedOverlay userOverlay6 = new SimpleItemizedOverlay(drawableUser6, mapExchanger.mMapView);
-		Drawable drawableUser7 = this.getResources().getDrawable(R.drawable.user_marker7);
-		SimpleItemizedOverlay userOverlay7 = new SimpleItemizedOverlay(drawableUser7, mapExchanger.mMapView);
-		Drawable drawableUser8 = this.getResources().getDrawable(R.drawable.user_marker8);
-		SimpleItemizedOverlay userOverlay8 = new SimpleItemizedOverlay(drawableUser8, mapExchanger.mMapView);
 
-		if(mylocationOverlay == null){
+		if(mylocationOverlay == null || resetCurrUser){
+			resetCurrUser = false;
 			mylocationOverlay = new MyLocationOverlay(contextExchanger.context, mapExchanger.mMapView);
 			mylocationOverlay.enableMyLocation();
 			mapOverlays.add(mylocationOverlay);
@@ -123,6 +113,22 @@ public class MapFragment extends Fragment {
 		homeOverlay.addOverlay(overlayitem);
 
 		if (showFlatmatesB == true) {
+			Drawable drawableUser1 = this.getResources().getDrawable(R.drawable.user_marker1);
+			SimpleItemizedOverlay userOverlay1 = new SimpleItemizedOverlay(drawableUser1, mapExchanger.mMapView);
+			Drawable drawableUser2 = this.getResources().getDrawable(R.drawable.user_marker2);
+			SimpleItemizedOverlay userOverlay2 = new SimpleItemizedOverlay(drawableUser2, mapExchanger.mMapView);
+			Drawable drawableUser3 = this.getResources().getDrawable(R.drawable.user_marker3);
+			SimpleItemizedOverlay userOverlay3 = new SimpleItemizedOverlay(drawableUser3, mapExchanger.mMapView);
+			Drawable drawableUser4 = this.getResources().getDrawable(R.drawable.user_marker4);
+			SimpleItemizedOverlay userOverlay4 = new SimpleItemizedOverlay(drawableUser4, mapExchanger.mMapView);
+			Drawable drawableUser5 = this.getResources().getDrawable(R.drawable.user_marker5);
+			SimpleItemizedOverlay userOverlay5 = new SimpleItemizedOverlay(drawableUser5, mapExchanger.mMapView);
+			Drawable drawableUser6 = this.getResources().getDrawable(R.drawable.user_marker6);
+			SimpleItemizedOverlay userOverlay6 = new SimpleItemizedOverlay(drawableUser6, mapExchanger.mMapView);
+			Drawable drawableUser7 = this.getResources().getDrawable(R.drawable.user_marker7);
+			SimpleItemizedOverlay userOverlay7 = new SimpleItemizedOverlay(drawableUser7, mapExchanger.mMapView);
+			Drawable drawableUser8 = this.getResources().getDrawable(R.drawable.user_marker8);
+			SimpleItemizedOverlay userOverlay8 = new SimpleItemizedOverlay(drawableUser8, mapExchanger.mMapView);
 			for (User u : FlatDataExchanger.flatData.getApprovedUsers()) {
 				if(u.getGeocode_lat() != 0.0f && u.getGeocode_long() != 0.0f){
 					point = new GeoPoint((int)(u.getGeocode_lat()*1E6),(int)(u.getGeocode_long()*1E6));
@@ -150,6 +156,14 @@ public class MapFragment extends Fragment {
 					}
 				}
 			}
+			if(userOverlay1.size() > 0) mapOverlays.add(userOverlay1);
+			if(userOverlay2.size() > 0)mapOverlays.add(userOverlay2);
+			if(userOverlay3.size() > 0)mapOverlays.add(userOverlay3);
+			if(userOverlay4.size() > 0)mapOverlays.add(userOverlay4);
+			if(userOverlay5.size() > 0)mapOverlays.add(userOverlay5);
+			if(userOverlay6.size() > 0)mapOverlays.add(userOverlay6);
+			if(userOverlay7.size() > 0)mapOverlays.add(userOverlay7);
+			if(userOverlay8.size() > 0)mapOverlays.add(userOverlay8);
 		}
 
 		/*User currU = FlatDataExchanger.flatData.getCurrentUser();
@@ -157,21 +171,16 @@ public class MapFragment extends Fragment {
 		overlayitem = new OverlayItem(point, "Flat", "Flat is here!");
 		itemizedoverlay.addOverlay(overlayitem);*/
 
-		if(userOverlay1.size() > 0) mapOverlays.add(userOverlay1);
-		if(userOverlay2.size() > 0)mapOverlays.add(userOverlay2);
-		if(userOverlay3.size() > 0)mapOverlays.add(userOverlay3);
-		if(userOverlay4.size() > 0)mapOverlays.add(userOverlay4);
-		if(userOverlay5.size() > 0)mapOverlays.add(userOverlay5);
-		if(userOverlay6.size() > 0)mapOverlays.add(userOverlay6);
-		if(userOverlay7.size() > 0)mapOverlays.add(userOverlay7);
-		if(userOverlay8.size() > 0)mapOverlays.add(userOverlay8);
 		mapOverlays.add(homeOverlay);
 	}
 
 	private void pointerDisplayUpdate() {
 		SharedPreferences settings = contextExchanger.context.getSharedPreferences("Map", 0);
-		showShopsB = settings.getBoolean("showShops", true);
-		showFlatmatesB = settings.getBoolean("showFlatmates", true);
+		boolean newssb = settings.getBoolean("showShops", true);
+		boolean newsfb = settings.getBoolean("showFlatmates", true);
+		if (newssb != showShopsB || newsfb != showFlatmatesB) showChanged = true;
+		showShopsB = newssb;
+		showFlatmatesB = newsfb;
 	}
 
 	public void addShopsOverlays(){

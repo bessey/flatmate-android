@@ -1,5 +1,7 @@
 package com.boh.flatmate.connection;
 
+import android.util.Log;
+
 public class Debt {
 	private int id;
 	private double debt;
@@ -31,5 +33,6 @@ public class Debt {
 	
 	public void sub(double amt) {
 		this.debt -= amt;
+		Log.v("DEBT", amt + "," + debt);
 	}
 }

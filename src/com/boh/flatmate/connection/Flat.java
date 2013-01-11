@@ -79,12 +79,12 @@ public class Flat {
 					if (ub != cuid) {
 						for (Debt d : debts) {
 							if (d.getId() == ub) {
-								d.add(si.getPrice()/debts.length+1);
+								d.add(si.getPrice()/(debts.length+1));
 							}
 						}
 					} else {
 						for (Debt d : debts) {
-							d.sub(si.getPrice()/debts.length+1);
+							d.sub(si.getPrice()/(debts.length+1));
 						}
 					}
 				}
