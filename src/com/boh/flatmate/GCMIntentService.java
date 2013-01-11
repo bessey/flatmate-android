@@ -63,15 +63,24 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 			}
 			
 			// Prevent notification from showing if we are in
-			User me = FlatMate.ConnectionExchanger.connection.getMe();
-			if(me.isHome() != 1){
-				mNotificationManager.notify(SHOP_ITEM, mBuilder.build());
+			try{
+				User me = FlatMate.ConnectionExchanger.connection.getMe();
+				if(me.isHome() != 1){
+					mNotificationManager.notify(SHOP_ITEM, mBuilder.build());
+				}
+			} catch (Exception e){
+				mNotificationManager.notify(SHOP_ITEM, mBuilder.build());				
 			}
 		} else if(msgType.equals("approved")){
 			// ID of the user that has been approved (might not be you, check this!)
-			int approvedId = payload.getInt("approved_id");
+			String approvedId = payload.getString("approved_id");
 			// Name of the person that approved you
-			String approvedFirstName = payload.getString("approved_first_name");
+			String approverFirstName = payload.getString("approved_first_name");
+			try {
+				SplashActivity.userApproved(approvedId, approverFirstName);
+			} catch (Exception e){
+				Log.e("ERR",e.toString());
+			}
 		}
 	}
 	
