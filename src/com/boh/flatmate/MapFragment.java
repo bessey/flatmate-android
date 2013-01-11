@@ -109,7 +109,9 @@ public class MapFragment extends Fragment {
 		GeoPoint point = new GeoPoint((int)(flatLat*1E6),(int)(flatLong*1E6));
 		String flat = FlatDataExchanger.flatData.getNickname();
 		int num = FlatDataExchanger.flatData.getNoAtFlat();
-		OverlayItem overlayitem = new OverlayItem(point, flat, num + " flatmates are in!");
+		OverlayItem overlayitem;
+		if (num == 1) overlayitem = new OverlayItem(point, flat, num + " flatmate is in!");
+		else overlayitem = new OverlayItem(point, flat, num + " flatmates are in!");
 		homeOverlay.addOverlay(overlayitem);
 
 		if (showFlatmatesB == true) {
