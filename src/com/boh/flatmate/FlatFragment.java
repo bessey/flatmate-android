@@ -53,7 +53,7 @@ public class FlatFragment extends Fragment {
 				Fragment settings = new FlatSettingsFragment();
 				//ft.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_out_down);
 				ft2.replace(R.id.list, settings,"Set_fragment");
-				ft2.addToBackStack(null);
+				//ft2.addToBackStack(null);
 				ft2.commit();
 				((ImageView) c.findViewById(R.id.settingsButton)).setImageResource(R.drawable.flatmates_tab);
 				c.findViewById(R.id.map_button).setVisibility(View.GONE);
@@ -91,7 +91,7 @@ public class FlatFragment extends Fragment {
 					android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
 					Fragment set = new FlatSettingsFragment();
 					ft.replace(R.id.list, set, "Set_fragment");
-					ft.addToBackStack(null);
+					//ft.addToBackStack(null);
 					ft.commit();
 					button.setVisibility(View.GONE);
 				}else{
@@ -103,7 +103,7 @@ public class FlatFragment extends Fragment {
 			}
 		});
 		
-		getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
+		/*getFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener(){
 			public void onBackStackChanged(){
 				if(settingsOpen == 1 && getFragmentManager().getBackStackEntryCount() == 0){
 					settingsOpen = 0;
@@ -111,7 +111,7 @@ public class FlatFragment extends Fragment {
 					button.setVisibility(View.VISIBLE);
 				}
 			}
-		});
+		});*/
 
 		TextView flatName = (TextView) c.findViewById(R.id.flatNameTop);
 		flatName.setText(FlatDataExchanger.flatData.getNickname());
