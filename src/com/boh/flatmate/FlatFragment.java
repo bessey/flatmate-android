@@ -97,7 +97,11 @@ public class FlatFragment extends Fragment {
 				}else{
 					settingsOpen = 0;
 					settings.setImageResource(R.drawable.settings);
-					getFragmentManager().popBackStack();
+					android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+					flatList = new FlatListFragment();
+					ft.replace(R.id.list, flatList, "flat_fragment");
+					//ft.addToBackStack(null);
+					ft.commit();
 					button.setVisibility(View.VISIBLE);
 				}
 			}
